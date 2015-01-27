@@ -4,6 +4,8 @@ using System.Collections;
 public class CharacterMove : MonoBehaviour {
     float v = 0;
     float h = 0;
+	float previousV = 0;
+	float previousH = 0;
     float scale = 0.03f;
     float scaleSprint = 0.045f;
 	// Use this for initialization
@@ -17,6 +19,12 @@ public class CharacterMove : MonoBehaviour {
 	}
     private void InputMovement()
     {
+		if (v != 0) {
+			previousV = v;
+		}
+		if (h != 0) {
+			previousH = h;
+		}
         //used to get input for direction
         v = Input.GetAxis("Vertical");
         h = Input.GetAxis("Horizontal");
@@ -32,7 +40,15 @@ public class CharacterMove : MonoBehaviour {
             v *= scale;
             h *= scale;
         }
-
+		if ((v > 0 && previousV < 0)||(v < 0 && previousV > 0))
+		{
+			v = v + previousV;
+			Debug.Log(v);
+		}
+		if ((h > 0 && previousH < 0)||(h < 0 && previousH > 0))
+		{
+			h = h + previousH;
+		}
         //store Movement
         Vector3 movement = new Vector3(h, v, 0);
 
