@@ -3,6 +3,7 @@ using System.Collections;
 
 public class CharacterMove : MonoBehaviour {
 	public Vector3 movement;
+	public Animator animator;
     float v = 0;
     float h = 0;
 	float previousV = 0;
@@ -57,6 +58,8 @@ public class CharacterMove : MonoBehaviour {
 		}
         //store Movement
         movement = new Vector3(h, v, 0);
+		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
+		animator.SetFloat ("charSpeed", charSpeed);
 
         //following code used to make player character face mouse
         Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
