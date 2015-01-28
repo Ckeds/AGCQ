@@ -2,12 +2,13 @@
 using System.Collections;
 
 public class CharacterMove : MonoBehaviour {
+	public Vector3 movement;
     float v = 0;
     float h = 0;
 	float previousV = 0;
 	float previousH = 0;
-    float scale = 0.03f;
-    float scaleSprint = 0.045f;
+    float scale = 0.05f;
+    float scaleSprint = 0.075f;
 	// Use this for initialization
 	void Start () {
 	
@@ -40,17 +41,21 @@ public class CharacterMove : MonoBehaviour {
             v *= scale;
             h *= scale;
         }
-		if ((v > 0 && previousV < 0)||(v < 0 && previousV > 0))
+
+		//handle going the opposite direction
+		if (v * previousV < 0)
 		{
-			v = v + previousV;
-			Debug.Log(v);
+			v += (previousV * 29);
+			v = v / 30;
 		}
-		if ((h > 0 && previousH < 0)||(h < 0 && previousH > 0))
+		if (h * previousH < 0)
 		{
-			h = h + previousH;
+			h += (previousH * 29);
+			h = h / 30;
+			Debug.Log(h);
 		}
         //store Movement
-        Vector3 movement = new Vector3(h, v, 0);
+        movement = new Vector3(h, v, 0);
 
         //following code used to make player character face mouse
         Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
