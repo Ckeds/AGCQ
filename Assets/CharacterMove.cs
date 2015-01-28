@@ -9,6 +9,7 @@ public class CharacterMove : MonoBehaviour {
 	float previousH = 0;
     float scale = 0.05f;
     float scaleSprint = 0.075f;
+	Quaternion rotateValue;
 	// Use this for initialization
 	void Start () {
 	
@@ -69,9 +70,20 @@ public class CharacterMove : MonoBehaviour {
             angle = 360 - angle;
 
         //apply
-        Quaternion rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
-        //Uncomment this line to make the player move based on the mouse cursor
-        //movement = rotateValue * movement;
+		float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10;
+		Debug.Log (mouseDist);
+
+		//Uncomment this block to make the player move based on the mouse cursor
+		/*
+		if (mouseDist > 0.7f || v >= 0) 
+		{
+			rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
+		}
+		//movement = rotateValue * movement;
+		*/
+
+		//Comment if using previous block
+		rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = rotateValue;
         transform.position += movement;
     }
