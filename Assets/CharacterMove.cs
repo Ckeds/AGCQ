@@ -4,6 +4,7 @@ using System.Collections;
 public class CharacterMove : MonoBehaviour {
 	public Vector3 movement;
 	public Animator animator;
+	private int currentColliderIndex = 0;
     float v = 0;
     float h = 0;
 	float previousV = 0;
@@ -11,6 +12,8 @@ public class CharacterMove : MonoBehaviour {
     float scale = 0.05f;
     float scaleSprint = 0.075f;
 	Quaternion rotateValue;
+	[SerializeField]
+	private PolygonCollider2D[] colliders;
 	// Use this for initialization
 	void Start () {
 	
@@ -54,7 +57,6 @@ public class CharacterMove : MonoBehaviour {
 		{
 			h += (previousH * 29);
 			h = h / 30;
-			Debug.Log(h);
 		}
         //store Movement
         movement = new Vector3(h, v, 0);
@@ -72,12 +74,8 @@ public class CharacterMove : MonoBehaviour {
         if (relmousepos.x > 0)
             angle = 360 - angle;
 
-        //apply
-		float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10;
-		Debug.Log (mouseDist);
-
 		//Uncomment this block to make the player move based on the mouse cursor
-		/*
+		/*float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10
 		if (mouseDist > 0.7f || v >= 0) 
 		{
 			rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -87,7 +85,13 @@ public class CharacterMove : MonoBehaviour {
 
 		//Comment if using previous block
 		rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
+
+		//apply
         transform.rotation = rotateValue;
         transform.position += movement;
     }
+	void OnTriggerEnter2D( Collider2D other )
+	{
+		Debug.Log ("Hit " + other.gameObject);
+	}
 }
