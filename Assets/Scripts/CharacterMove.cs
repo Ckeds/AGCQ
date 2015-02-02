@@ -4,7 +4,7 @@ using System.Collections;
 public class CharacterMove : MonoBehaviour {
 	public Vector3 movement;
 	public Animator animator;
-	private int currentColliderIndex = 0;
+	//private int currentColliderIndex = 0;
     float v = 0;
     float h = 0;
 	float previousV = 0;
@@ -14,6 +14,7 @@ public class CharacterMove : MonoBehaviour {
 	Quaternion rotateValue;
 	[SerializeField]
 	private PolygonCollider2D[] colliders;
+
 	// Use this for initialization
 	void Start () {
 	
