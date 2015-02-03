@@ -10,20 +10,37 @@ public class CharacterMove : MonoBehaviour {
 	float previousV = 0;
 	float previousH = 0;
     float scale = 0.05f;
+	float syncDelay = 0f;
+	float syncTime = 0f;
+	float lastSyncTime = 0f;
     float scaleSprint = 0.075f;
 	Quaternion rotateValue;
+	private Vector3 syncStartPosition;
+	private Vector3 syncEndPosition;
+	private Quaternion syncStartRotation = Quaternion.identity;
+	private Quaternion syncEndRotation = Quaternion.identity;
 	GameObject player;
 	[SerializeField]
 	private PolygonCollider2D[] colliders;
 
 	// Use this for initialization
 	void Start () {
-	
+		if (!networkView.isMine)
+		{
+			animator.applyRootMotion = false;
+		}
+		syncStartPosition = transform.position;
+		syncEndPosition = transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        InputMovement();
+		if (networkView.isMine) {
+			InputMovement ();
+		}
+		else {
+			SyncedMovement();
+		}
 	}
     private void InputMovement()
     {
@@ -91,8 +108,13 @@ public class CharacterMove : MonoBehaviour {
 		//apply
         transform.rotation = rotateValue;
         transform.position += movement;
-
     }
+	private void SyncedMovement ()
+	{
+		syncTime += Time.deltaTime;
+		rigidbody.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		rigidbody.rotation = Quaternion.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
 		Debug.Log ("Hit " + other.gameObject);
@@ -100,6 +122,60 @@ public class CharacterMove : MonoBehaviour {
 	void OnCollisionEnter2D( Collision2D coll )
 	{
 		Debug.Log ("Hit " + coll.gameObject);
+	}
+	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
+	{	
+		Vector3 networkPosition = Vector3.zero;
+		Vector3 networkVelocity = Vector3.zero;
+		Quaternion networkRotation = Quaternion.identity;
+		Vector3 networkAngVelocity = Vector3.zero;
+		
+		if (stream.isWriting)
+		{
+			networkPosition = rigidbody.position;
+			networkVelocity = rigidbody.velocity;
+			networkRotation = rigidbody.rotation;
+			networkAngVelocity = rigidbody.angularVelocity;
+			//netV = v;
+			//netH = h;
+			//netD = mh;
+			
+			stream.Serialize(ref networkPosition);
+			stream.Serialize(ref networkVelocity);
+			stream.Serialize(ref networkRotation);
+			stream.Serialize(ref networkAngVelocity);
+			//stream.Serialize(ref netV);
+			//stream.Serialize(ref netH);
+			//stream.Serialize(ref netD);
+		}
+		else
+		{		
+			stream.Serialize(ref networkPosition);
+			stream.Serialize(ref networkVelocity);
+			stream.Serialize(ref networkRotation);
+			stream.Serialize(ref networkAngVelocity);
+			//stream.Serialize(ref netV);
+			//stream.Serialize(ref netH);
+			//stream.Serialize(ref netD);
+			
+			syncTime = 0f;
+			syncDelay = Time.time - lastSyncTime;
+			lastSyncTime = Time.time;
+			
+			syncStartPosition = rigidbody.position;
+			syncEndPosition = networkPosition + networkVelocity * syncDelay;
+			syncStartRotation = rigidbody.rotation;
+			syncEndRotation = networkRotation;
+			
+			v = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.forward) / syncDelay;
+			h = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.right) / syncDelay;
+			
+			if (Mathf.Abs(v) < .3f)
+				v = 0;
+			if (Mathf.Abs(h) < .3f)
+				h = 0;
+			//mh = netD;
+		}
 	}
 	[RPC]
 	void SetupPlayer(NetworkViewID id)
