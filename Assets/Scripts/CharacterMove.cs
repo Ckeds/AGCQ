@@ -17,8 +17,8 @@ public class CharacterMove : MonoBehaviour {
 	Quaternion rotateValue;
 	private Vector3 syncStartPosition;
 	private Vector3 syncEndPosition;
-	private Quaternion syncStartRotation = Quaternion.identity;
-	private Quaternion syncEndRotation = Quaternion.identity;
+	float syncStartRotation = 0f;
+	float syncEndRotation = 0f;
 	GameObject player;
 	[SerializeField]
 	private PolygonCollider2D[] colliders;
@@ -112,8 +112,8 @@ public class CharacterMove : MonoBehaviour {
 	private void SyncedMovement ()
 	{
 		syncTime += Time.deltaTime;
-		rigidbody.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody.rotation = Quaternion.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		rigidbody2D.rotation = (syncStartRotation - syncEndRotation) * syncTime / syncDelay;
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
@@ -127,15 +127,15 @@ public class CharacterMove : MonoBehaviour {
 	{	
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
-		Quaternion networkRotation = Quaternion.identity;
-		Vector3 networkAngVelocity = Vector3.zero;
+		float networkRotation = 0f;
+		float networkAngVelocity = 0f;
 		
 		if (stream.isWriting)
 		{
-			networkPosition = rigidbody.position;
-			networkVelocity = rigidbody.velocity;
-			networkRotation = rigidbody.rotation;
-			networkAngVelocity = rigidbody.angularVelocity;
+			networkPosition = rigidbody2D.position;
+			networkVelocity = rigidbody2D.velocity;
+			networkRotation = rigidbody2D.rotation;
+			networkAngVelocity = rigidbody2D.angularVelocity;
 			//netV = v;
 			//netH = h;
 			//netD = mh;
@@ -162,9 +162,9 @@ public class CharacterMove : MonoBehaviour {
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
 			
-			syncStartPosition = rigidbody.position;
+			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			syncStartRotation = rigidbody.rotation;
+			syncStartRotation = rigidbody2D.rotation;
 			syncEndRotation = networkRotation;
 			
 			v = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.forward) / syncDelay;
