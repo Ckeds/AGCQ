@@ -113,7 +113,7 @@ public class CharacterMove : MonoBehaviour {
 	{
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = (((syncStartRotation * syncTime) + (syncEndRotation * syncDelay) /(syncTime / syncDelay)));
+		rigidbody2D.rotation = (((syncStartRotation * syncTime) + (syncEndRotation * syncDelay) /(syncDelay / syncTime)));
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
