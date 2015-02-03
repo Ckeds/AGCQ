@@ -113,7 +113,7 @@ public class CharacterMove : MonoBehaviour {
 	{
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = (((syncStartRotation * syncTime) + (syncEndRotation * syncDelay) /(syncTime - syncDelay)));
+		rigidbody2D.rotation = (((syncStartRotation * syncTime) + (syncEndRotation * syncDelay) /(syncTime / syncDelay)));
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
@@ -136,17 +136,13 @@ public class CharacterMove : MonoBehaviour {
 			networkVelocity = rigidbody2D.velocity;
 			networkRotation = rigidbody2D.rotation;
 			networkAngVelocity = rigidbody2D.angularVelocity;
-			//netV = v;
-			//netH = h;
-			//netD = mh;
+
 			
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
 			stream.Serialize(ref networkAngVelocity);
-			//stream.Serialize(ref netV);
-			//stream.Serialize(ref netH);
-			//stream.Serialize(ref netD);
+
 		}
 		else
 		{		
@@ -154,9 +150,7 @@ public class CharacterMove : MonoBehaviour {
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
 			stream.Serialize(ref networkAngVelocity);
-			//stream.Serialize(ref netV);
-			//stream.Serialize(ref netH);
-			//stream.Serialize(ref netD);
+
 			
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
@@ -165,16 +159,10 @@ public class CharacterMove : MonoBehaviour {
 			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			syncStartRotation = rigidbody2D.rotation;
-			syncEndRotation = networkRotation;
+			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
 			
 			v = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.forward) / syncDelay;
 			h = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.right) / syncDelay;
-			
-			if (Mathf.Abs(v) < .3f)
-				v = 0;
-			if (Mathf.Abs(h) < .3f)
-				h = 0;
-			//mh = netD;
 		}
 	}
 	[RPC]
