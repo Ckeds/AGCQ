@@ -51,7 +51,6 @@ public class GUIManager : MonoBehaviour {
 	private string displayInfo;
 	
 	public Texture2D crosshair;
-	private Rect crosshairPos = new Rect(Screen.width / 2 - 10, Screen.height / 2 - 10, 20, 20);
 	
 	// Use this for initialization
 	void Start () {
@@ -129,11 +128,6 @@ public class GUIManager : MonoBehaviour {
 			
 			break;
 		}
-		
-		if (currentState == GUIState.InGame)
-			Screen.lockCursor = true;
-		else
-			Screen.lockCursor = false;
 	}
 	
 	void OnGUI()
@@ -184,7 +178,7 @@ public class GUIManager : MonoBehaviour {
 		case GUIState.InGame:
 			GUILayout.Label("Score: " + GetComponent<SpawnManager>().score);
 			
-			GUI.DrawTexture(crosshairPos, crosshair);
+			//GUI.DrawTexture(crosshairPos, crosshair);
 			SpawnManager spawner = GetComponent<SpawnManager>();
 			
 			if (!spawner.SpawnEnemies && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
@@ -401,13 +395,13 @@ public class GUIManager : MonoBehaviour {
 	private void OnServerInitialized()
 	{
 		currentState = GUIState.InGame;
-		Screen.lockCursor = true;
+		//Screen.lockCursor = true;
 	}
 	
 	private void OnConnectedToServer()
 	{
 		currentState = GUIState.InGame;
-		Screen.lockCursor = true;
+		//Screen.lockCursor = true;
 	}
 	
 	private void OnDisconnectedFromServer(NetworkDisconnection info)

@@ -4,6 +4,7 @@ using System.Collections;
 public class SpawnManager : MonoBehaviour {
 	
 	public GameObject playerPrefab;
+	public GameObject nameHolder;
 	public GameObject enemyPrefab;
 	public float score;
 	
@@ -78,11 +79,14 @@ public class SpawnManager : MonoBehaviour {
 	
 	public void SpawnPlayer()
 	{
-		GameObject player = (GameObject) Network.Instantiate(playerPrefab, new Vector3(Random.Range(-4, 4), 2, Random.Range(-4, 4)), 
+		GameObject player = (GameObject) Network.Instantiate(playerPrefab, new Vector3(0, 0, 0), 
 		                                                     Quaternion.identity, 1);
+		GameObject name = (GameObject)Network.Instantiate (nameHolder, new Vector3 (0, 0, 0),
+		                                                   Quaternion.identity, 2);
 		Camera.main.GetComponent<FollowCamera> ().target = player.GetComponent<CharacterMove>();
-		player.networkView.RPC("SetupPlayer", RPCMode.AllBuffered, player.networkView.viewID, 
-		                       PlayerPrefs.GetString("playerName"), PlayerPrefs.GetInt("typeSelection"));
+		player.networkView.RPC("SetupPlayer", RPCMode.AllBuffered, player.networkView.viewID);
+		name.networkView.RPC ("CreateName", RPCMode.AllBuffered, player.networkView.viewID,
+		                      PlayerPrefs.GetString ("playerName"));
 	} 
 	
 	public void SpawnEnemy()

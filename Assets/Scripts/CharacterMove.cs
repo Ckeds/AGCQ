@@ -12,6 +12,7 @@ public class CharacterMove : MonoBehaviour {
     float scale = 0.05f;
     float scaleSprint = 0.075f;
 	Quaternion rotateValue;
+	GameObject player;
 	[SerializeField]
 	private PolygonCollider2D[] colliders;
 
@@ -90,9 +91,24 @@ public class CharacterMove : MonoBehaviour {
 		//apply
         transform.rotation = rotateValue;
         transform.position += movement;
+
     }
 	void OnTriggerEnter2D( Collider2D other )
 	{
 		Debug.Log ("Hit " + other.gameObject);
+	}
+	void OnCollisionEnter2D( Collision2D coll )
+	{
+		Debug.Log ("Hit " + coll.gameObject);
+	}
+	[RPC]
+	void SetupPlayer(NetworkViewID id)
+	{
+		player = NetworkView.Find(id).gameObject;
+		Debug.Log (player);
+		
+		//player.GetComponent<HumanScript>().clothes = player.GetComponentsInChildren<SkinnedMeshRenderer>()[2].materials[1];
+		//Color color = Color.black;
+
 	}
 }
