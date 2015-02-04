@@ -10,7 +10,6 @@ public class NameMover : MonoBehaviour {
 	private Vector3 syncStartPosition;
 	private Vector3 syncEndPosition;
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -19,6 +18,7 @@ public class NameMover : MonoBehaviour {
 			FollowCharacter();
 		} 
 		else {
+			Debug.Log("Name's Transform: " + this.transform.position);
 			SyncFollow();
 		}
 	}
@@ -29,8 +29,11 @@ public class NameMover : MonoBehaviour {
 	}
 	private void SyncFollow()
 	{
+		Debug.Log ("I'm in here");
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		this.transform.position = (new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0));
+		Debug.Log("Name: " +rigidbody2D.position);
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	

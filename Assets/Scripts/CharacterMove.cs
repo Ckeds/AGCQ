@@ -114,6 +114,9 @@ public class CharacterMove : MonoBehaviour {
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
+		animator.SetFloat ("charSpeed", charSpeed);
+		Debug.Log ("Player: " + rigidbody2D.position);
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
