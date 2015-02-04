@@ -5,13 +5,12 @@ public class NetworkManager : MonoBehaviour {
 	
 	public const int MAX_CLIENTS = 7;
 	public const int PORT_NUMBER = 25000;
-	public const string GAME_PREFIX = "TrainingDayTheGame";
+	public const string GAME_PREFIX = "AGameCalledQuest";
 	public const int MAX_NAME_LENGTH = 32;
 	public const string DEF_PLAYER_NAME = "Anonymous";
 	public const string DEF_GAME_NAME = "";
 	
 	public enum GameType { Deathmatch };
-	public enum ClassType { Attacker = 0, Attractor = 1, Healer = 2};
 	
 	GameType gameType = GameType.Deathmatch;
 	private string playerName = DEF_PLAYER_NAME;
@@ -19,14 +18,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		get { return playerName; }
 		set { playerName = value; }
-	}
-	private ClassType typeSelection = ClassType.Attacker;
-	public ClassType TypeSelection
-	{
-		get { return typeSelection; }
-		set { typeSelection = value; }
-	}
-	
+	}	
 	private string gameName = DEF_GAME_NAME;
 	public string GameName
 	{
@@ -55,8 +47,6 @@ public class NetworkManager : MonoBehaviour {
 			gameName = PlayerPrefs.GetString("gameName");
 		if (PlayerPrefs.HasKey("maxPlayers"))
 			maxPlayers = PlayerPrefs.GetInt("maxPlayers");
-		if (PlayerPrefs.HasKey("typeSelection"))
-			typeSelection = (ClassType) PlayerPrefs.GetInt("typeSelection");
 		
 		spawnManager = GetComponent<SpawnManager>();
 	}

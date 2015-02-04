@@ -247,7 +247,7 @@ public class GUIManager : MonoBehaviour {
 	{
 		GUILayout.Label("Room name: ");
 		nwm.GameName = GUILayout.TextField(nwm.GameName, NetworkManager.MAX_NAME_LENGTH);
-		GUILayout.Label("Max players: " + nwm.MaxPlayers);
+		GUILayout.Label("Max players: " + (nwm.MaxPlayers + 1));
 		nwm.MaxPlayers = Mathf.RoundToInt(GUILayout.HorizontalSlider(nwm.MaxPlayers, 1, NetworkManager.MAX_CLIENTS));
 		if (GUILayout.Button("Create Game", GUILayout.Height(createButtonHeight)))
 		{
@@ -335,13 +335,9 @@ public class GUIManager : MonoBehaviour {
 	}
 	
 	void EditProfileWindow(int windowID)
-	{
-		string[] types = {"Attacker", "Attractor", "Healer"};
-		
+	{		
 		GUILayout.Label("Name: ");
 		nwm.PlayerName = GUILayout.TextField(nwm.PlayerName, NetworkManager.MAX_NAME_LENGTH);
-		
-		nwm.TypeSelection = (NetworkManager.ClassType) GUILayout.SelectionGrid(nwm.TypeSelection.GetHashCode(), types, 3);
 		
 		GUILayout.FlexibleSpace();
 		
@@ -351,7 +347,6 @@ public class GUIManager : MonoBehaviour {
 			if (nwm.PlayerName != "")
 			{
 				PlayerPrefs.SetString("playerName", nwm.PlayerName);
-				PlayerPrefs.SetInt("typeSelection", nwm.TypeSelection.GetHashCode());
 				PlayerPrefs.Save();
 				
 				displayInfo = "Profile Saved.";
