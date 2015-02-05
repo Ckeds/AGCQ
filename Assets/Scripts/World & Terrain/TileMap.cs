@@ -31,7 +31,7 @@ public class TileMap : MonoBehaviour
 	}
 	
 	
-	void BuildMesh () 
+	public void BuildMesh () 
 	{
 		int numTiles = numTilesX * numTilesY;
 		int numTriangles = numTiles * 2;
@@ -42,7 +42,7 @@ public class TileMap : MonoBehaviour
 		//generate all the mesh data
 		Vector3[] verticies = new Vector3 [numVerts];
 		Vector3[] normals = new Vector3[numVerts];
-		//Vector2[] uv = new Vector2[numVerts];
+		Vector2[] uv = new Vector2[numVerts];
 		
 		int[] triangles = new int[numTriangles * 3];
 		
@@ -52,9 +52,9 @@ public class TileMap : MonoBehaviour
 		{
 			for(x=0; x < numTilesX; x++)
 			{
-				verticies[y * vSizeX + x] = new Vector3(x*tileSize,y*tileSize,0);
+				verticies[y * vSizeX + x] = new Vector3(x*tileSize,y*tileSize,1);
 				normals [y* vSizeX + x] = Vector3.up;
-				//uv [y * vSizeX + x] = new Vector2((float)x/vSizeX, (float)y/vSizeY);
+				uv [y * vSizeX + x] = new Vector2((float)x/vSizeX, (float)y/vSizeY);
 			}
 		}
 		
@@ -81,7 +81,7 @@ public class TileMap : MonoBehaviour
 		mesh.vertices = verticies;
 		mesh.triangles = triangles;
 		mesh.normals = normals;
-		//mesh.uv = uv;
+		mesh.uv = uv;
 		
 		//assign mesh to filer/renderer/collider/etc
 		MeshFilter mesh_filter = GetComponent < MeshFilter > ();
