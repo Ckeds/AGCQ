@@ -47,7 +47,7 @@ public class NetworkManager : MonoBehaviour {
 			gameName = PlayerPrefs.GetString("gameName");
 		if (PlayerPrefs.HasKey("maxPlayers"))
 			maxPlayers = PlayerPrefs.GetInt("maxPlayers");
-		MasterServer.ipAddress = "127.0.0.1";
+		//MasterServer.ipAddress = "127.0.0.1";
 		
 		spawnManager = GetComponent<SpawnManager>();
 	}

@@ -72,13 +72,13 @@ public class CharacterMove : MonoBehaviour {
 		{
 			v += (previousV * 29);
 			v = v / 30;
-			previousForce *= 5f;
+			previousForce.y *= 10f;
 		}
 		if (h * previousH < 0)
 		{
 			h += (previousH * 29);
 			h = h / 30;
-			previousForce *= 5f;
+			previousForce.x *= 10f;
 		}
         //store Movement
 		movement = new Vector2 (h, v);
@@ -105,7 +105,6 @@ public class CharacterMove : MonoBehaviour {
 		//apply
         rigidbody2D.rotation = angle;
 		rigidbody2D.AddForce (-previousForce);
-		rigidbody2D.AddForce (movement);
 		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
 		if(v == 0 && h == 0)
 		{
@@ -118,6 +117,7 @@ public class CharacterMove : MonoBehaviour {
 		//Vector2 newPosition = rigidbody2D.position + (movement * Time.deltaTime);
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
+		rigidbody2D.AddForce (movement);
 		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, 0);
 		//Debug.Log (rigidbody2D.velocity);
     }
@@ -128,7 +128,7 @@ public class CharacterMove : MonoBehaviour {
 		Debug.Log ("SyncEnd : " + syncEndPosition);
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
+		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
 		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
 	}
@@ -178,9 +178,7 @@ public class CharacterMove : MonoBehaviour {
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			syncStartRotation = rigidbody2D.rotation;
 			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
-			
-			v = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.forward) / syncDelay;
-			h = Vector3.Dot(syncStartPosition - syncEndPosition, -transform.right) / syncDelay;
+			rigidbody2D.velocity = networkVelocity;
 		}
 	}
 	[RPC]
