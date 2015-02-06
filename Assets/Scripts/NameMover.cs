@@ -24,6 +24,7 @@ public class NameMover : MonoBehaviour {
 	}
 	private void FollowCharacter()
 	{
+		this.rigidbody2D.position = objectToFollow.rigidbody2D.position + new Vector2 (0, 0.6f);
 		this.transform.position = objectToFollow.transform.position + 
 			new Vector3 (0, 0.6f, 0);
 	}

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CharacterMove : MonoBehaviour {
-	public Vector3 movement;
+	public Vector2 movement;
 	public Animator animator;
 	//private int currentColliderIndex = 0;
     float v = 0;
@@ -78,7 +78,7 @@ public class CharacterMove : MonoBehaviour {
 			h = h / 30;
 		}
         //store Movement
-        movement = new Vector3(h, v, 0);
+		movement = new Vector2 (h, v);
 		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
 		animator.SetFloat ("charSpeed", charSpeed);
 
@@ -97,17 +97,15 @@ public class CharacterMove : MonoBehaviour {
 		/*float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10
 		if (mouseDist > 0.7f || v >= 0) 
 		{
-			rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
+			movement = angle * movement;
 		}
-		//movement = rotateValue * movement;
 		*/
 
-		//Comment if using previous block
-		rotateValue = Quaternion.AngleAxis(angle, Vector3.forward);
-
 		//apply
-        transform.rotation = rotateValue;
-        transform.position += movement;
+        rigidbody2D.rotation = angle;
+		rigidbody2D.position = rigidbody2D.position + movement;
+		Debug.Log (rigidbody2D.position);
+		this.transform.position = rigidbody2D.position;
     }
 	private void SyncedMovement ()
 	{
@@ -116,6 +114,7 @@ public class CharacterMove : MonoBehaviour {
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
 		animator.SetFloat ("charSpeed", charSpeed);
+		this.transform.position = rigidbody2D.position;
 		Debug.Log ("Player: " + rigidbody2D.position);
 	}
 	void OnTriggerEnter2D( Collider2D other )
