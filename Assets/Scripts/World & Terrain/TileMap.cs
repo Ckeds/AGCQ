@@ -8,35 +8,42 @@ using System.Collections;
 
 public class TileMap : MonoBehaviour 
 {
-	public int numTilesX;
-	public int numTilesY;
+	public int sizeX;
+	public int sizeY;
+    int tileResolution = 10;
 	public float tileSize = 1.0f;
 	
 	// Use this for initialization
 	void Start () 
-	{
-		//A size of 1 doesnt redner
-		if(numTilesX < 1)
-		{
-			numTilesX = 1;
-		}
-		if(numTilesY < 1)
-		{
-			numTilesY = 1;
-		}
-        numTilesX++;
-        numTilesY++;
-		
+	{	
 		BuildMesh ();
 	}
-	
+
+    void BuildTexture()
+    {
+        Texture2D texture = new Texture2D(10, 10);
+
+        for (int x = 0; x < 10; x++)
+        {
+            for (int y = 0; y < 10; y++)
+            {
+                Color c = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+                texture.SetPixel(x, y, c);
+            }
+        }
+        texture.filterMode = FilterMode.Point;
+        texture.Apply();
+
+        MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
+        mesh_renderer.sharedMaterials[0].mainTexture = texture;
+    }
 	
 	public void BuildMesh () 
 	{
-		int numTiles = numTilesX * numTilesY;
+		int numTiles = sizeX * sizeY;
 		int numTriangles = numTiles * 2;
-		int vSizeX = numTilesX + 1;
-		int vSizeY = numTilesY + 1;
+		int vSizeX = sizeX + 1;
+		int vSizeY = sizeY + 1;
 		int numVerts = vSizeX * vSizeY;
 		
 		//generate all the mesh data
@@ -48,21 +55,21 @@ public class TileMap : MonoBehaviour
 		
 		int x, y;
 		
-		for(y=0; y < numTilesY; y++)
+		for(y=0; y < sizeY; y++)
 		{
-			for(x=0; x < numTilesX; x++)
+			for(x=0; x < sizeX; x++)
 			{
 				verticies[y * vSizeX + x] = new Vector3(x*tileSize,y*tileSize,1);
 				normals [y* vSizeX + x] = Vector3.up;
-				uv [y * vSizeX + x] = new Vector2((float)x/vSizeX, (float)y/vSizeY);
+				uv [y * vSizeX + x] = new Vector2((float)x/sizeX, (float)y/sizeY);
 			}
 		}
 		
-		for(y=0; y < numTilesY; y++)
+		for(y=0; y < sizeY; y++)
 		{
-			for(x=0; x < numTilesX; x++)
+			for(x=0; x < sizeX; x++)
 			{
-				int squareIndex = y*numTilesX+x;
+				int squareIndex = y*sizeX+x;
 				int TriOffset = squareIndex*6;
 				
 				triangles[TriOffset + 0] = (y * vSizeX) + x;
@@ -89,5 +96,8 @@ public class TileMap : MonoBehaviour
 		MeshCollider mesh_collider = GetComponent < MeshCollider > ();
 		
 		mesh_filter.mesh = mesh;
+        mesh_collider.sharedMesh = mesh;
+
+        BuildTexture();
 	}
 }
