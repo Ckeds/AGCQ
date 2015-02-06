@@ -9,11 +9,11 @@ public class CharacterMove : MonoBehaviour {
     float h = 0;
 	float previousV = 0;
 	float previousH = 0;
-    float scale = 0.05f;
+    float scale = 4f;
 	float syncDelay = 0f;
 	float syncTime = 0f;
 	float lastSyncTime = 0f;
-    float scaleSprint = 0.075f;
+    float scaleSprint = 6f;
 	Quaternion rotateValue;
 	private Vector3 syncStartPosition;
 	private Vector3 syncEndPosition;
@@ -34,7 +34,7 @@ public class CharacterMove : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (networkView.isMine) {
 			InputMovement ();
 		}
@@ -44,6 +44,7 @@ public class CharacterMove : MonoBehaviour {
 	}
     private void InputMovement()
     {
+		Vector2 previousForce = rigidbody2D.velocity;
 		if (v != 0) {
 			previousV = v;
 		}
@@ -71,16 +72,16 @@ public class CharacterMove : MonoBehaviour {
 		{
 			v += (previousV * 29);
 			v = v / 30;
+			previousForce *= 5f;
 		}
 		if (h * previousH < 0)
 		{
 			h += (previousH * 29);
 			h = h / 30;
+			previousForce *= 5f;
 		}
         //store Movement
 		movement = new Vector2 (h, v);
-		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
-		animator.SetFloat ("charSpeed", charSpeed);
 
         //following code used to make player character face mouse
         Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
@@ -103,19 +104,33 @@ public class CharacterMove : MonoBehaviour {
 
 		//apply
         rigidbody2D.rotation = angle;
-		rigidbody2D.position = rigidbody2D.position + movement;
-		Debug.Log (rigidbody2D.position);
-		this.transform.position = rigidbody2D.position;
+		rigidbody2D.AddForce (-previousForce);
+		rigidbody2D.AddForce (movement);
+		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
+		if(v == 0 && h == 0)
+		{
+			rigidbody2D.AddForce (-previousForce * 2);
+			if (charSpeed <= .1f) {
+				rigidbody2D.velocity = new Vector2(0,0);
+			}
+		}
+		animator.SetFloat ("charSpeed", charSpeed);
+		//Vector2 newPosition = rigidbody2D.position + (movement * Time.deltaTime);
+		//Debug.Log (newPosition);
+		//rigidbody2D.position = newPosition;
+		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		//Debug.Log (rigidbody2D.velocity);
     }
 	private void SyncedMovement ()
 	{
 		syncTime += Time.deltaTime;
+		Debug.Log ("SyncStart : " + syncStartPosition);
+		Debug.Log ("SyncStart : " + syncEndPosition);
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
 		animator.SetFloat ("charSpeed", charSpeed);
-		this.transform.position = rigidbody2D.position;
-		Debug.Log ("Player: " + rigidbody2D.position);
+		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{

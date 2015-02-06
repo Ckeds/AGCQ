@@ -16,7 +16,7 @@ public class FollowCamera : MonoBehaviour {
 	void Update () {
 		if (target != null)
 		{
-			currentMovement = target.movement;
+			currentMovement = (target.movement * Time.deltaTime);
 			if (currentMovement != previousMovement)
 			{
 				currentMovement += (previousMovement * 49);

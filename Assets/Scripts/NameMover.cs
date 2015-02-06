@@ -18,7 +18,7 @@ public class NameMover : MonoBehaviour {
 			FollowCharacter();
 		} 
 		else {
-			Debug.Log("Name's Transform: " + this.transform.position);
+			//Debug.Log("Name's Transform: " + this.transform.position);
 			SyncFollow();
 		}
 	}
@@ -30,7 +30,7 @@ public class NameMover : MonoBehaviour {
 	}
 	private void SyncFollow()
 	{
-		Debug.Log ("I'm in here");
+		//Debug.Log ("I'm in here");
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		this.transform.position = (new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0));

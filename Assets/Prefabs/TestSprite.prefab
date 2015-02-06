@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aafddd3221b64943a961a4cf910ea03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 0, z: 0}
+  movement: {x: 0, y: 0}
   animator: {fileID: 9500000}
   colliders: []
 --- !u!148 &14800000
