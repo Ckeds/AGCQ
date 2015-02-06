@@ -30,14 +30,15 @@ public class NameMover : MonoBehaviour {
 	}
 	private void SyncFollow()
 	{
-		//Debug.Log ("I'm in here");
+		Debug.Log ("I'm in here");
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		this.transform.position = (new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0));
-		Debug.Log("Name: " +rigidbody2D.position);
+		//Debug.Log("Name: " +rigidbody2D.position);
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	
+		Debug.Log ("NameSerialize");
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
 
@@ -53,7 +54,8 @@ public class NameMover : MonoBehaviour {
 		{		
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);			
-			
+
+			Debug.Log ("I'm here");
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;

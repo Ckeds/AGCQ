@@ -125,7 +125,7 @@ public class CharacterMove : MonoBehaviour {
 	{
 		syncTime += Time.deltaTime;
 		Debug.Log ("SyncStart : " + syncStartPosition);
-		Debug.Log ("SyncStart : " + syncEndPosition);
+		Debug.Log ("SyncEnd : " + syncEndPosition);
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = Mathf.Sqrt ((v * v) + (h * h)) * 100;
@@ -142,6 +142,7 @@ public class CharacterMove : MonoBehaviour {
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	
+		Debug.Log ("Working!");
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
 		float networkRotation = 0f;
@@ -162,17 +163,17 @@ public class CharacterMove : MonoBehaviour {
 
 		}
 		else
-		{		
+		{	
+			Debug.Log ("I'm there");
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
 			stream.Serialize(ref networkAngVelocity);
 
-			
+			Debug.Log (networkPosition);
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
-			
 			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			syncStartRotation = rigidbody2D.rotation;
@@ -187,6 +188,7 @@ public class CharacterMove : MonoBehaviour {
 	{
 		player = NetworkView.Find(id).gameObject;
 		Debug.Log (player);
+		networkView.observed = this;
 		
 		//player.GetComponent<HumanScript>().clothes = player.GetComponentsInChildren<SkinnedMeshRenderer>()[2].materials[1];
 		//Color color = Color.black;
