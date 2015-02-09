@@ -36,7 +36,7 @@ public class CombatScript : MonoBehaviour {
 		}
 	}
 	
-	void OnCollisionEnter(Collision coll)
+	void OnCollisionEnter2D(Collision2D coll)
 	{
 		if (tag == "Player" && coll.gameObject.tag == "Enemy" && networkView.isMine)
 		{
@@ -49,7 +49,9 @@ public class CombatScript : MonoBehaviour {
 	{
 		if (tag == "Player")
 		{
-			Network.RemoveRPCs(networkView.viewID.owner, 1);
+			Network.RemoveRPCs(networkView.viewID.owner,1);
+			Network.RemoveRPCs(networkView.viewID.owner,2);
+			Network.Destroy(gameObject.GetComponent<CharacterMove>().nameObject);
 			Network.Destroy(gameObject);
 		}	
 		else if (tag == "Enemy")

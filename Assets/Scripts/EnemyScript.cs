@@ -167,9 +167,9 @@ public class EnemyScript : MonoBehaviour {
 		}
 	}
 	
-	void OnCollisionEnter(Collision coll)
+	void OnCollisionEnter2D(Collision2D coll)
 	{
-
+		//coll.gameObject.GetComponent<CombatScript> ().AlterHealth (1);
 	}
 	
 	private void FindTarget()
@@ -203,7 +203,7 @@ public class EnemyScript : MonoBehaviour {
 	
 	public void Explode()
 	{
-		networkView.RPC("Exploded", RPCMode.All, transform.position, transform.rotation); 
+		//networkView.RPC("Exploded", RPCMode.All, transform.position, transform.rotation); 
 		GetComponent<CombatScript>().Die();
 	}
 	

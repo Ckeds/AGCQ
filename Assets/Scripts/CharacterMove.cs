@@ -20,6 +20,7 @@ public class CharacterMove : MonoBehaviour {
 	float syncStartRotation = 0f;
 	float syncEndRotation = 0f;
 	GameObject player;
+	public GameObject nameObject;
 	[SerializeField]
 	private PolygonCollider2D[] colliders;
 
