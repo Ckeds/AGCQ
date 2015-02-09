@@ -40,10 +40,10 @@ public class TileMap : MonoBehaviour
 	
 	public void BuildMesh () 
 	{
+        int vSizeX = sizeX + 1;
+        int vSizeY = sizeY + 1;
 		int numTiles = sizeX * sizeY;
 		int numTriangles = numTiles * 2;
-		int vSizeX = sizeX + 1;
-		int vSizeY = sizeY + 1;
 		int numVerts = vSizeX * vSizeY;
 		
 		//generate all the mesh data
@@ -55,9 +55,9 @@ public class TileMap : MonoBehaviour
 		
 		int x, y;
 		
-		for(y=0; y < sizeY; y++)
+		for(y=0; y < vSizeY; y++)
 		{
-			for(x=0; x < sizeX; x++)
+			for(x=0; x < vSizeX; x++)
 			{
 				verticies[y * vSizeX + x] = new Vector3(x*tileSize,y*tileSize,1);
 				normals [y* vSizeX + x] = Vector3.up;
