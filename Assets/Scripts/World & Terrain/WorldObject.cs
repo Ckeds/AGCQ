@@ -26,7 +26,7 @@ public class WorldObject : MonoBehaviour
 		positionX += XMove;
 		positionY += YMove;
 	}
-	void TakeDamage(int damageTaken)
+	public void TakeDamage(int damageTaken)
 	{
 		if (isDamageable)
 						currentHealth -= damageTaken;

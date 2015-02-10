@@ -140,6 +140,7 @@ public class CharacterMove : MonoBehaviour {
 	void OnCollisionEnter2D( Collision2D coll )
 	{
 		Debug.Log ("Hit " + coll.gameObject);
+		coll.gameObject.GetComponent<WorldObject>().TakeDamage (1);
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	

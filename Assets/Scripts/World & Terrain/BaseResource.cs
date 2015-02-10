@@ -5,13 +5,14 @@ public class BaseResource : WorldObject {
 
 	protected char type;
 	protected int tier;
-
+	protected Animator anim;
 
 
 	// Use this for initialization
 	protected void Start () 
 	{
 		isDamageable = true;
+
 	}
 	
 	// Update is called once per frame
