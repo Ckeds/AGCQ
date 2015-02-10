@@ -5,14 +5,14 @@ public class DirtPile : BaseResource
 {
 
 		// Use this for initialization
-		void Start ()
+		new void Start ()
 		{
 			type = 'd';
 			tier = 1;
 		}
 	
 		// Update is called once per frame
-		void Update ()
+		new void Update ()
 		{
 			base.Update ();
 		}

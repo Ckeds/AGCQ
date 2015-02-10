@@ -3,7 +3,7 @@ using System.Collections;
 
 public class FollowCamera : MonoBehaviour {
 	
-	public CharacterMove target;
+	public Player target;
 	Vector3 previousMovement;
 	Vector3 currentMovement;
 	

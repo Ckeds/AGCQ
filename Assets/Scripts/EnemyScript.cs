@@ -5,7 +5,7 @@ public class EnemyScript : MonoBehaviour {
 	
 	public GameObject explosionPrefab;
 	
-	private MeshRenderer attractFlag;
+	//private MeshRenderer attractFlag;
 	
 	public float counter = 0;
 	public float moveSpeed = 0;
@@ -115,7 +115,7 @@ public class EnemyScript : MonoBehaviour {
 			if (counter > 0)
 			{
 				counter = -findInterval;
-				attractFlag.enabled = false;
+				//attractFlag.enabled = false;
 				attracted = false;
 				stunned = false;
 			}
@@ -196,7 +196,7 @@ public class EnemyScript : MonoBehaviour {
 		if (networkView.viewID == id)
 		{
 			counter = -findInterval;
-			attractFlag.enabled = true;
+			//attractFlag.enabled = true;
 			attracted = true;
 		}
 	}
@@ -224,7 +224,7 @@ public class EnemyScript : MonoBehaviour {
 		if (networkView.viewID == id)
 		{
 			counter = -time;
-			attractFlag.enabled = true;
+			//attractFlag.enabled = true;
 			stunned = true;
 		}
 	}

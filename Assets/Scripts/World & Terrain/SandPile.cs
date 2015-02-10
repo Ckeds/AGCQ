@@ -5,14 +5,14 @@ public class SandPile : BaseResource
 {
 
 		// Use this for initialization
-		void Start ()
+		new void Start ()
 		{
 			type = 's';
 			tier = 1;
 		}
 	
 		// Update is called once per frame
-		void Update ()
+		new void Update ()
 		{
 			base.Update ();
 		}

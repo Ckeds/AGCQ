@@ -10,7 +10,7 @@ public class TileMap : MonoBehaviour
 {
 	public int sizeX;
 	public int sizeY;
-    int tileResolution = 10;
+    //int tileResolution = 10;
 	public float tileSize = 1.0f;
 	
 	// Use this for initialization
@@ -92,7 +92,7 @@ public class TileMap : MonoBehaviour
 		
 		//assign mesh to filer/renderer/collider/etc
 		MeshFilter mesh_filter = GetComponent < MeshFilter > ();
-		MeshRenderer mesh_renderer = GetComponent < MeshRenderer > ();
+		//MeshRenderer mesh_renderer = GetComponent < MeshRenderer > ();
 		MeshCollider mesh_collider = GetComponent < MeshCollider > ();
 		
 		mesh_filter.mesh = mesh;

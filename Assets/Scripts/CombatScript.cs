@@ -51,7 +51,7 @@ public class CombatScript : MonoBehaviour {
 		{
 			Network.RemoveRPCs(networkView.viewID.owner,1);
 			Network.RemoveRPCs(networkView.viewID.owner,2);
-			Network.Destroy(gameObject.GetComponent<CharacterMove>().nameObject);
+			Network.Destroy(gameObject.GetComponent<Player>().PlayerName);
 			Network.Destroy(gameObject);
 		}	
 		else if (tag == "Enemy")
