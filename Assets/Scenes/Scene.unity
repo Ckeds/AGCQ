@@ -175,7 +175,7 @@ MeshCollider:
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
-  m_Mesh: {fileID: 1674204062}
+  m_Mesh: {fileID: 1904632085}
 --- !u!23 &162378079
 Renderer:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 444684951}
   m_GameObject: {fileID: 162378076}
-  m_Mesh: {fileID: 1674204062}
+  m_Mesh: {fileID: 1904632085}
 --- !u!4 &162378081
 Transform:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ Prefab:
     - target: {fileID: 3300000, guid: 555d0625106738d4c9e957f29faeac3e, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1674204062}
+      objectReference: {fileID: 1904632085}
     - target: {fileID: 11400000, guid: 555d0625106738d4c9e957f29faeac3e, type: 2}
       propertyPath: numTilesX
       value: 5
@@ -271,7 +271,7 @@ Prefab:
     - target: {fileID: 6400000, guid: 555d0625106738d4c9e957f29faeac3e, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1674204062}
+      objectReference: {fileID: 1904632085}
     - target: {fileID: 11400000, guid: 555d0625106738d4c9e957f29faeac3e, type: 2}
       propertyPath: sizeX
       value: 10
@@ -343,8 +343,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
+  far clip plane: 8
+  field of view: 90
   orthographic: 1
   orthographic size: 5
   m_Depth: -1
@@ -365,7 +365,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 529578828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -443,7 +443,7 @@ MonoBehaviour:
   nameHolder: {fileID: 100000, guid: 372d8c9391caace4998d5c789872eaf2, type: 2}
   enemyPrefab: {fileID: 100000, guid: e33bfcbe659d12f48bb1a187dea7a1c2, type: 2}
   score: 0
-  enemyFrequency: .100000001
+  enemyFrequency: 0
 --- !u!4 &1515820670
 Transform:
   m_ObjectHideFlags: 0
@@ -544,7 +544,34 @@ NetworkView:
   m_ViewID:
     m_ID: 3
     m_Type: 1
---- !u!43 &1674204062
+--- !u!1 &1810775070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1810775071}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Respawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1810775071
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1810775070}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+--- !u!43 &1904632085
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -687,33 +714,6 @@ Mesh:
     m_Extent: {x: 5, y: 5, z: 0}
   m_MeshUsageFlags: 0
   m_MeshOptimized: 0
---- !u!1 &1810775070
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1810775071}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Respawn
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1810775071
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1810775070}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
 --- !u!1 &2051680766
 GameObject:
   m_ObjectHideFlags: 0

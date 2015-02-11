@@ -19,7 +19,6 @@ public class WorldObject : MonoBehaviour
 	{
 		if (currentHealth <= 0)
 					OnDeath ();
-		Debug.Log (currentHealth);
 	}
 
 	public virtual void Move(float XMove, float YMove)

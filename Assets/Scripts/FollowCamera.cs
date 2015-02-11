@@ -22,7 +22,7 @@ public class FollowCamera : MonoBehaviour {
 				currentMovement += (previousMovement * 49);
 				currentMovement = currentMovement / 50;
 			}
-			this.transform.position = target.transform.position + currentMovement *30f - transform.forward * 10f;
+			this.transform.position = target.transform.position + currentMovement *30f - transform.forward * 5f;
 			//Debug.Log ("OBJECT: " + target.transform.position);
 			//Debug.Log ("CAMERA : " + this.transform.position);
 			//Debug.Log ("MOVEMENT: " + target.movement *10f);

@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour {
 	private float timer = 0;
 	public float enemyFrequency = 4;
 	private bool spawnEnemies = false;
-	private int maxEnemies = 20;
+	private int maxEnemies = 500;
 	public bool SpawnEnemies
 	{
 		get {return spawnEnemies;}

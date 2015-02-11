@@ -61,7 +61,7 @@ public class Player : WorldObject
 		//coldDefense = 0;
 		//electricDefense = 0;
 		//fireDefense = 0;
-		isDamageable = true;
+		isDamageable = false;
 		animator = GetComponent<Animator> ();
 		if (!networkView.isMine)
 		{

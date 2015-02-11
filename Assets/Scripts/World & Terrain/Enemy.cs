@@ -11,6 +11,9 @@ public class Enemy : WorldObject {
 	public float speed = 5;
 	public float accel = 2;
 
+	//animator
+	Animator anim;
+
 	//Sync varibles
 	float syncDelay = 0f;
 	float syncTime = 0f;
@@ -29,6 +32,10 @@ public class Enemy : WorldObject {
 		FindTarget();
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
+		maxHealth = 1;
+		currentHealth = maxHealth;
+		anim = this.gameObject.GetComponent<Animator> ();
+		base.Start ();
 	}
 	
 	// Update is called once per frame
@@ -36,6 +43,7 @@ public class Enemy : WorldObject {
 	{
 		counter += Time.deltaTime;
 		Move ();
+		base.Update ();
 	}
 	void Move()
 	{
@@ -72,12 +80,14 @@ public class Enemy : WorldObject {
 		float angle = Mathf.Atan2(rigidbody2D.velocity.y, rigidbody2D.velocity.x) * (180 / Mathf.PI) - 90;
 		rigidbody2D.rotation = angle;
 		moveSpeed = rigidbody2D.velocity.magnitude;
+		anim.SetFloat ("charSpeed", rigidbody2D.velocity.magnitude);
 	}
 	private void SyncedMovement()
 	{
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		anim.SetFloat ("charSpeed", rigidbody2D.velocity.magnitude);
 		if (counter > 0)
 			counter = -findInterval;
 	}
