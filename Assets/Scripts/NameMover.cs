@@ -73,5 +73,6 @@ public class NameMover : MonoBehaviour {
 			Debug.Log ("Solution is plausible");
 			renderer.enabled = false;
 		}
+		objectToFollow.GetComponent<CharacterMove> ().nameObject = this.gameObject;
 	}
 }

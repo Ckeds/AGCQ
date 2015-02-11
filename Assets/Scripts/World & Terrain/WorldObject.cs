@@ -3,10 +3,10 @@ using System.Collections;
 
 public class WorldObject : MonoBehaviour 
 {
-	float positionX, positionY;
-	int currentHealth;
-	int maxHealth;
-	bool isDamageable;
+	protected float positionX, positionY;
+	protected int currentHealth;
+	protected int maxHealth;
+	protected bool isDamageable;
 
 	// Use this for initialization
 	void Start () 
@@ -18,7 +18,7 @@ public class WorldObject : MonoBehaviour
 	void Update () 
 	{
 		if (currentHealth <= 0)
-						OnDeath ();
+					OnDeath ();
 	}
 
 	void Move(float XMove, float YMove)
