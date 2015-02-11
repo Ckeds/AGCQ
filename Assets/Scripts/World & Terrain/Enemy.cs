@@ -35,6 +35,8 @@ public class Enemy : WorldObject {
 		maxHealth = 1;
 		currentHealth = maxHealth;
 		anim = this.gameObject.GetComponent<Animator> ();
+		if (!networkView.isMine)
+			anim.applyRootMotion = false;
 		base.Start ();
 	}
 	
