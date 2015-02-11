@@ -29,7 +29,6 @@ public class Enemy : WorldObject {
 	// Use this for initialization
 	public override void Start () 
 	{
-		FindTarget();
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
 		maxHealth = 1;
@@ -139,8 +138,17 @@ public class Enemy : WorldObject {
 	private void FindTarget()
 	{
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		target = new Vector3 (50000, 50000, 50);
 		if (players.Length > 0)
-			target = players[Random.Range(0, players.Length)].transform.position;
+		{
+			for (int i  = 0; i < players.Length; i++) 
+			{
+				Vector3 distance = target - this.transform.position;
+				Vector3 tentative = players[i].transform.position - this.transform.position;
+				if(tentative.magnitude < distance.magnitude)
+					target = players[i].transform.position;
+			}
+		}
 		else
 		{
 			OnDeath();

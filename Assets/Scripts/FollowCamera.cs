@@ -19,9 +19,11 @@ public class FollowCamera : MonoBehaviour {
 			currentMovement = (target.movement * Time.deltaTime);
 			if (currentMovement != previousMovement)
 			{
-				currentMovement += (previousMovement * 49);
-				currentMovement = currentMovement / 50;
+				currentMovement += (previousMovement * 19);
+				currentMovement = currentMovement / 20;
 			}
+			if (currentMovement.magnitude < 0.0005f)
+				currentMovement = new Vector3(0,0,0);
 			this.transform.position = target.transform.position + currentMovement *30f - transform.forward * 5f;
 			//Debug.Log ("OBJECT: " + target.transform.position);
 			//Debug.Log ("CAMERA : " + this.transform.position);
