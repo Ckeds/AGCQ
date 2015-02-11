@@ -18,12 +18,20 @@ public class TDTile
                 intType = 1;
                 break;
 
-            case TDTypes.TYPE.DESERT:
+            case TDTypes.TYPE.FOREST:
                 intType = 2;
                 break;
 
-            case TDTypes.TYPE.DIRT:
+            case TDTypes.TYPE.DESERT:
                 intType = 3;
+                break;
+
+            case TDTypes.TYPE.DIRT:
+                intType = 4;
+                break;
+
+            case TDTypes.TYPE.STONE:
+                intType = 5;
                 break;
 
             default:

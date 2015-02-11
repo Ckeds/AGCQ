@@ -7,7 +7,9 @@ public class TDTypes
     {
         GRASS,
         OCEAN,
+        FOREST,
         DESERT,
-        DIRT
+        DIRT,
+        STONE
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿using UnityEngine;
 public class TDMap 
 {
    int width;
@@ -24,13 +24,41 @@ public class TDMap
         {
             for (int y = 0; y < height; y++)
             {
-                mapData[x, y] = new TDTile(TDTypes.TYPE.GRASS);
+                int rand = Random.Range(0, 7);
+                switch (rand)
+                {
+                    case 0:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.GRASS);
+                        break;
+
+                    case 1:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.OCEAN);
+                        break;
+
+                    case 3:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.FOREST);
+                        break;
+
+                    case 4:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.DESERT);
+                        break;
+
+                    case 5:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.DIRT);
+                        break;
+
+                    case 6:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.STONE);
+                        break;
+
+                    default:
+                        mapData[x, y] = new TDTile(TDTypes.TYPE.GRASS);
+                        break;
+
+                }
+              
             }
         }
-        //test case
-        mapData[5, 5] = new TDTile(TDTypes.TYPE.OCEAN);
-        mapData[4, 4] = new TDTile(TDTypes.TYPE.DESERT);
-        mapData[3, 3] = new TDTile(TDTypes.TYPE.DIRT);
     }
 
     public int GetTileAt(int x, int y)

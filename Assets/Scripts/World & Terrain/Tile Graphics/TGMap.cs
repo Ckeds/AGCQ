@@ -13,6 +13,8 @@ public class TGMap : MonoBehaviour
     public int sizeY = 50;
     public float tileSize = 1.0f;
 
+    public int mapSize;
+
     public Texture2D terrainTiles;
     public int tileResolution;
 
@@ -59,7 +61,7 @@ public class TGMap : MonoBehaviour
             }
         }
 
-        mapTexture.filterMode = FilterMode.Point;
+        mapTexture.filterMode = FilterMode.Trilinear;
         mapTexture.wrapMode = TextureWrapMode.Clamp;
         mapTexture.Apply();
 
@@ -69,7 +71,7 @@ public class TGMap : MonoBehaviour
 
     }
 
-    public void BuildMesh()
+     public void BuildMesh()
     {
         int numTiles = sizeX * sizeY;
         int numTris = numTiles * 2;
@@ -128,6 +130,7 @@ public class TGMap : MonoBehaviour
 
         BuildTexture();
     }
+    
 
 
 }
