@@ -18,10 +18,9 @@ public class BaseResource : WorldObject {
 	// Update is called once per frame
 	protected void Update () 
 	{
-		if (currentHealth <= 0)
-			OnDeath();
+		base.Update ();
 	}
-
+	/*
 	protected void Move ()
 	{
 
@@ -38,7 +37,7 @@ public class BaseResource : WorldObject {
 	protected void OnDeath()
 	{
 		Destroy(this, 0.0F); //float is amount of time to wait until destroying the object
-	}
+	}*/
 
 	public void Collect()
 	{

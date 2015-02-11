@@ -9,13 +9,13 @@ public class WorldObject : MonoBehaviour
 	protected bool isDamageable;
 
 	// Use this for initialization
-	void Start () 
+	public void Start () 
 	{
 		isDamageable = false;
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	public void Update () 
 	{
 		if (currentHealth <= 0)
 					OnDeath ();
@@ -28,11 +28,14 @@ public class WorldObject : MonoBehaviour
 	}
 	public void TakeDamage(int damageTaken)
 	{
+		Debug.Log ("I SHOULD DO THIS");
+		Debug.Log (currentHealth);
 		if (isDamageable)
 						currentHealth -= damageTaken;
 	}
 	void OnDeath()
 	{
+		Destroy (this.gameObject, 0.0f);
 		Destroy(this, 0.0F); //float is amount of time to wait until destroying the object
 	}
 

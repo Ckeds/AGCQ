@@ -4,11 +4,11 @@ using System.Collections;
 public class Player : WorldObject
 {
 	//Player Defense Values
-	int physicalDefense;
-	int acidDefense;
-	int coldDefense;
-	int electricDefense;
-	int fireDefense;
+	//int physicalDefense;
+	//int acidDefense;
+	//int coldDefense;
+	//int electricDefense;
+	//int fireDefense;
 
 	//Player Mana Values
 	int currentMana;
@@ -20,11 +20,11 @@ public class Player : WorldObject
 	// Use this for initialization
 	void Start ()
 	{
-		int physicalDefense = 0;
-		int acidDefense = 0;
-		int coldDefense = 0;
-		int electricDefense = 0;
-		int fireDefense = 0;
+		//int physicalDefense = 0;
+		//int acidDefense = 0;
+		//int coldDefense = 0;
+		//int electricDefense = 0;
+		//int fireDefense = 0;
 	}
 	
 	// Update is called once per frame

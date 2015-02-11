@@ -5,7 +5,7 @@ public class SandPile : BaseResource
 {
 
 		// Use this for initialization
-		void Start ()
+		new public void Start ()
 		{
 			type = 's';
 			tier = 1;
