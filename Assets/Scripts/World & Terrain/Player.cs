@@ -223,13 +223,13 @@ public class Player : WorldObject
 			stream.Serialize(ref networkRotation);
 			stream.Serialize(ref networkAngVelocity);
 			
-			Debug.Log (networkPosition);
+			//Debug.Log (networkPosition);
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
 			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			Debug.Log("syncEndPosition : " + syncEndPosition);
+			//Debug.Log("syncEndPosition : " + syncEndPosition);
 			syncStartRotation = rigidbody2D.rotation;
 			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
 			rigidbody2D.velocity = networkVelocity;

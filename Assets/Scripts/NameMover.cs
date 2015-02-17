@@ -38,7 +38,7 @@ public class NameMover : MonoBehaviour {
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		this.transform.position = (new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0));
-		Debug.Log("Name: " +rigidbody2D.position);
+		//Debug.Log("Name: " +rigidbody2D.position);
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	
@@ -68,9 +68,9 @@ public class NameMover : MonoBehaviour {
 			lastSyncTime = Time.time;
 			
 			syncStartPosition = rigidbody2D.position;
-			Debug.Log (syncStartPosition);
+			//Debug.Log (syncStartPosition);
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			Debug.Log(syncEndPosition);
+			//Debug.Log(syncEndPosition);
 			rigidbody2D.velocity = networkVelocity;
 		}
 	}

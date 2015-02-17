@@ -7,7 +7,7 @@ public class Enemy : WorldObject {
 	public Vector3 target;
 	public float counter = 0;
 	public float moveSpeed = 0;
-	private float findInterval = 1f;
+	private float findInterval = 0.5f;
 	public float speed = 4;
 	public float accel = 2;
 
@@ -78,7 +78,7 @@ public class Enemy : WorldObject {
 		rigidbody2D.AddForce(delta * 1.5f);
 		if (rigidbody2D.velocity.magnitude > speed)
 		{
-			Debug.Log("SLOW DOWN");
+			//Debug.Log("SLOW DOWN");
 			Vector2 slow = -rigidbody2D.velocity;
 			slow.Normalize();
 			slow *= rigidbody2D.velocity.magnitude - speed;
@@ -99,7 +99,7 @@ public class Enemy : WorldObject {
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
-		Debug.Log (rigidbody2D.velocity.sqrMagnitude);
+		//Debug.Log (rigidbody2D.velocity.sqrMagnitude);
 		anim.SetFloat ("charSpeed", rigidbody2D.velocity.sqrMagnitude);
 		if (counter > 0)
 			counter = -findInterval;
