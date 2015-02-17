@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour {
 	private float timer = 0;
 	public float enemyFrequency = 4;
 	private bool spawnEnemies = false;
-	private int maxEnemies = 5;
+	private int maxEnemies = 64;
 	public bool SpawnEnemies
 	{
 		get {return spawnEnemies;}
@@ -79,10 +79,10 @@ public class SpawnManager : MonoBehaviour {
 	
 	public void SpawnPlayer()
 	{
-		GameObject name = (GameObject)Network.Instantiate (nameHolder, new Vector3 (0, 0, 0),
-		                                                   Quaternion.identity, 1);
 		GameObject player = (GameObject) Network.Instantiate(playerPrefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, 
-		                                                     Quaternion.identity, 2);
+		                                                     Quaternion.identity, 1);
+		GameObject name = (GameObject)Network.Instantiate (nameHolder, player.transform.position + new Vector3(0,0.6f,0),
+		                                                   Quaternion.identity, 2);
 		Camera.main.GetComponent<FollowCamera> ().target = player.GetComponent<Player>();
 		name.networkView.RPC ("CreateName", RPCMode.AllBuffered, player.networkView.viewID,
 		                      PlayerPrefs.GetString ("playerName"));
@@ -91,7 +91,7 @@ public class SpawnManager : MonoBehaviour {
 	
 	public void SpawnEnemy()
 	{
-		SpawnObject(enemyPrefab, true, Random.Range(0, spawnPoints.Length), 2);
+		SpawnObject(enemyPrefab, true, Random.Range(0, spawnPoints.Length), 3);
 	}
 	
 	[RPC]

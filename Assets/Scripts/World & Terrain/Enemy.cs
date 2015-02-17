@@ -7,8 +7,8 @@ public class Enemy : WorldObject {
 	public Vector3 target;
 	public float counter = 0;
 	public float moveSpeed = 0;
-	private float findInterval = .25f;
-	public float speed = 5;
+	private float findInterval = 1f;
+	public float speed = 4;
 	public float accel = 2;
 
 	//animator
@@ -29,14 +29,21 @@ public class Enemy : WorldObject {
 	// Use this for initialization
 	public override void Start () 
 	{
+		FindTarget ();
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
 		maxHealth = 1;
 		currentHealth = maxHealth;
+		isDamageable = true;
 		anim = this.gameObject.GetComponent<Animator> ();
 		if (!networkView.isMine)
 			anim.applyRootMotion = false;
-		base.Start ();
+	}
+	void Awake()
+	{
+		syncStartPosition = transform.position;
+		syncEndPosition = transform.position;
+		lastSyncTime = Time.time;
 	}
 	
 	// Update is called once per frame
@@ -82,13 +89,18 @@ public class Enemy : WorldObject {
 		rigidbody2D.rotation = angle;
 		moveSpeed = rigidbody2D.velocity.magnitude;
 		anim.SetFloat ("charSpeed", rigidbody2D.velocity.magnitude);
+		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
 	}
 	private void SyncedMovement()
 	{
+		//Debug.Log ("SyncStart : " + syncStartPosition);
+		//Debug.Log ("SyncEnd : " + syncEndPosition);
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		anim.SetFloat ("charSpeed", rigidbody2D.velocity.magnitude);
+		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		Debug.Log (rigidbody2D.velocity.sqrMagnitude);
+		anim.SetFloat ("charSpeed", rigidbody2D.velocity.sqrMagnitude);
 		if (counter > 0)
 			counter = -findInterval;
 	}
@@ -113,7 +125,7 @@ public class Enemy : WorldObject {
 			stream.Serialize(ref networkAngVelocity);
 		}
 		else
-		{		
+		{
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
@@ -121,12 +133,14 @@ public class Enemy : WorldObject {
 			
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
+			//Debug.Log(syncDelay);
 			lastSyncTime = Time.time;
 			
 			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			syncStartRotation = rigidbody2D.rotation;
 			syncEndRotation = networkRotation;
+			rigidbody2D.velocity = networkVelocity;
 		}
 	}
 	void OnCollisionEnter2D(Collision2D coll)

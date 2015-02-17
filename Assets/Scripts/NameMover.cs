@@ -11,6 +11,10 @@ public class NameMover : MonoBehaviour {
 	private Vector3 syncEndPosition;
 	void Start () {
 	}
+	void Awake()
+	{
+		lastSyncTime = Time.time;
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -30,38 +34,44 @@ public class NameMover : MonoBehaviour {
 	}
 	private void SyncFollow()
 	{
-		Debug.Log ("I'm in here");
+		//Debug.Log (syncStartPosition);
 		syncTime += Time.deltaTime;
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		this.transform.position = (new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0));
-		//Debug.Log("Name: " +rigidbody2D.position);
+		Debug.Log("Name: " +rigidbody2D.position);
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	
-		Debug.Log ("NameSerialize");
+		//Debug.Log ("NameSerialize");
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
-
-		if (stream.isWriting)
+		if (networkView.isMine)
 		{
-			networkPosition = rigidbody2D.position;
-			networkVelocity = rigidbody2D.velocity;
-					
-			stream.Serialize(ref networkPosition);
-			stream.Serialize(ref networkVelocity);			
+			if (stream.isWriting)
+			{
+				//Debug.Log ("I am writing!");
+				networkPosition = rigidbody2D.position;
+				networkVelocity = rigidbody2D.velocity;
+						
+				stream.Serialize(ref networkPosition);
+				stream.Serialize(ref networkVelocity);			
+			}
 		}
 		else
 		{		
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);			
 
-			Debug.Log ("I'm here");
+			//Debug.Log ("I'm here");
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
 			
 			syncStartPosition = rigidbody2D.position;
+			Debug.Log (syncStartPosition);
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
+			Debug.Log(syncEndPosition);
+			rigidbody2D.velocity = networkVelocity;
 		}
 	}
 	[RPC]

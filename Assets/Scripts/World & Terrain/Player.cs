@@ -67,10 +67,15 @@ public class Player : WorldObject
 		{
 			animator.applyRootMotion = false;
 		}
+	}
+
+	void Awake()
+	{
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
+		lastSyncTime = Time.time;
 	}
-	
+
 	// Update is called once per frame
 	public override void Update ()
 	{
@@ -171,8 +176,8 @@ public class Player : WorldObject
 	private void SyncedMovement ()
 	{
 		syncTime += Time.deltaTime;
-		Debug.Log ("SyncStart : " + syncStartPosition);
-		Debug.Log ("SyncEnd : " + syncEndPosition);
+		//Debug.Log ("SyncStart : " + syncStartPosition);
+		//Debug.Log ("SyncEnd : " + syncEndPosition);
 		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
@@ -192,7 +197,6 @@ public class Player : WorldObject
 	}
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
 	{	
-		Debug.Log ("Working!");
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
 		float networkRotation = 0f;
@@ -214,7 +218,6 @@ public class Player : WorldObject
 		}
 		else
 		{	
-			Debug.Log ("I'm there");
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
@@ -226,6 +229,7 @@ public class Player : WorldObject
 			lastSyncTime = Time.time;
 			syncStartPosition = rigidbody2D.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
+			Debug.Log("syncEndPosition : " + syncEndPosition);
 			syncStartRotation = rigidbody2D.rotation;
 			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
 			rigidbody2D.velocity = networkVelocity;
