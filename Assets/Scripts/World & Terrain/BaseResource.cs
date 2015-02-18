@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseResource : WorldObject {
 
-	protected char type;
+	protected string type;
 	protected int tier;
 	protected Animator anim;
 
@@ -33,7 +33,7 @@ public class BaseResource : WorldObject {
 			currentHealth -= damageTaken;
 	}
 
-	//handle the resource dieing
+	//handle the resource death
 	protected void OnDeath()
 	{
 		Destroy(this, 0.0F); //float is amount of time to wait until destroying the object

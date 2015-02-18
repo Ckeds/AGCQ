@@ -7,7 +7,7 @@ public class DirtPile : BaseResource
 		// Use this for initialization
 		new public void Start ()
 		{
-			type = 'd';
+			type = "dirt";
 			tier = 1;
 			anim = GetComponent<Animator>();
 			maxHealth = 10;

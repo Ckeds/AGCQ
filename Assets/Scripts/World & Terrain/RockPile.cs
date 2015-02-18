@@ -7,7 +7,7 @@ public class RockPile : BaseResource
 	// Use this for initialization
 	new public void Start ()
 	{
-		type = 'r';
+		type = "rock";
 		tier = 1;
 		anim = GetComponent<Animator>();
 		maxHealth = 10;

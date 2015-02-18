@@ -4,10 +4,10 @@ using System.Collections;
 public class Player : WorldObject
 {
 	//Player Defense Values
-	//int physicalDefense;
+	//int physDefense;
 	//int acidDefense;
 	//int coldDefense;
-	//int electricDefense;
+	//int elecDefense;
 	//int fireDefense;
 
 	//Player Mana Values

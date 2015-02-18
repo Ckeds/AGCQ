@@ -7,7 +7,7 @@ public class SandPile : BaseResource
 		// Use this for initialization
 		new public void Start ()
 		{
-			type = 's';
+			type = "sand";
 			tier = 1;
 			anim = GetComponent<Animator>();
 			maxHealth = 10;

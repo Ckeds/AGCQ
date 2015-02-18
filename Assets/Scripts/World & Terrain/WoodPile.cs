@@ -7,7 +7,7 @@ public class WoodPile : BaseResource
 		// Use this for initialization
 		new public void Start ()
 		{
-			type = 'w';
+			type = "wood";
 			tier = 1;
 		}
 	
