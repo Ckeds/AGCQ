@@ -2,7 +2,7 @@
 public class TDTile
 {
     private int intType;
-    private TDTypes.TYPE tileType;
+    public TDTypes.TYPE tileType;
 
     public TDTile(TDTypes.TYPE type = TDTypes.TYPE.GRASS)
     {

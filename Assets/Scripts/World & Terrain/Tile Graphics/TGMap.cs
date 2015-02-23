@@ -10,6 +10,8 @@ public class TGMap : MonoBehaviour
 {
     //public float tileSize = 1.0f;
     public int mapSize = 128;
+    public int numRivers = 0;
+    public int numLakes = 0;
 
     public Texture2D terrainTiles;
     private int tileResolution = 64;
@@ -40,7 +42,7 @@ public class TGMap : MonoBehaviour
 
     void BuildTexture()
     {
-        TDMap map = new TDMap(mapSize, mapSize);
+        TDMap map = new TDMap(mapSize, mapSize,numRivers,numLakes);
 
         int texWidth = mapSize * tileResolution;
         int texHeight = mapSize * tileResolution;
