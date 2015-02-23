@@ -28,12 +28,14 @@ public class WorldObject : MonoBehaviour
 	}
 	public virtual void TakeDamage(int damageTaken)
 	{
+		Debug.Log ("I SHOULD DO THIS");
+		Debug.Log (currentHealth);
 		if (isDamageable)
-						currentHealth -= damageTaken;
+			currentHealth -= damageTaken;
 	}
 	public virtual void OnDeath()
 	{
-		Network.Destroy(this.gameObject); //float is amount of time to wait until destroying the object
+		Network.Destroy(this.gameObject);
 	}
 
 

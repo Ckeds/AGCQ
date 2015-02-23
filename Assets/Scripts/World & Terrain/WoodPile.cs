@@ -5,14 +5,14 @@ public class WoodPile : BaseResource
 {
 
 		// Use this for initialization
-		new void Start ()
+		new public void Start ()
 		{
-			type = 'w';
+			type = "wood";
 			tier = 1;
 		}
 	
 		// Update is called once per frame
-		new void Update ()
+		void Update ()
 		{
 			base.Update ();
 		}
