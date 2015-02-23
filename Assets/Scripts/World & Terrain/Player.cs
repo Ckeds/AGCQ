@@ -50,8 +50,8 @@ public class Player : WorldObject
 
 	//Player Inventory
 	// Player's inventory goes here
-	Item[] items;
-	Item[] equipped;
+	//Item[] items;
+	//Item[] equipped;
 
 	// Use this for initialization
 	public override void Start ()

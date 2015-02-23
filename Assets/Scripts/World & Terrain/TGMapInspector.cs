@@ -1,10 +1,10 @@
-﻿/*using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
-[CustomEditor(typeof(TileMap))]
+[CustomEditor(typeof(TGMap))]
 
-public class NewBehaviourScript : Editor 
+public class TGMapInspector : Editor 
 {
 
     public override void OnInspectorGUI()
@@ -13,9 +13,9 @@ public class NewBehaviourScript : Editor
         DrawDefaultInspector();
         if (GUILayout.Button("Regenerate"))
         {
-            TileMap tm = (TileMap)target;
+            TGMap tm = (TGMap)target;
             tm.BuildMesh();
         }
     }
 }
-*/
+
