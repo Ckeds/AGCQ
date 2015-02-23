@@ -24,7 +24,8 @@ public class TDMap
         {
             for (int y = 0; y < height; y++)
             {
-                int rand = Random.Range(0, 7);
+                //int rand = Random.Range(0, 7);
+                int rand = 0;
                 switch (rand)
                 {
                     case 0:
