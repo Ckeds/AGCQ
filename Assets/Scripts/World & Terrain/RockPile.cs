@@ -20,7 +20,7 @@ public class RockPile : BaseResource
 	void Update ()
 	{
 		anim.SetFloat ("Health", currentHealth);
-		Debug.Log (currentHealth);
+		//Debug.Log (currentHealth);
 		base.Update ();
 	}
 }

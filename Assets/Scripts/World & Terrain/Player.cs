@@ -87,7 +87,7 @@ public class Player : WorldObject
 			//check for item or weapon here
 			
 		}
-		Debug.Log (1 / Time.deltaTime);
+		//Debug.Log (1 / Time.deltaTime);
 		Move();
 	}
 	void Move()
@@ -242,6 +242,11 @@ public class Player : WorldObject
 	{
 		Network.Destroy (playerName);
 		base.OnDeath ();
+	}
+	void OnCollisionEnter2D(Collision2D coll)
+	{
+		if(coll.gameObject.GetComponent<RockPile>())
+			coll.gameObject.GetComponent<WorldObject> ().TakeDamage (1);
 	}
 	[RPC]
 	void SetupPlayer(NetworkViewID id)
