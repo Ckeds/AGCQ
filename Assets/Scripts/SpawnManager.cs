@@ -12,7 +12,12 @@ public class SpawnManager : MonoBehaviour {
 	private float timer = 0;
 	public float enemyFrequency = 4;
 	private bool spawnEnemies = false;
-	private int maxEnemies = 64;
+	private int maxEnemies = 400;
+	private int spawned;
+	public int Swapned
+	{
+		get{return spawned;}
+	}
 	public bool SpawnEnemies
 	{
 		get {return spawnEnemies;}
@@ -56,7 +61,8 @@ public class SpawnManager : MonoBehaviour {
 		}
 		if (spawnEnemies)
 		{
-			score += Time.deltaTime;
+			score = 1/Time.deltaTime;
+			score = (int)score;
 		}
 	}
 	
@@ -92,6 +98,7 @@ public class SpawnManager : MonoBehaviour {
 	public void SpawnEnemy()
 	{
 		SpawnObject(enemyPrefab, true, Random.Range(0, spawnPoints.Length), 3);
+		spawned++;
 	}
 	
 	[RPC]

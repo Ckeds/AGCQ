@@ -50,6 +50,8 @@ public class Player : WorldObject
 
 	//Player Inventory
 	// Player's inventory goes here
+	Item[] items;
+	Item[] equipped;
 
 	// Use this for initialization
 	public override void Start ()
@@ -85,6 +87,7 @@ public class Player : WorldObject
 			//check for item or weapon here
 			
 		}
+		Debug.Log (1 / Time.deltaTime);
 		Move();
 	}
 	void Move()

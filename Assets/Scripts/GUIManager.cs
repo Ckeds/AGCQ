@@ -5,7 +5,8 @@ public class GUIManager : MonoBehaviour {
 	
 	public const int DEF_BUTTON_HEIGHT = 40;
 	
-	public enum GUIState {StartScreen, MainMenu, InGame, PauseMenu, CreateGame, JoinGame, EditProfile, Confirmation, DisplayInfo};
+	public enum GUIState {StartScreen, MainMenu, InGame, PauseMenu, CreateGame, 
+		JoinGame, EditProfile, Confirmation, DisplayInfo};
 	
 	private GUIState currentState = GUIState.StartScreen;
 	public GUIState CurrentState
@@ -176,10 +177,10 @@ public class GUIManager : MonoBehaviour {
 			
 			break;
 		case GUIState.InGame:
-			GUILayout.Label("Score: " + GetComponent<SpawnManager>().score);
-			
-			//GUI.DrawTexture(crosshairPos, crosshair);
+
 			SpawnManager spawner = GetComponent<SpawnManager>();
+			GUILayout.Label("Framerate: " + GetComponent<SpawnManager>().score);
+			GUILayout.Label("NumEnemies: " + GetComponent<SpawnManager>().Swapned);
 			
 			if (!spawner.SpawnEnemies && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
 			{
