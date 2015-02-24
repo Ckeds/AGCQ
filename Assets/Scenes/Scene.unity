@@ -269,34 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
---- !u!1 &1099255426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1099255427}
-  m_Layer: 0
-  m_Name: SpawnPoint
-  m_TagString: Respawn
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1099255427
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1099255426}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 128, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
---- !u!43 &1489365726
+--- !u!43 &1018686920
 Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -439,6 +412,33 @@ Mesh:
     m_Extent: {x: 64, y: 64, z: 0}
   m_MeshUsageFlags: 0
   m_MeshOptimized: 0
+--- !u!1 &1099255426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1099255427}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Respawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1099255427
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1099255426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 128, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1515820668
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,15 +737,15 @@ Prefab:
     - target: {fileID: 6400000, guid: a7a88ef085ef25141819a980765f46e0, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1489365726}
+      objectReference: {fileID: 1018686920}
     - target: {fileID: 3300000, guid: a7a88ef085ef25141819a980765f46e0, type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 1489365726}
+      objectReference: {fileID: 1018686920}
     - target: {fileID: 11400000, guid: a7a88ef085ef25141819a980765f46e0, type: 2}
       propertyPath: terrainTiles
       value: 
-      objectReference: {fileID: 2800000, guid: 61ad0b260172ebf4085a526f740ec4c3, type: 3}
+      objectReference: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
     - target: {fileID: 11400000, guid: a7a88ef085ef25141819a980765f46e0, type: 2}
       propertyPath: sizeX
       value: 150
@@ -813,7 +813,7 @@ MonoBehaviour:
   mapSize: 128
   numRivers: 4
   numLakes: 2
-  terrainTiles: {fileID: 2800000, guid: 61ad0b260172ebf4085a526f740ec4c3, type: 3}
+  terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
 --- !u!64 &1944495343
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -827,7 +827,7 @@ MeshCollider:
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
-  m_Mesh: {fileID: 1489365726}
+  m_Mesh: {fileID: 1018686920}
 --- !u!23 &1944495344
 Renderer:
   m_ObjectHideFlags: 0
@@ -856,7 +856,7 @@ MeshFilter:
     type: 2}
   m_PrefabInternal: {fileID: 1925238760}
   m_GameObject: {fileID: 1944495341}
-  m_Mesh: {fileID: 1489365726}
+  m_Mesh: {fileID: 1018686920}
 --- !u!4 &1944495346
 Transform:
   m_ObjectHideFlags: 0

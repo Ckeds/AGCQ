@@ -17,7 +17,7 @@ public class RockPile : BaseResource
 	}
 		
 	// Update is called once per frame
-	void Update ()
+	public override void Update ()
 	{
 		anim.SetFloat ("Health", currentHealth);
 		//Debug.Log (currentHealth);
