@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.6608009, y: 9.70503807, z: 0}
+  m_LocalPosition: {x: -.251124382, y: .251120567, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,7 +83,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapSize: 128
-  terrainTiles: {fileID: 2800000, guid: 61ad0b260172ebf4085a526f740ec4c3, type: 3}
+  numRivers: 4
+  numLakes: 1
+  stonePercent: 0
+  sandPercent: 0
+  forestPercent: 0
+  plainsPercent: 0
+  dirtPercent: 0
+  terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
+  rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
+  dirtPile: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
+  sandPile: {fileID: 100000, guid: 51e334994a25ec04d853772a18231b69, type: 2}
+  Resources: []
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

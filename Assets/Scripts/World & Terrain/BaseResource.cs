@@ -14,6 +14,10 @@ public class BaseResource : WorldObject {
 		isDamageable = true;
 
 	}
+	public override void Update ()
+	{
+		base.Update ();
+	}
 
 	public void Collect()
 	{
