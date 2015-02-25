@@ -21,8 +21,13 @@ public class TDMap
         doGrass();
         doForest();
         doForest();
-        doDesert();
+
+        for (int i = 0; i < 75; i++)
+        {
+            doDirt();
+        }
         doStone();
+
         if (numRivers > 0)
         {
           for (int i = 0; i < numRivers; i++)
@@ -33,6 +38,7 @@ public class TDMap
           for (int i = 0; i < numLakes; i++)
               doLake();
         }
+        doDesert();
     }
 
     public int GetTileAt(int x, int y)
@@ -46,7 +52,7 @@ public class TDMap
         {
             for (int y = 0; y <= height; y++)
             {
-                mapData[x, y] = new TDTile(TDTypes.TYPE.GRASS);
+                mapData[x, y] = new TDTile(TDTypes.TYPE.GRASS, x, y);
             }
         }
     }
@@ -55,8 +61,7 @@ public class TDMap
         //Debug.Log("Lake Start");
         int randX = Random.Range(5, 120);
         int randY = Random.Range(5, 120);
-
-        mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN);
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY);
         for (int i = 0; i < 3000; i++)
         {
             int randRange = Random.Range(0, 4);
@@ -72,8 +77,8 @@ public class TDMap
 
                 case 1:
                     randX--;
-                    if (randX <= 0)
-                        randX = 1;
+                    if (randX < 0)
+                        randX = 0;
                     break;
 
                 case 2:
@@ -84,15 +89,15 @@ public class TDMap
 
                 case 3:
                     randY--;
-                    if (randY <= 0)
-                        randY = 1;
+                    if (randY < 0)
+                        randY = 0;
                     break;
             }
             
-            mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN);
-            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.OCEAN);
-            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN);
-            mapData[randX+1, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN);
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX+1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY+1);
+            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN, randX+1, randY+1);
         }
         //Debug.Log("Lake End");
     }
@@ -124,8 +129,7 @@ public class TDMap
         }
         int randX = Random.Range(startXMin, startXMax);
         int randY = Random.Range(startYMin, startYMax);
-        
-        mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN);
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY);
 
         for (int i = 0; i < 700; i++)
         {
@@ -149,8 +153,8 @@ public class TDMap
 
                 case 1:
                     randX--;
-                    if (randX <= 0)
-                        randX = 1;
+                    if (randX < 0)
+                        randX = 0;
                     break;
 
                 case 2:
@@ -161,13 +165,13 @@ public class TDMap
 
                 case 3:
                     randY--;
-                    if (randY <= 0)
-                        randY = 1;
+                    if (randY < 0)
+                        randY = 0;
                     break;
             }
-            mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN);
-            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.OCEAN);
-            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN);
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX + 1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY + 1);
 
         }
         //Debug.Log("River End");
@@ -180,9 +184,9 @@ public class TDMap
         int maxDist = 25;
         int startPointX = randX;
         int startPointY = randY;
-        mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT);
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT, randX, randY);
 
-        for (int i = 0; i < 20000; i++)
+        for (int i = 0; i < 8000; i++)
         {
             int randRange = Random.Range(0, 4);
             switch (randRange)
@@ -203,8 +207,8 @@ public class TDMap
                     {
                         randX += Random.Range(15, 25);
                     }
-                    if (randX <= 0)
-                        randX = 1;
+                    if (randX < 0)
+                        randX = 0;
                     break;
 
                 case 2:
@@ -223,14 +227,14 @@ public class TDMap
                     {
                         randY += Random.Range(15, 25);
                     }
-                    if (randY <= 0)
-                        randY = 1;
+                    if (randY < 0)
+                        randY = 0;
                     break;
             }
-            mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT);
-            mapData[randX+1, randY] = new TDTile(TDTypes.TYPE.DESERT);
-            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.DESERT);
-            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.DESERT);
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.DESERT, randX + 1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.DESERT, randX, randY + 1);
+            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.DESERT, randX + 1, randY + 1);
         }
         //Debug.Log("Desert End");
 
@@ -243,7 +247,7 @@ public class TDMap
         int maxDist = 35;
         int startPointX = randX;
         int startPointY = randY;
-        mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT);
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.STONE,randX,randY);
 
         for (int i = 0; i < 6000; i++)
         {
@@ -266,8 +270,8 @@ public class TDMap
                     {
                         randX += Random.Range(15, 25);
                     }
-                    if (randX <= 0)
-                        randX = 1;
+                    if (randX < 0)
+                        randX = 0;
                     break;
 
                 case 2:
@@ -286,14 +290,14 @@ public class TDMap
                     {
                         randY += Random.Range(15, 25);
                     }
-                    if (randY <= 0)
-                        randY = 1;
+                    if (randY < 0)
+                        randY = 0;
                     break;
             }
-            mapData[randX, randY] = new TDTile(TDTypes.TYPE.STONE);
-            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.STONE);
-            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.STONE);
-            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.STONE);
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.STONE, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.STONE, randX + 1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.STONE, randX, randY + 1);
+            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.STONE, randX + 1, randY + 1);
         }
         //Debug.Log("Stone End");
     }
@@ -303,7 +307,7 @@ public class TDMap
         int randX = Random.Range(5, 120);
         int randY = Random.Range(5, 120);
 
-        mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN);
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.FOREST,randX,randY);
         for (int i = 0; i < 20000; i++)
         {
             int randRange = Random.Range(0, 4);
@@ -319,8 +323,8 @@ public class TDMap
 
                 case 1:
                     randX--;
-                    if (randX <= 0)
-                        randX = 1;
+                    if (randX < 0)
+                        randX = 0;
                     break;
 
                 case 2:
@@ -331,16 +335,62 @@ public class TDMap
 
                 case 3:
                     randY--;
-                    if (randY <= 0)
-                        randY = 1;
+                    if (randY < 0)
+                        randY = 0;
                     break;
             }
 
-            mapData[randX, randY] = new TDTile(TDTypes.TYPE.FOREST);
-            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.FOREST);
-            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.FOREST);
-            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.FOREST);
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.FOREST, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.FOREST, randX + 1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.FOREST, randX, randY + 1);
+            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.FOREST, randX + 1, randY + 1);
         }
         //Debug.Log("Forest End");
+    }
+    void doDirt()
+    {
+        //Debug.Log("Dirt Start");
+        int randX = Random.Range(5, 120);
+        int randY = Random.Range(5, 120);
+
+        mapData[randX, randY] = new TDTile(TDTypes.TYPE.DIRT, randX, randY);
+        for (int i = 0; i < 15; i++)
+        {
+            int randRange = Random.Range(0, 4);
+            switch (randRange)
+            {
+                case 0:
+                    randX++;
+                    if (randX >= width)
+                    {
+                        randX = width - 2;
+                    }
+                    break;
+
+                case 1:
+                    randX--;
+                    if (randX < 0)
+                        randX = 0;
+                    break;
+
+                case 2:
+                    randY++;
+                    if (randY >= height)
+                        randY = height - 2;
+                    break;
+
+                case 3:
+                    randY--;
+                    if (randY < 0)
+                        randY = 0;
+                    break;
+            }
+
+            mapData[randX, randY] = new TDTile(TDTypes.TYPE.DIRT, randX, randY);
+            mapData[randX + 1, randY] = new TDTile(TDTypes.TYPE.DIRT, randX + 1, randY);
+            mapData[randX, randY + 1] = new TDTile(TDTypes.TYPE.DIRT, randX, randY + 1);
+            mapData[randX + 1, randY + 1] = new TDTile(TDTypes.TYPE.DIRT, randX + 1, randY + 1);
+        }
+        //Debug.Log("Dirt End");
     }
 }

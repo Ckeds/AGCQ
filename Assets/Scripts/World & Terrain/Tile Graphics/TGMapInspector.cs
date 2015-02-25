@@ -13,6 +13,9 @@ public class TGMapInspector : Editor
         DrawDefaultInspector();
         if (GUILayout.Button("Regenerate"))
         {
+            GameObject[] Resources = GameObject.FindGameObjectsWithTag("Resource");
+            foreach (GameObject g in Resources)
+                DestroyImmediate(g);
             TGMap tm = (TGMap)target;
             tm.BuildMesh();
         }

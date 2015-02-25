@@ -2,11 +2,15 @@
 public class TDTile
 {
     private int intType;
+    public int positionX;
+    public int positionY;
     public TDTypes.TYPE tileType;
 
-    public TDTile(TDTypes.TYPE type = TDTypes.TYPE.GRASS)
+    public TDTile(TDTypes.TYPE type, int posX, int posY)
     {
         tileType = type;
+        positionX = posX;
+        positionY = posY;
         
         switch (type)
         {
