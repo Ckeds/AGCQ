@@ -7,6 +7,8 @@ public class BaseResource : WorldObject {
 	protected int tier;
 	protected Animator anim;
 
+	
+
 
 	// Use this for initialization
 	public override void Start () 
