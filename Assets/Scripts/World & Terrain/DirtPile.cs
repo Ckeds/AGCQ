@@ -20,7 +20,7 @@ public class DirtPile : BaseResource
 		new public void Update ()
 		{
 			anim.SetFloat ("Health", currentHealth);
-			Debug.Log (currentHealth);
+			//Debug.Log (currentHealth);
 			base.Update ();
 		}
 }

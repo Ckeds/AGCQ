@@ -21,7 +21,7 @@ public class SandPile : BaseResource
 		public override void Update ()
 		{
 			anim.SetFloat ("Health", currentHealth);
-			Debug.Log (currentHealth);
+			//Debug.Log (currentHealth);
 			base.Update ();
 		}
 }

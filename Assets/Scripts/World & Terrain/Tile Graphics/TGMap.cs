@@ -27,6 +27,8 @@ public class TGMap : MonoBehaviour
     public GameObject rockPile;
     public GameObject dirtPile;
     public GameObject sandPile;
+	public GameObject tree1;
+	public GameObject tree2;
 
     public List<GameObject> Resources;
 
@@ -219,6 +221,16 @@ public class TGMap : MonoBehaviour
                 break;
 
             case TDTypes.TYPE.FOREST:
+				int randTree = Random.Range(0, 10);
+				if (randTree == 0)
+				{
+					//rock
+					g = (GameObject) Instantiate(tree1, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
+				}
+				else
+				{
+					g = (GameObject) Instantiate(tree2, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
+				}
                 break;
 
             case TDTypes.TYPE.DIRT:

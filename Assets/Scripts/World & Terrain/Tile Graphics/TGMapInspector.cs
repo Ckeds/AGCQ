@@ -9,7 +9,7 @@ public class TGMapInspector : Editor
 
     public override void OnInspectorGUI()
     {
-        //base.OnInspectorGUI();
+       // base.OnInspectorGUI();
         DrawDefaultInspector();
         if (GUILayout.Button("Regenerate"))
         {
