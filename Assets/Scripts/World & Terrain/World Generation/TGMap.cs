@@ -13,12 +13,17 @@ public class TGMap : MonoBehaviour
     public int mapSize = 128;
     public int numRivers = 0;
     public int numLakes = 0;
+    public int desertSize = 25;
+    public int desertDensity = 8000;
+    public int stoneSize = 35;
+    public int stoneDensity = 6000;
 
     public int stonePercent;
     public int sandPercent;
     public int forestPercent;
     public int plainsPercent;
     public int dirtPercent;
+    public bool walkOnWater;
 
     public Texture2D terrainTiles;
     public TDMap map;
@@ -29,6 +34,7 @@ public class TGMap : MonoBehaviour
     public GameObject sandPile;
 	public GameObject tree1;
 	public GameObject tree2;
+    public GameObject waterCollider;
 
     public List<GameObject> Resources;
 
@@ -85,7 +91,7 @@ public class TGMap : MonoBehaviour
 
     void BuildTexture()
     {
-        map = new TDMap(mapSize, mapSize,numRivers,numLakes);
+        map = new TDMap(mapSize, mapSize,numRivers,numLakes, desertSize, desertDensity, stoneSize, stoneDensity);
 
         int texWidth = mapSize * tileResolution;
         int texHeight = mapSize * tileResolution;
@@ -153,7 +159,10 @@ public class TGMap : MonoBehaviour
          {
              if (tile.tileType == TDTypes.TYPE.OCEAN)
              {
-
+                 if (!walkOnWater)
+                 {
+                     placeResource(tile);
+                 }
              }
              else if (tile.tileType == TDTypes.TYPE.FOREST)
              {
@@ -239,6 +248,10 @@ public class TGMap : MonoBehaviour
 
             case TDTypes.TYPE.STONE:
                 g = (GameObject) Instantiate(rockPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);               
+                break;
+
+            case TDTypes.TYPE.OCEAN:
+                g = (GameObject)Instantiate(waterCollider, new Vector3(tile.positionX+.5f, tile.positionY + .5f, 0), Quaternion.identity);
                 break;
 
             default:
