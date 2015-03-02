@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 95: {fileID: 9500000}
   - 58: {fileID: 5800000}
+  - 148: {fileID: 14800000}
   m_Layer: 0
   m_Name: RockResource
   m_TagString: Resource
@@ -80,6 +81,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c18469a9df17f44881149c16513f6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!148 &14800000
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 11400000}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
