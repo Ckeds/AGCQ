@@ -5,7 +5,9 @@ public class BaseItem : MonoBehaviour {
 
 	protected string type;
 	protected int tier;
+	public Color[] colors;
 	protected Animator anim;
+	protected Sprite itemSprite;
 	protected string flavorText;
 
 	// Use this for initialization
