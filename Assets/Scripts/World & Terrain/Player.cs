@@ -50,8 +50,8 @@ public class Player : WorldObject
 
 	//Player Inventory
 	// Player's inventory goes here
-	//Item[] items;
-	//Item[] equipped;
+	public GameObject[] items;
+	GameObject[] equipped;
 
 	// Use this for initialization
 	public override void Start ()
@@ -69,6 +69,8 @@ public class Player : WorldObject
 		{
 			animator.applyRootMotion = false;
 		}
+		items [0].GetComponent<BaseItem>().CreateGUITex ();
+		items [0].GetComponent<BaseItem>().CreateGUITexHover ();
 	}
 
 	void Awake()

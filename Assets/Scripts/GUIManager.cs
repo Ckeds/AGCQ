@@ -7,7 +7,13 @@ public class GUIManager : MonoBehaviour {
 	
 	public enum GUIState {StartScreen, MainMenu, InGame, PauseMenu, CreateGame, 
 		JoinGame, EditProfile, Confirmation, DisplayInfo};
-	
+
+	private Player myPlayer;
+	public Player MyPlayer
+	{
+		get{return myPlayer;}
+		set{myPlayer = value;}
+	}
 	private GUIState currentState = GUIState.StartScreen;
 	public GUIState CurrentState
 	{
@@ -195,7 +201,11 @@ public class GUIManager : MonoBehaviour {
 		case GUIState.PauseMenu:
 			leftPad = (int) (Screen.width / 2 - pauseMenuWidth / 2);
 			topPad = (int) (Screen.height / 2 - pauseMenuHeight / 2);
-			
+			if(myPlayer.items[0] != null)
+			{
+				BaseItem itemScript = myPlayer.items[0].GetComponent<BaseItem>();
+				GUILayout.Box(itemScript.GuiTex, GUILayout.MaxWidth(54), GUILayout.MaxHeight(54));
+			}
 			pauseMenuRect.Set(leftPad, topPad, pauseMenuWidth, pauseMenuHeight);
 			pauseMenuRect = GUILayout.Window ((int)GUIState.PauseMenu, pauseMenuRect, PauseMenuWindow, "Game Menu");
 			
@@ -321,6 +331,7 @@ public class GUIManager : MonoBehaviour {
 		if (GUILayout.Button("Resume Game", GUILayout.Height(pauseButtonHeight)))
 		{
 			currentState = GUIState.InGame;
+			Debug.Log (myPlayer.items[0]);
 		}
 		
 		if (GUILayout.Button("Edit Profile", GUILayout.Height(mainButtonHeight)))
