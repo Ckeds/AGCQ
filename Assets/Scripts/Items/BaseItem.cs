@@ -18,9 +18,12 @@ public class BaseItem : MonoBehaviour {
 	}
 	public Texture2D GuiTexHover
 	{
-		get{ return guiTex;}
+		get{ return guiTexHover;}
 	}
-
+	public Texture2D getThatSprite()
+	{
+		return GetComponent<SpriteRenderer> ().sprite.texture;
+	}
 	// Use this for initialization
 	protected void Start () 
 	{
@@ -35,7 +38,7 @@ public class BaseItem : MonoBehaviour {
 
 	public void CreateGUITex()
 	{
-		SpriteRenderer sr =GetComponent<SpriteRenderer>();
+		SpriteRenderer sr = GetComponent<SpriteRenderer>();
 		Debug.Log (sr);
 		Texture2D tex = sr.sprite.texture;
 		Color[] spriteToDraw = tex.GetPixels();

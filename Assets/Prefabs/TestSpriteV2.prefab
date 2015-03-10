@@ -111,6 +111,15 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   items:
   - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 0}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 0}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
+  - {fileID: 100000, guid: 6563a6a4e454cf34999e527f7104d6f7, type: 2}
 --- !u!148 &14800000
 NetworkView:
   m_ObjectHideFlags: 1

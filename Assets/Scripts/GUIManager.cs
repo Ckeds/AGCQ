@@ -4,6 +4,9 @@ using System.Collections;
 public class GUIManager : MonoBehaviour {
 	
 	public const int DEF_BUTTON_HEIGHT = 40;
+
+	public int chosenByMouse;
+	bool mouseDown;
 	
 	public enum GUIState {StartScreen, MainMenu, InGame, PauseMenu, CreateGame, 
 		JoinGame, EditProfile, Confirmation, DisplayInfo};
@@ -57,7 +60,8 @@ public class GUIManager : MonoBehaviour {
 	private int topPad;
 	private string displayInfo;
 	
-	public Texture2D crosshair;
+	public Texture2D noItem;
+	public Texture2D noItemHover;
 	
 	// Use this for initialization
 	void Start () {
@@ -201,10 +205,60 @@ public class GUIManager : MonoBehaviour {
 		case GUIState.PauseMenu:
 			leftPad = (int) (Screen.width / 2 - pauseMenuWidth / 2);
 			topPad = (int) (Screen.height / 2 - pauseMenuHeight / 2);
-			if(myPlayer.items[0] != null)
+			Event e = Event.current;
+			//Debug.Log("Current detected event: " + e);
+			if(mouseDown)
 			{
-				BaseItem itemScript = myPlayer.items[0].GetComponent<BaseItem>();
-				GUILayout.Box(itemScript.GuiTex, GUILayout.MaxWidth(54), GUILayout.MaxHeight(54));
+				GUI.DrawTexture(new Rect(e.mousePosition.x -23, e.mousePosition.y -23,46,46),
+				                myPlayer.items[chosenByMouse].GetComponent<BaseItem>().getThatSprite());
+			}
+			for (int i = 0; i < myPlayer.items.Length; i++)
+			{
+				float y = 10 + ((i/10) * 55);
+				float x = 10 + ((i%10) * 55);
+				Rect position = new Rect(x, y, 46, 46);
+				if(myPlayer.items[i] != null && myPlayer.items[i].GetComponent<BaseItem>())
+				{
+					if(position.Contains(e.mousePosition))
+					{
+						GUI.DrawTexture(position, myPlayer.items[i].GetComponent<BaseItem>().guiTexHover);
+						if(e.button ==  0 && e.isMouse && 
+						   e.type == EventType.MouseDown && myPlayer.items[i] != null)
+						{
+							Debug.Log("I'm Clicking it!");
+							mouseDown = true;
+							chosenByMouse = i;
+						}
+					}
+					else
+						GUI.DrawTexture(position, myPlayer.items[i].GetComponent<BaseItem>().guiTex);
+				}
+				else
+				{
+					if(position.Contains(Event.current.mousePosition))
+					{
+						GUI.DrawTexture(position, noItemHover);
+					}
+					else
+						GUI.DrawTexture(position, noItem);
+				}
+				if(e.button ==  0 && e.isMouse && e.type == EventType.MouseUp 
+				   && i != chosenByMouse && mouseDown && position.Contains(e.mousePosition))
+				{
+					Debug.Log(myPlayer.items[i]);
+					GameObject tempObject = myPlayer.items[i];
+					Debug.Log (tempObject);
+					myPlayer.items[i] = myPlayer.items[chosenByMouse];
+					myPlayer.items[chosenByMouse] = tempObject;
+					mouseDown = false;
+					chosenByMouse = -1;
+				}
+			}
+			if(e.button ==  0 && e.isMouse && e.type == EventType.MouseUp)
+			{
+				Debug.Log("No longer Clicking");
+				mouseDown = false;
+				chosenByMouse = -1;
 			}
 			pauseMenuRect.Set(leftPad, topPad, pauseMenuWidth, pauseMenuHeight);
 			pauseMenuRect = GUILayout.Window ((int)GUIState.PauseMenu, pauseMenuRect, PauseMenuWindow, "Game Menu");

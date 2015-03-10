@@ -40,13 +40,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da98dbb1ac15214b90ff332f7d9f742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorToDraw: 0
+  colorToDraw: 1
   colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 0, g: 1, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 0, g: .427450985, b: 1, a: 0}
   - {r: .725490212, g: 0, b: 1, a: 0}
-  - {r: 1, g: 1, b: 0, a: 0}
+  - {r: 1, g: .588235319, b: 0, a: 0}
+  guiTex: {fileID: 0}
+  guiTexHover: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
