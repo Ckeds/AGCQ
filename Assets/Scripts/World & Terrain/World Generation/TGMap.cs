@@ -2,132 +2,109 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteInEditMode]
+
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(MeshCollider))]
 
 public class TGMap : MonoBehaviour
 {
-    //public float tileSize = 1.0f;
-    public int mapSize = 128;
-    public int numRivers = 0;
-    public int numLakes = 0;
-    public int desertSize = 25;
-    public int desertDensity = 8000;
-    public int stoneSize = 35;
-    public int stoneDensity = 6000;
-
-    public int stonePercent;
-    public int sandPercent;
-    public int forestPercent;
-    public int plainsPercent;
-    public int dirtPercent;
-    public bool walkOnWater;
 
     public Texture2D terrainTiles;
     public TDMap map;
     private int tileResolution = 64;
-
-    public GameObject rockPile;
-    public GameObject dirtPile;
-    public GameObject sandPile;
-	public GameObject tree1;
-	public GameObject tree2;
-    public GameObject waterCollider;
-
-    public List<GameObject> Resources;
+    int meshSize = 128;
+    int startX;
+    int startY;
+    Material textureMap;
 
 
     // Use this for initialization
+    public void Setup(TDMap mapIn, int xPos, int yPos, Material m)
+    {
+        
+        map = mapIn;
+        startX = xPos;
+        startY = yPos;
+        //Debug.Log("Building a mesh...");
+        textureMap = m;
+        BuildMesh();
+        this.transform.position = new Vector3(startX / (100 * 64), startY / (100 * 64), 1);
+    }
     void Start()
     {
-        if (stonePercent < 0)
-            stonePercent = 0;
-        if (stonePercent > 100)
-            stonePercent = 100;
-
-        if (sandPercent < 0)
-            sandPercent = 0;
-        if (sandPercent > 100)
-            sandPercent = 100;
-
-        if (forestPercent < 0)
-            forestPercent = 0;
-        if (forestPercent > 100)
-            forestPercent = 100;
-
-        if (plainsPercent < 0)
-            plainsPercent = 0;
-        if (plainsPercent > 100)
-            plainsPercent = 100;
-
-        if (dirtPercent < 0)
-            dirtPercent = 0;
-        if (dirtPercent > 100)
-            dirtPercent = 100;
-
-
-        BuildMesh();
+        
     }
+
 
     Color[][] ChopUpTiles()
     {
+        //Debug.Log("Startchopping");
         int numTilesPerRow = (int)(terrainTiles.width / tileResolution);
         int numRows = (int)(terrainTiles.height / tileResolution);
 
         Color[][] tiles = new Color[numTilesPerRow * numRows][];
-
         for (int y = 0; y < numRows; y++)
         {
             for (int x = 0; x < numTilesPerRow; x++)
             {
-                tiles[y * numTilesPerRow + x] = terrainTiles.GetPixels(x * tileResolution, y * tileResolution, tileResolution, tileResolution);
+                tiles[y * numTilesPerRow + x] = terrainTiles.GetPixels((x) * tileResolution, (y) * tileResolution, tileResolution, tileResolution);
             }
         }
 
+       //Debug.Log("End chopping");
         return tiles;
     }
 
-    void BuildTexture()
+    void BuildTexture(TDMap mapInput)
     {
-        map = new TDMap(mapSize, mapSize,numRivers,numLakes, desertSize, desertDensity, stoneSize, stoneDensity);
+        //Debug.Log("Start a Texture");
+        map = mapInput;
 
-        int texWidth = mapSize * tileResolution;
-        int texHeight = mapSize * tileResolution;
+        int texWidth = 128 * tileResolution;
+        int texHeight = 128 * tileResolution;
         Texture2D mapTexture = new Texture2D(texWidth, texHeight);
-
+        
         Color[][] tiles = ChopUpTiles();
 
-        for (int y = 0; y < mapSize; y++)
+        //Debug.Log("Start texture loops");
+        for (int y = startY; y < startY + 128; y++)
         {
-            for (int x = 0; x < mapSize; x++)
+            for (int x = startX; x < startX + 128; x++)
             {
                 Color[] p = tiles[map.GetTileAt(x, y)];
-                mapTexture.SetPixels((int)(x * tileResolution), (int)(y * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
+                mapTexture.SetPixels((int)((x-startX) * tileResolution), (int)((y-startY) * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
+                
             }
         }
+        //Debug.Log("End texture loops");
 
         mapTexture.filterMode = FilterMode.Trilinear;
         mapTexture.wrapMode = TextureWrapMode.Repeat;
         mapTexture.Apply();
 
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
-
+        Material[] mat = mesh_renderer.sharedMaterials;
+        mat[0] = textureMap;
+        Debug.Log(mat[0]);
+        mesh_renderer.sharedMaterials = mat;
+        Debug.Log(mesh_renderer.sharedMaterials[0]);
         mesh_renderer.sharedMaterials[0].mainTexture = mapTexture;
+        //Debug.Log("End a texture");
 
     }
 
      public void BuildMesh()
     {
+        //Debug.Log("Start a mesh");
         Mesh m = new Mesh();
         m.name = "ScriptedMesh";
         m.vertices = new Vector3[] 
         {
-         new Vector3(0, 0, 0),
-         new Vector3(mapSize, 0, 0),
-         new Vector3(mapSize, mapSize, 0),
-         new Vector3(0, mapSize, 0)
+         new Vector3(startX, startY, 0),
+         new Vector3(startX+128, startY, 0),
+         new Vector3(startX+128, startY+128, 0),
+         new Vector3(startX, startY+128, 0)
        };
         m.uv = new Vector2[] 
         {
@@ -148,119 +125,8 @@ public class TGMap : MonoBehaviour
         mesh_filter.mesh = m;
         mesh_collider.sharedMesh = m;
 
-        BuildTexture();
-        placeResources();
+        //Debug.Log("End a mesh");
+        BuildTexture(map);
     }
-
-     public void placeResources()
-     {
-         Resources.Clear();
-         foreach (TDTile tile in map.mapData)
-         {
-             if (tile.tileType == TDTypes.TYPE.OCEAN)
-             {
-                 if (!walkOnWater)
-                 {
-                     placeResource(tile);
-                 }
-             }
-             else if (tile.tileType == TDTypes.TYPE.FOREST)
-             {
-                 int rand = Random.Range(1, 100);
-                 if(rand <=forestPercent)
-                 {
-                     placeResource(tile);
-                 }
-             }
-             else if (tile.tileType == TDTypes.TYPE.DESERT)
-             {
-                 int rand = Random.Range(1, 100);
-                 if (rand <= sandPercent)
-                 {
-                     placeResource(tile);
-                 }
-             }
-             else if (tile.tileType == TDTypes.TYPE.STONE)
-             {
-                 int rand = Random.Range(1, 100);
-                 if (rand <= stonePercent)
-                 {
-                     placeResource(tile);
-                 }
-             }
-             else if (tile.tileType == TDTypes.TYPE.DIRT)
-             {
-                 int rand = Random.Range(1, 100);
-                 if (rand <= dirtPercent)
-                 {
-                     placeResource(tile);
-                 }
-             }
-             else if (tile.tileType == TDTypes.TYPE.GRASS)
-             {
-                 int rand = Random.Range(1, 100);
-                 if (rand <= plainsPercent)
-                 {
-                     placeResource(tile);
-                 }
-             }
-         }
-     }
-
-    public void placeResource(TDTile tile)
-    {
-        GameObject g = null;
-        switch (tile.tileType)
-        {
-            case TDTypes.TYPE.GRASS:
-                int rand = Random.Range(0, 3);
-                if (rand == 0)
-                {
-                    //rock
-                    g = (GameObject) Instantiate(rockPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
-                }
-                else if (rand == 1)
-                {
-                    g = (GameObject) Instantiate(dirtPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
-                }
-                break;
-
-            case TDTypes.TYPE.DESERT:
-                g = (GameObject) Instantiate(sandPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
-                break;
-
-            case TDTypes.TYPE.FOREST:
-				int randTree = Random.Range(0, 10);
-				if (randTree == 0)
-				{
-					//rock
-					g = (GameObject) Instantiate(tree1, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
-				}
-				else
-				{
-					g = (GameObject) Instantiate(tree2, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
-				}
-                break;
-
-            case TDTypes.TYPE.DIRT:
-                g = (GameObject) Instantiate(dirtPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
-                break;
-
-            case TDTypes.TYPE.STONE:
-                g = (GameObject) Instantiate(rockPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);               
-                break;
-
-            case TDTypes.TYPE.OCEAN:
-                g = (GameObject)Instantiate(waterCollider, new Vector3(tile.positionX+.5f, tile.positionY + .5f, 0), Quaternion.identity);
-                break;
-
-            default:
-                break;
-        }
-        if(g != null)
-            Resources.Add(g);
-    }
-    
-
 
 }

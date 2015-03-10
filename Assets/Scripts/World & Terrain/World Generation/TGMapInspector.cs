@@ -2,7 +2,7 @@
 using UnityEngine;
 using System.Collections;
 
-[CustomEditor(typeof(TGMap))]
+[CustomEditor(typeof(WorldGenerator))]
 
 public class TGMapInspector : Editor 
 {
@@ -16,8 +16,20 @@ public class TGMapInspector : Editor
             GameObject[] Resources = GameObject.FindGameObjectsWithTag("Resource");
             foreach (GameObject g in Resources)
                 DestroyImmediate(g);
-            TGMap tm = (TGMap)target;
-            tm.BuildMesh();
+            GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
+            foreach (GameObject g in maps)
+                DestroyImmediate(g);
+            WorldGenerator tm = (WorldGenerator)target;
+            tm.buildWorld();
+        }
+        if (GUILayout.Button("Destroy"))
+        {
+            GameObject[] Resources = GameObject.FindGameObjectsWithTag("Resource");
+            foreach (GameObject g in Resources)
+                DestroyImmediate(g);
+            GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
+            foreach (GameObject g in maps)
+                DestroyImmediate(g);
         }
     }
 }

@@ -6,35 +6,47 @@ public class TDMap
 
    int numRivers;
    int numLakes;
+   int numDeserts;
    int desertSize;
    int desertDensity;
+   int numStones;
    int stoneSize;
    int stoneDensity;
+   int forestDensity;
 
    public TDTile[,] mapData;
 
-    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int desert, int desdense, int stone, int stonedense)
+    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int numDes, int desert, int desdense, int numStone, int stone, int stonedense,int forDense)
     {
         width = mapWidth - 1;
         height = mapHeight - 1;
         numRivers = rivers;
         numLakes = lakes;
+        numDeserts = numDes;
         desertSize = desert;
         desertDensity = desdense;
+        numStones = numStone;
         stoneSize = stone;
         stoneDensity = stonedense;
+        forestDensity = forDense;
 
         mapData = new TDTile[mapWidth, mapHeight];
 
         doGrass();
-        doForest();
-        doForest();
+       for(int i = 0; i < forestDensity; i++)
+       {
+            doForest();
+       }
+
 
         for (int i = 0; i < 75; i++)
         {
             doDirt();
         }
-        doStone();
+        for (int i = 0; i < numStones; i++)
+        {
+            doStone();
+        }
 
         if (numRivers > 0)
         {
@@ -46,7 +58,10 @@ public class TDMap
           for (int i = 0; i < numLakes; i++)
               doLake();
         }
-        doDesert();
+        for (int i = 0; i < numDeserts; i++)
+        {
+            doDesert();
+        }
     }
 
     public int GetTileAt(int x, int y)
@@ -187,8 +202,8 @@ public class TDMap
     void doDesert()
     {
         //Debug.Log("Desert Start");
-        int randX = Random.Range(90, 100);
-        int randY = Random.Range(90, 100);
+        int randX = Random.Range(0,width);
+        int randY = Random.Range(0,height);
         int maxDist = desertSize;
         int startPointX = randX;
         int startPointY = randY;
@@ -250,8 +265,8 @@ public class TDMap
     void doStone()
     {
         //Debug.Log("Stone Start");
-        int randX = Random.Range(90, 100);
-        int randY = Random.Range(15, 50);
+        int randX = Random.Range(0, width);
+        int randY = Random.Range(0, height);
         int maxDist = stoneSize;
         int startPointX = randX;
         int startPointY = randY;
@@ -312,8 +327,8 @@ public class TDMap
     void doForest()
     {
         //Debug.Log("Forest Start");
-        int randX = Random.Range(5, 120);
-        int randY = Random.Range(5, 120);
+        int randX = Random.Range(0, width);
+        int randY = Random.Range(0, height);
 
         mapData[randX, randY] = new TDTile(TDTypes.TYPE.FOREST,randX,randY);
         for (int i = 0; i < 20000; i++)
