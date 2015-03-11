@@ -172,16 +172,29 @@ public class WorldGenerator : MonoBehaviour
                 if (rand == 0)
                 {
                     //rock
-                    g = (GameObject)Instantiate(rockPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
+                    g = (GameObject)Instantiate(rockPile, new Vector3(tile.positionX +.5f, tile.positionY +.5f, 0), Quaternion.identity);
                 }
                 else if (rand == 1)
                 {
-                    g = (GameObject)Instantiate(dirtPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
+                    g = (GameObject)Instantiate(dirtPile, new Vector3(tile.positionX + .5f, tile.positionY + .5f, 0), Quaternion.identity);
+                }
+                else if (rand == 2)
+                {
+                    int randTreeA = Random.Range(0, 10);
+                    if (randTreeA == 0)
+                    {
+                        //rock
+                        g = (GameObject)Instantiate(tree1, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
+                    }
+                    else
+                    {
+                        g = (GameObject)Instantiate(tree2, new Vector3(tile.positionX + 0.5f, tile.positionY, 0), Quaternion.identity);
+                    }
                 }
                 break;
 
             case TDTypes.TYPE.DESERT:
-                g = (GameObject)Instantiate(sandPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
+                g = (GameObject)Instantiate(sandPile, new Vector3(tile.positionX + .5f, tile.positionY + .5f, 0), Quaternion.identity);
                 break;
 
             case TDTypes.TYPE.FOREST:
@@ -198,11 +211,11 @@ public class WorldGenerator : MonoBehaviour
                 break;
 
             case TDTypes.TYPE.DIRT:
-                g = (GameObject)Instantiate(dirtPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
+                g = (GameObject)Instantiate(dirtPile, new Vector3(tile.positionX + .5f, tile.positionY + .5f, 0), Quaternion.identity);
                 break;
 
             case TDTypes.TYPE.STONE:
-                g = (GameObject)Instantiate(rockPile, new Vector3(tile.positionX, tile.positionY + 1, 0), Quaternion.identity);
+                g = (GameObject)Instantiate(rockPile, new Vector3(tile.positionX + .5f, tile.positionY + .5f, 0), Quaternion.identity);
                 break;
 
             case TDTypes.TYPE.OCEAN:

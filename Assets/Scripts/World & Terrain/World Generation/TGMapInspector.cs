@@ -22,13 +22,19 @@ public class TGMapInspector : Editor
             WorldGenerator tm = (WorldGenerator)target;
             tm.buildWorld();
         }
-        if (GUILayout.Button("Destroy"))
+        if (GUILayout.Button("Destroy All"))
         {
             GameObject[] Resources = GameObject.FindGameObjectsWithTag("Resource");
             foreach (GameObject g in Resources)
                 DestroyImmediate(g);
             GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
             foreach (GameObject g in maps)
+                DestroyImmediate(g);
+        }
+        if (GUILayout.Button("Clear Objects"))
+        {
+            GameObject[] Resources = GameObject.FindGameObjectsWithTag("Resource");
+            foreach (GameObject g in Resources)
                 DestroyImmediate(g);
         }
     }
