@@ -62,7 +62,6 @@ public class GUIManager : MonoBehaviour {
 	
 	public Texture2D noItem;
 	public Texture2D noItemHover;
-	
 	// Use this for initialization
 	void Start () {
 		nwm = gameObject.GetComponent<NetworkManager>();
@@ -214,9 +213,9 @@ public class GUIManager : MonoBehaviour {
 			}
 			for (int i = 0; i < myPlayer.items.Length; i++)
 			{
-				float y = 10 + ((i/10) * 55);
-				float x = 10 + ((i%10) * 55);
-				Rect position = new Rect(x, y, 46, 46);
+				float y = 10 + ((i/10) * 85);
+				float x = 10 + ((i%10) * 85);
+				Rect position = new Rect(x, y, 76, 76);
 				if(myPlayer.items[i] != null && myPlayer.items[i].GetComponent<BaseItem>())
 				{
 					if(position.Contains(e.mousePosition))
@@ -225,7 +224,7 @@ public class GUIManager : MonoBehaviour {
 						if(e.button ==  0 && e.isMouse && 
 						   e.type == EventType.MouseDown && myPlayer.items[i] != null)
 						{
-							Debug.Log("I'm Clicking it!");
+							//Debug.Log("I'm Clicking it!");
 							mouseDown = true;
 							chosenByMouse = i;
 						}
@@ -245,7 +244,7 @@ public class GUIManager : MonoBehaviour {
 				if(e.button ==  0 && e.isMouse && e.type == EventType.MouseUp 
 				   && i != chosenByMouse && mouseDown && position.Contains(e.mousePosition))
 				{
-					Debug.Log(myPlayer.items[i]);
+					//Debug.Log(myPlayer.items[i]);
 					GameObject tempObject = myPlayer.items[i];
 					Debug.Log (tempObject);
 					myPlayer.items[i] = myPlayer.items[chosenByMouse];

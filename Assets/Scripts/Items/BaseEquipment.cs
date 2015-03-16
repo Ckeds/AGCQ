@@ -13,7 +13,7 @@ public class BaseEquipment : BaseItem {
 	}
 	
 	// Update is called once per frame
-	new public void Update () 
+	public void Update () 
 	{
 		
 	}

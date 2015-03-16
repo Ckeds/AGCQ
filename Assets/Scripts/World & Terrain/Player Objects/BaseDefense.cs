@@ -8,9 +8,9 @@ public class BaseDefense : WorldObject
         isDamageable = true;
 
     }
-    public override void Update()
+    public void Update()
     {
-        base.Update();
+        //base.Update();
     }
     public void Build()
     {

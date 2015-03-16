@@ -11,13 +11,13 @@ public class BaseResource : WorldObject {
 	public override void Start () 
 	{
 		isDamageable = true;
+		//Debug.Log ("I did it");
 
 	}
-	public override void Update ()
+	public override void TakeDamage (int damageTaken)
 	{
-		base.Update ();
+		base.TakeDamage (damageTaken);
 	}
-
 	public void Collect()
 	{
 

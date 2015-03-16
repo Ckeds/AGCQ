@@ -66,6 +66,7 @@ public class TDMap
 
     public int GetTileAt(int x, int y)
     {
+		//Debug.Log (x + ", " + y);
         int returnType = mapData[x, y].GetIntType();
         return returnType;
     }

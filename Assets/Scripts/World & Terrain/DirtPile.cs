@@ -17,11 +17,11 @@ public class DirtPile : BaseResource
 		}
 	
 		// Update is called once per frame
-		new public void Update ()
+		public override void TakeDamage (int damageTaken)
 		{
+			base.TakeDamage (damageTaken);
 			anim.SetFloat ("Health", currentHealth);
 			//Debug.Log (currentHealth);
-			base.Update ();
 		}
 }
 
