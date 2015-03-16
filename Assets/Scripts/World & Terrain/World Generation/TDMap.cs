@@ -374,8 +374,8 @@ public class TDMap
     void doDirt()
     {
         //Debug.Log("Dirt Start");
-        int randX = Random.Range(5, 120);
-        int randY = Random.Range(5, 120);
+        int randX = Random.Range(5, width - 5);
+        int randY = Random.Range(5, height - 5);
 
         mapData[randX, randY] = new TDTile(TDTypes.TYPE.DIRT, randX, randY);
         for (int i = 0; i < 15; i++)

@@ -14,10 +14,13 @@ public class SandPile : BaseResource
 			currentHealth = 10;
 			anim.SetFloat ("Health", currentHealth);
 			base.Start ();
-
+			Debug.Log (this.transform.position);
 		}
 	
-		// Update is called once per frame
+		public void Update()
+		{
+			Debug.Log (this.transform.position);
+		}
 		public override void TakeDamage (int damageTaken)
 		{
 			base.TakeDamage (damageTaken);
