@@ -47,11 +47,10 @@ public class Enemy : WorldObject {
 	}
 	
 	// Update is called once per frame
-	public override void Update () 
+	public void Update () 
 	{
 		counter += Time.deltaTime;
 		Move ();
-		base.Update ();
 	}
 	void Move()
 	{

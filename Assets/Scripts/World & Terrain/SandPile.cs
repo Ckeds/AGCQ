@@ -18,11 +18,11 @@ public class SandPile : BaseResource
 		}
 	
 		// Update is called once per frame
-		public override void Update ()
+		public override void TakeDamage (int damageTaken)
 		{
+			base.TakeDamage (damageTaken);
 			anim.SetFloat ("Health", currentHealth);
 			//Debug.Log (currentHealth);
-			base.Update ();
 		}
 }
 

@@ -31,7 +31,7 @@ public class BaseItem : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected void Update () 
+	protected void Awake () 
 	{
 		CreateGUITex ();
 	}

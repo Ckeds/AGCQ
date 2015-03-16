@@ -9,10 +9,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
-  - 61: {fileID: 6100000}
   - 114: {fileID: 11400000}
   - 95: {fileID: 9500000}
   - 148: {fileID: 14800000}
+  - 60: {fileID: 6000000}
   m_Layer: 0
   m_Name: SandResource
   m_TagString: Resource
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.07959032, y: -1.50786829, z: 0}
+  m_LocalPosition: {x: 1.7461015, y: 1.71775866, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!61 &6100000
-BoxCollider2D:
+--- !u!60 &6000000
+PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -41,8 +41,31 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Size: {x: .800000012, y: .5}
-  m_Center: {x: 0, y: -.200000003}
+  m_Poly:
+    m_Paths:
+    - - {x: .579999983, y: -.209999993}
+      - {x: .610000014, y: -.150000006}
+      - {x: .610000014, y: -.0700000003}
+      - {x: .600000024, y: -.0399999991}
+      - {x: .519999981, y: .0199999996}
+      - {x: .340000004, y: .280000001}
+      - {x: .239999995, y: .360000014}
+      - {x: .00999999978, y: .360000014}
+      - {x: -.0299999993, y: .340000004}
+      - {x: -.300000012, y: .0799999982}
+      - {x: -.560000002, y: -.0399999991}
+      - {x: -.610000014, y: -.119999997}
+      - {x: -.560000002, y: -.170000002}
+      - {x: -.620000005, y: -.289999992}
+      - {x: -.620000005, y: -.360000014}
+      - {x: -.600000024, y: -.400000006}
+      - {x: -.340000004, y: -.379999995}
+      - {x: -.189999998, y: -.5}
+      - {x: .00999999978, y: -.550000012}
+      - {x: .300000012, y: -.550000012}
+      - {x: .49000001, y: -.430000007}
+      - {x: .610000014, y: -.319999993}
+      - {x: .610000014, y: -.270000011}
 --- !u!95 &9500000
 Animator:
   serializedVersion: 3
@@ -101,7 +124,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300024, guid: 5b9f3a58823e557448196ac799aa38a0, type: 3}
+  m_Sprite: {fileID: 21300010, guid: 36231abd301ff8245ba8079cbdb8622b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

@@ -10,9 +10,10 @@ public class SpawnManager : MonoBehaviour {
 	
 	private GameObject[] spawnPoints;
 	private float timer = 0;
+	private float timerUpdate = 0;
 	public float enemyFrequency = 4;
 	private bool spawnEnemies = false;
-	private int maxEnemies = 300;
+	private int maxEnemies = 25;
 	private int spawned;
 	public int Swapned
 	{
@@ -51,6 +52,7 @@ public class SpawnManager : MonoBehaviour {
 	void Update () 
 	{
 		timer += Time.deltaTime;
+		timerUpdate += Time.deltaTime;
 		if (timer > enemyFrequency)
 		{
 			timer = 0;
@@ -59,10 +61,11 @@ public class SpawnManager : MonoBehaviour {
 				SpawnEnemy();
 			}
 		}
-		if (spawnEnemies)
+		if (spawnEnemies && timerUpdate >= 1)
 		{
 			score = 1/Time.deltaTime;
 			score = (int)score;
+			timerUpdate = 0;
 		}
 	}
 	

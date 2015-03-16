@@ -13,6 +13,7 @@ public class Player : WorldObject
 
 	//Player
 	public GameObject player;
+	public GameObject itemFab;
 
 	//Animator
 	Animator animator;
@@ -69,8 +70,19 @@ public class Player : WorldObject
 		{
 			animator.applyRootMotion = false;
 		}
-		items [0].GetComponent<BaseItem>().CreateGUITex ();
-		items [0].GetComponent<BaseItem>().CreateGUITexHover ();
+		items [0] = (GameObject)Instantiate (itemFab);
+		items [0].hideFlags = HideFlags.HideInHierarchy;
+		//Destroy (items [0]);
+		for (int i = 0; i < items.Length; i++)
+		{
+			if(items[i] != null)
+			{
+				items [i].GetComponent<BaseItem>().colorToDraw = Random.Range(0,5);
+				Debug.Log(items [i].GetComponent<BaseItem>().colorToDraw);
+				items [i].GetComponent<BaseItem>().CreateGUITex ();
+				items [i].GetComponent<BaseItem>().CreateGUITexHover ();
+			}
+		}
 	}
 
 	void Awake()
@@ -81,9 +93,8 @@ public class Player : WorldObject
 	}
 
 	// Update is called once per frame
-	public override void Update ()
+	public void Update ()
 	{
-		base.Update ();
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			//check for item or weapon here

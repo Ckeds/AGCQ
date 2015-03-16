@@ -26,13 +26,12 @@ public class TreeScript : BaseResource {
 	}
 	
 	// Update is called once per frame
-	public override void Update () 
+	public void Update () 
 	{
 		growthTimer = Time.time - Time.deltaTime;
 		if (startGrown)
 			growthTimer += 500;
 		anim.SetFloat ("Time", growthTimer);
-		base.Update ();
 		//Debug.Log (growthTimer);
 	}
 }

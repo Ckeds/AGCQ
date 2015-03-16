@@ -72,7 +72,7 @@ public class WorldGenerator : MonoBehaviour
         if (dirtPercent > 100)
             dirtPercent = 100;
 
-        //buildWorld();
+        buildWorld();
 
 
 
@@ -101,7 +101,7 @@ public class WorldGenerator : MonoBehaviour
                 //Debug.Log(this.GetComponent<MeshRenderer>().sharedMaterials[(y * mapSize) + x]);
                 g = (GameObject)Instantiate(TGmapPrefab);
                // Debug.Log("calling Setup");
-                g.GetComponent<TGMap>().Setup(map, x*128, y*128, this.GetComponent<MeshRenderer>().sharedMaterials[(y*mapSize) + x]);
+				g.GetComponent<TGMap>().Setup(map, x*meshSize, y*meshSize, this.GetComponent<MeshRenderer>().sharedMaterials[(y*mapSize) + x], meshSize);
                 //Debug.Log("End inner loop");
             }
         }

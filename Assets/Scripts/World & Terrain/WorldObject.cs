@@ -13,14 +13,6 @@ public class WorldObject : MonoBehaviour
 	{
 		isDamageable = false;
 	}
-	
-	// Update is called once per frame
-	public virtual void Update () 
-	{
-		//Debug.Log (currentHealth);
-		if (currentHealth <= 0)
-					OnDeath ();
-	}
 
 	public virtual void Move(float XMove, float YMove)
 	{
@@ -29,15 +21,20 @@ public class WorldObject : MonoBehaviour
 	}
 	public virtual void TakeDamage(int damageTaken)
 	{
-		//Debug.Log ("I SHOULD DO THIS");
+		Debug.Log ("I SHOULD DO THIS");
 		//Debug.Log (currentHealth);
 		if (isDamageable)
 			currentHealth -= damageTaken;
+		if (currentHealth <= 0)
+			OnDeath ();
 	}
 	public virtual void OnDeath()
 	{
-		Destroy (this.gameObject);
-		Network.Destroy(this.gameObject);
+		if(this.GetComponent<NetworkView>())
+		{
+			Network.Destroy (this.gameObject);
+		}
+		Destroy(this.gameObject);
 	}
 
 

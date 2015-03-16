@@ -7,6 +7,7 @@ public class RockPile : BaseResource
 	// Use this for initialization
 	new public void Start ()
 	{
+		//Debug.Log ("I DID THIS TOO");
 		type = "rock";
 		tier = 1;
 		anim = GetComponent<Animator>();
@@ -17,11 +18,12 @@ public class RockPile : BaseResource
 	}
 		
 	// Update is called once per frame
-	public override void Update ()
+	public override void TakeDamage (int damageTaken)
 	{
+		Debug.Log ("DOING WORK");
+		base.TakeDamage (damageTaken);
 		anim.SetFloat ("Health", currentHealth);
-		//Debug.Log (currentHealth);
-		base.Update ();
+		Debug.Log (currentHealth);
 	}
 }
 

@@ -20,7 +20,7 @@ public class TGMap : MonoBehaviour
 
 
     // Use this for initialization
-    public void Setup(TDMap mapIn, int xPos, int yPos, Material m)
+    public void Setup(TDMap mapIn, int xPos, int yPos, Material m, int mesh)
     {
         
         map = mapIn;
@@ -28,6 +28,7 @@ public class TGMap : MonoBehaviour
         startY = yPos;
         //Debug.Log("Building a mesh...");
         textureMap = m;
+		meshSize = mesh;
         BuildMesh();
         this.transform.position = new Vector3(startX / (100 * 64), startY / (100 * 64), 1);
     }
@@ -61,17 +62,17 @@ public class TGMap : MonoBehaviour
         //Debug.Log("Start a Texture");
         map = mapInput;
 
-        int texWidth = 128 * tileResolution;
-        int texHeight = 128 * tileResolution;
+        int texWidth = meshSize * tileResolution;
+		int texHeight = meshSize * tileResolution;
         Texture2D mapTexture = new Texture2D(texWidth, texHeight);
         
         Color[][] tiles = ChopUpTiles();
 
         //Debug.Log("Start texture loops");
-        for (int y = startY; y < startY + 128; y++)
+		for (int y = startY; y < startY + meshSize; y++)
         {
-            for (int x = startX; x < startX + 128; x++)
-            {
+			for (int x = startX; x < startX + meshSize; x++)
+			{
                 Color[] p = tiles[map.GetTileAt(x, y)];
                 mapTexture.SetPixels((int)((x-startX) * tileResolution), (int)((y-startY) * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
                 
@@ -80,7 +81,7 @@ public class TGMap : MonoBehaviour
         //Debug.Log("End texture loops");
 
         mapTexture.filterMode = FilterMode.Trilinear;
-        mapTexture.wrapMode = TextureWrapMode.Repeat;
+        mapTexture.wrapMode = TextureWrapMode.Clamp;
         mapTexture.Apply();
 
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
@@ -88,7 +89,7 @@ public class TGMap : MonoBehaviour
         mat[0] = textureMap;
         //Debug.Log(mat[0]);
         mesh_renderer.sharedMaterials = mat;
-       // Debug.Log(mesh_renderer.sharedMaterials[0]);
+        //Debug.Log(mesh_renderer.sharedMaterials[0]);
         mesh_renderer.sharedMaterials[0].mainTexture = mapTexture;
         //Debug.Log("End a texture");
 
@@ -102,9 +103,9 @@ public class TGMap : MonoBehaviour
         m.vertices = new Vector3[] 
         {
          new Vector3(startX, startY, 0),
-         new Vector3(startX+128, startY, 0),
-         new Vector3(startX+128, startY+128, 0),
-         new Vector3(startX, startY+128, 0)
+         new Vector3(startX+meshSize, startY, 0),
+         new Vector3(startX+meshSize, startY+meshSize, 0),
+         new Vector3(startX, startY+meshSize, 0)
        };
         m.uv = new Vector2[] 
         {
