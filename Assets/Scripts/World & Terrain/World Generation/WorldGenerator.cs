@@ -98,7 +98,7 @@ public class WorldGenerator : MonoBehaviour
             for (int x = 0; x < mapSize; x++)
             {
                 //Debug.Log("start inner loop");
-                Debug.Log(this.GetComponent<MeshRenderer>().sharedMaterials[(y * mapSize) + x]);
+                //Debug.Log(this.GetComponent<MeshRenderer>().sharedMaterials[(y * mapSize) + x]);
                 g = (GameObject)Instantiate(TGmapPrefab);
                // Debug.Log("calling Setup");
                 g.GetComponent<TGMap>().Setup(map, x*128, y*128, this.GetComponent<MeshRenderer>().sharedMaterials[(y*mapSize) + x]);

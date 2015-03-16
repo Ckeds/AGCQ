@@ -82,8 +82,8 @@ public class TDMap
     void doLake()
     {
         //Debug.Log("Lake Start");
-        int randX = Random.Range(5, 120);
-        int randY = Random.Range(5, 120);
+        int randX = Random.Range(0, width);
+        int randY = Random.Range(0, height);
         mapData[randX, randY] = new TDTile(TDTypes.TYPE.OCEAN, randX, randY);
         for (int i = 0; i < 3000; i++)
         {
@@ -129,25 +129,25 @@ public class TDMap
         //Debug.Log("River Start");
         int startXMin = 5;
         int startYMin = 5;
-        int startXMax = 120;
-        int startYMax = 120;
+        int startXMax = width-5;
+        int startYMax = height-5;
         int ignore = Random.Range(0, 4);
         switch (ignore)
         {
             case 0:
-                startXMin = 80;
+                startXMin = 30;
                 break;
 
             case 1:
-                startXMax = 50;
+                startXMax = width-30;
                 break;
 
             case 2:
-                startYMin = 80;
+                startYMin = 30;
                 break;
 
             case 3:
-                startYMax = 50;
+                startYMax = height-30;
                 break;
         }
         int randX = Random.Range(startXMin, startXMax);

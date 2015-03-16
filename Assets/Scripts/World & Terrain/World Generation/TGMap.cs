@@ -86,9 +86,9 @@ public class TGMap : MonoBehaviour
         MeshRenderer mesh_renderer = GetComponent<MeshRenderer>();
         Material[] mat = mesh_renderer.sharedMaterials;
         mat[0] = textureMap;
-        Debug.Log(mat[0]);
+        //Debug.Log(mat[0]);
         mesh_renderer.sharedMaterials = mat;
-        Debug.Log(mesh_renderer.sharedMaterials[0]);
+       // Debug.Log(mesh_renderer.sharedMaterials[0]);
         mesh_renderer.sharedMaterials[0].mainTexture = mapTexture;
         //Debug.Log("End a texture");
 
