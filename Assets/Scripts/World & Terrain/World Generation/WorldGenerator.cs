@@ -195,7 +195,6 @@ public class WorldGenerator : MonoBehaviour
 
             case TDTypes.TYPE.DESERT:
                 g = (GameObject)Instantiate(sandPile, new Vector3(tile.positionX + .5f, tile.positionY + .5f, 0), Quaternion.identity);
-				Debug.Log (g.transform.position);
                 break;
 
             case TDTypes.TYPE.FOREST:

@@ -16,11 +16,7 @@ public class SandPile : BaseResource
 			base.Start ();
 			Debug.Log (this.transform.position);
 		}
-	
-		public void Update()
-		{
-			Debug.Log (this.transform.position);
-		}
+
 		public override void TakeDamage (int damageTaken)
 		{
 			base.TakeDamage (damageTaken);
