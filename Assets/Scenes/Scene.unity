@@ -150,23 +150,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 0
+  mapSize: 4
   meshSize: 64
-  numRivers: 0
-  numLakes: 0
+  numRivers: 5
+  numLakes: 3
   forestDensity: 5
-  numDeserts: 1
+  numDeserts: 3
   desertSize: 25
   desertDensity: 4000
-  numStone: 2
+  numStone: 3
   stoneSize: 35
   stoneDensity: 6000
   stonePercent: 0
-  sandPercent: 1
+  sandPercent: 0
   forestPercent: 0
   plainsPercent: 0
   dirtPercent: 0
-  walkOnWater: 0
+  walkOnWater: 1
   terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
   rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
   dirtPile: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
@@ -369,7 +369,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
 --- !u!1 &1121917809
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,7 +522,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: mapSize
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_Materials.Array.data[9]
@@ -594,7 +594,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: sandPercent
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: forestPercent
@@ -610,7 +610,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: numRivers
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: Resources.Array.data[0]
@@ -47718,7 +47718,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: numLakes
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: desertDensity
@@ -51190,12 +51190,20 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: numDeserts
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: sandPile
       value: 
       objectReference: {fileID: 119152, guid: 56ed4a9e0ff862b48b8949582d3eb4ae, type: 2}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: numStone
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: walkOnWater
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
   m_RootGameObject: {fileID: 632808572}
@@ -51393,4 +51401,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(MeshCollider))]
 
 public class TGMap : MonoBehaviour
 {
@@ -124,7 +123,6 @@ public class TGMap : MonoBehaviour
         MeshCollider mesh_collider = GetComponent<MeshCollider>();
 
         mesh_filter.mesh = m;
-        mesh_collider.sharedMesh = m;
 
         //Debug.Log("End a mesh");
         BuildTexture(map);
