@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour {
 	private float timerUpdate = 0;
 	public float enemyFrequency = 4;
 	private bool spawnEnemies = false;
-	private int maxEnemies = 25;
+	private int maxEnemies = 300;
 	private int spawned;
 	public int Swapned
 	{

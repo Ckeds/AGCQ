@@ -14,6 +14,7 @@ public class Player : WorldObject
 	//Player
 	public GameObject player;
 	public GameObject itemFab;
+    public GameObject testParticle;
 
 	//Animator
 	Animator animator;
@@ -95,9 +96,12 @@ public class Player : WorldObject
 	// Update is called once per frame
 	public void Update ()
 	{
+        GameObject g = null;
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			//check for item or weapon here
+            g = (GameObject)Instantiate(testParticle);
+            g.GetComponent<BaseProjectile>().Setup(this.gameObject);
 			
 		}
 		//Debug.Log (1 / Time.deltaTime);

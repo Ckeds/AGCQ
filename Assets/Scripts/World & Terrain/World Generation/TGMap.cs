@@ -120,7 +120,6 @@ public class TGMap : MonoBehaviour
 
         // Assign our mesh to our filter/renderer/collider
         MeshFilter mesh_filter = GetComponent<MeshFilter>();
-        MeshCollider mesh_collider = GetComponent<MeshCollider>();
 
         mesh_filter.mesh = m;
 
