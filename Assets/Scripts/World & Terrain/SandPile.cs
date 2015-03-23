@@ -14,7 +14,6 @@ public class SandPile : BaseResource
 			currentHealth = 10;
 			anim.SetFloat ("Health", currentHealth);
 			base.Start ();
-			Debug.Log (this.transform.position);
 		}
 
 		public override void TakeDamage (int damageTaken)

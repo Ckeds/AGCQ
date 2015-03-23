@@ -25,8 +25,8 @@ public class Player : WorldObject
 	float h = 0f;
 	float previousV = 0f;
 	float previousH = 0f;
-	float scale = 4f;
-	float scaleSprint = 6f;
+	float scale = 2f;
+	float scaleSprint = 4f;
 
 	//Sync varibles
 	float syncDelay = 0f;
@@ -188,6 +188,8 @@ public class Player : WorldObject
 			rigidbody2D.AddForce (-previousForce * 2);
 			if (charSpeed <= .1f) {
 				rigidbody2D.velocity = new Vector2(0,0);
+				previousH = 0;
+				previousV = 0;
 			}
 		}
 		animator.SetFloat ("charSpeed", charSpeed);

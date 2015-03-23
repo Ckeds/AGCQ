@@ -11,7 +11,6 @@ public class TGMap : MonoBehaviour
 
     public Texture2D terrainTiles;
     public TDMap map;
-    private int tileResolution = 64;
     int meshSize = 128;
     int startX;
     int startY;
@@ -19,25 +18,23 @@ public class TGMap : MonoBehaviour
 
 
     // Use this for initialization
-    public void Setup(TDMap mapIn, int xPos, int yPos, Material m, int mesh)
+    public void Setup(int xPos, int yPos, Material m, int mesh)
     {
-        
-        map = mapIn;
         startX = xPos;
         startY = yPos;
         //Debug.Log("Building a mesh...");
         textureMap = m;
 		meshSize = mesh;
         BuildMesh();
-        this.transform.position = new Vector3(startX / (100 * 64), startY / (100 * 64), 1);
-    }
+		this.transform.position = new Vector3((xPos / (100 * 64)), (yPos / (100 * 64)), 1);
+	}
     void Start()
     {
         
     }
 
 
-    Color[][] ChopUpTiles()
+    /*Color[][] ChopUpTiles()
     {
         //Debug.Log("Startchopping");
         int numTilesPerRow = (int)(terrainTiles.width / tileResolution);
@@ -92,7 +89,7 @@ public class TGMap : MonoBehaviour
         mesh_renderer.sharedMaterials[0].mainTexture = mapTexture;
         //Debug.Log("End a texture");
 
-    }
+    }*/
 
      public void BuildMesh()
     {
@@ -122,9 +119,9 @@ public class TGMap : MonoBehaviour
         MeshFilter mesh_filter = GetComponent<MeshFilter>();
 
         mesh_filter.mesh = m;
-
+		GetComponent<MeshRenderer>().sharedMaterial = textureMap;
         //Debug.Log("End a mesh");
-        BuildTexture(map);
+        //BuildTexture(map);
     }
 
 }

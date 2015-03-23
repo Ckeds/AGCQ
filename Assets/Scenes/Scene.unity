@@ -157,15 +157,15 @@ MonoBehaviour:
   forestDensity: 5
   numDeserts: 3
   desertSize: 25
-  desertDensity: 4000
+  desertDensity: 8000
   numStone: 3
   stoneSize: 35
   stoneDensity: 6000
-  stonePercent: 0
-  sandPercent: 0
-  forestPercent: 0
-  plainsPercent: 0
-  dirtPercent: 0
+  stonePercent: 15
+  sandPercent: 10
+  forestPercent: 30
+  plainsPercent: 2
+  dirtPercent: 4
   walkOnWater: 1
   terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
   rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
@@ -175,7 +175,43 @@ MonoBehaviour:
   tree2: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
   waterCollider: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
   TGmapPrefab: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
-  Resources: []
+  tileMapLocations:
+  - {x: -64, y: -64}
+  - {x: 0, y: -64}
+  - {x: 64, y: -64}
+  - {x: 128, y: -64}
+  - {x: 192, y: -64}
+  - {x: 256, y: -64}
+  - {x: -64, y: 0}
+  - {x: 0, y: 0}
+  - {x: 64, y: 0}
+  - {x: 128, y: 0}
+  - {x: 192, y: 0}
+  - {x: 256, y: 0}
+  - {x: -64, y: 64}
+  - {x: 0, y: 64}
+  - {x: 64, y: 64}
+  - {x: 128, y: 64}
+  - {x: 192, y: 64}
+  - {x: 256, y: 64}
+  - {x: -64, y: 128}
+  - {x: 0, y: 128}
+  - {x: 64, y: 128}
+  - {x: 128, y: 128}
+  - {x: 192, y: 128}
+  - {x: 256, y: 128}
+  - {x: -64, y: 192}
+  - {x: 0, y: 192}
+  - {x: 64, y: 192}
+  - {x: 128, y: 192}
+  - {x: 192, y: 192}
+  - {x: 256, y: 192}
+  - {x: -64, y: 256}
+  - {x: 0, y: 256}
+  - {x: 64, y: 256}
+  - {x: 128, y: 256}
+  - {x: 192, y: 256}
+  - {x: 256, y: 256}
 --- !u!23 &632808574
 Renderer:
   m_ObjectHideFlags: 0
@@ -241,11 +277,11 @@ Transform:
   m_PrefabInternal: {fileID: 1312458095}
   m_GameObject: {fileID: 632808572}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.600143, y: 53.0868187, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &969174462
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +366,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!114 &969174468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,7 +468,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
 --- !u!1001 &1312458095
 Prefab:
   m_ObjectHideFlags: 0
@@ -448,13 +484,17 @@ Prefab:
       propertyPath: m_Materials.Array.size
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.size
+      value: 36
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 144.600143
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 53.0868187
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_LocalPosition.z
@@ -478,7 +518,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 10376
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: m_Materials.Array.data[0]
@@ -590,23 +630,23 @@ Prefab:
       objectReference: {fileID: 2100000, guid: d72ad44f4d5d6054e96e16fedc04cf92, type: 2}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: stonePercent
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: sandPercent
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: forestPercent
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: plainsPercent
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: dirtPercent
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: numRivers
@@ -47722,7 +47762,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: desertDensity
-      value: 4000
+      value: 8000
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: Resources.Array.data[11776]
@@ -51204,6 +51244,286 @@ Prefab:
       propertyPath: walkOnWater
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: forestDensity
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[2].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[3].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[4].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[5].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[5].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[6].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[6].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[7].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[7].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[8].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[9].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[9].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[10].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[10].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[11].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[11].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[12].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[13].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[13].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[14].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[14].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[15].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[15].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[0].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[0].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[1].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[2].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[3].y
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[4].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[8].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[12].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[16].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[16].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[17].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[17].y
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[18].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[18].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[19].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[20].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[20].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[21].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[21].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[22].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[22].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[23].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[23].y
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[24].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[24].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[25].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[26].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[26].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[27].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[27].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[28].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[28].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[29].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[29].y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[30].x
+      value: -64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[30].y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[31].y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[32].x
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[32].y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[33].x
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[33].y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[34].x
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[34].y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[35].x
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
+      propertyPath: tileMapLocations.Array.data[35].y
+      value: 256
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
   m_RootGameObject: {fileID: 632808572}
@@ -51256,6 +51576,14 @@ Prefab:
       propertyPath: m_ViewID.m_Type
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: noItem
+      value: 
+      objectReference: {fileID: 2800000, guid: 88672c89b8083274fbd76f99bbccff73, type: 3}
+    - target: {fileID: 11400004, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: noItemHover
+      value: 
+      objectReference: {fileID: 2800000, guid: c43ef4f6599c8f944ad115d0a4815658, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
   m_RootGameObject: {fileID: 2101623057}
@@ -51388,8 +51716,8 @@ MonoBehaviour:
     height: 0
   editProfileWidth: 320
   editProfileHeight: 200
-  noItem: {fileID: 0}
-  noItemHover: {fileID: 0}
+  noItem: {fileID: 2800000, guid: 88672c89b8083274fbd76f99bbccff73, type: 3}
+  noItemHover: {fileID: 2800000, guid: c43ef4f6599c8f944ad115d0a4815658, type: 3}
 --- !u!4 &2101623062
 Transform:
   m_ObjectHideFlags: 0

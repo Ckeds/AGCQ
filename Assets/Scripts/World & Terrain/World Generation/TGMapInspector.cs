@@ -32,7 +32,8 @@ public class TGMapInspector : Editor
             GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
             foreach (GameObject g in maps)
                 DestroyImmediate(g);
-			tm.Resources.Clear();
+			if(tm.Resources != null)
+				tm.Resources.Clear();
 			tm.map = null;
 			EditorUtility.UnloadUnusedAssets();
         }
