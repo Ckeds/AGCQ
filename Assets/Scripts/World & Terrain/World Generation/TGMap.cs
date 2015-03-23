@@ -12,21 +12,16 @@ public class TGMap : MonoBehaviour
     public Texture2D terrainTiles;
     public TDMap map;
     int meshSize = 128;
-    int startX;
-    int startY;
     Material textureMap;
 
 
     // Use this for initialization
-    public void Setup(int xPos, int yPos, Material m, int mesh)
+    public void Setup(Material m, int mesh)
     {
-        startX = xPos;
-        startY = yPos;
         //Debug.Log("Building a mesh...");
         textureMap = m;
 		meshSize = mesh;
         BuildMesh();
-		this.transform.position = new Vector3((xPos / (100 * 64)), (yPos / (100 * 64)), 1);
 	}
     void Start()
     {
@@ -98,10 +93,10 @@ public class TGMap : MonoBehaviour
         m.name = "ScriptedMesh";
         m.vertices = new Vector3[] 
         {
-         new Vector3(startX, startY, 0),
-         new Vector3(startX+meshSize, startY, 0),
-         new Vector3(startX+meshSize, startY+meshSize, 0),
-         new Vector3(startX, startY+meshSize, 0)
+         new Vector3(0, 0, 0),
+         new Vector3(meshSize, 0, 0),
+         new Vector3(meshSize, meshSize, 0),
+         new Vector3(0, meshSize, 0)
        };
         m.uv = new Vector2[] 
         {

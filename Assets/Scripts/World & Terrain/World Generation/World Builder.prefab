@@ -43,7 +43,22 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 878abf9953be67f4280de2dfa0a0fa62, type: 2}
+  - {fileID: 2100000, guid: 50dfa6c9f038c6540b9a31a173cbf5af, type: 2}
+  - {fileID: 2100000, guid: d917d4f5b776db44ab46271495ae7873, type: 2}
+  - {fileID: 2100000, guid: 2ffe8f564e9a96347ae9abb3215f20bb, type: 2}
+  - {fileID: 2100000, guid: 387d906e9e74bcc4391276f481d6e934, type: 2}
+  - {fileID: 2100000, guid: ff774ce1be697904da41c123c3df10ee, type: 2}
+  - {fileID: 2100000, guid: 7a949c3de57ab4d47910826c8377b9dc, type: 2}
+  - {fileID: 2100000, guid: e50674503ee83134a83d4381d44077be, type: 2}
+  - {fileID: 2100000, guid: d72ad44f4d5d6054e96e16fedc04cf92, type: 2}
+  - {fileID: 2100000, guid: a31bf3f6c7555894e9a75125dabfd81f, type: 2}
+  - {fileID: 2100000, guid: df7873f8b01b3ad43bdba234232c00a7, type: 2}
+  - {fileID: 2100000, guid: 218c19f1b9d5bf34e9d32abf4410f92f, type: 2}
+  - {fileID: 2100000, guid: 9e41314030851654cb642f8948d263f0, type: 2}
+  - {fileID: 2100000, guid: 5204a8127cf1a7d41ae88fb9a87317aa, type: 2}
+  - {fileID: 2100000, guid: 190d18b7a8866da49be9e11f499802da, type: 2}
+  - {fileID: 2100000, guid: cd84e75219350444083d5f89ca1cb82d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -107,7 +122,9 @@ MonoBehaviour:
   tree2: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
   waterCollider: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
   TGmapPrefab: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
-  Resources: []
+  tileMapLocations: []
+  textureAssignments: 
+  mapsDrawn: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

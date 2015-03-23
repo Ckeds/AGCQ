@@ -48,13 +48,13 @@ public class WorldGenerator : MonoBehaviour
 	private int tileResolution = 64;
 	Color[][] tileMap;
 	public Vector2 [] tileMapLocations;
-	bool[] alreadyMade;
+	public int[] textureAssignments;
+	public List<int> mapsDrawn;
 	// Use this for initialization
 	void Start () 
     {
         if (mapSize < 1)
             mapSize = 1;
-		tileMapLocations = new Vector2[(mapSize + 2) * (mapSize + 2)];
         if (stonePercent < 0)
             stonePercent = 0;
         if (stonePercent > 100)
@@ -86,15 +86,19 @@ public class WorldGenerator : MonoBehaviour
 	}
     public void buildWorld()
     {
+		tileMapLocations = new Vector2[(mapSize + 2) * (mapSize + 2)];
+		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
 		Resources = new List<List<Resource>> ();
+		mapsDrawn = new List<int> ();
         buildTDMap();
 		tileMap = ChopUpTiles ();
         buildTGMaps();
-		CreateResource (Resources [0]);
-		CreateResource (Resources [1]);
-		CreateResource (Resources [4]);
-		CreateResource (Resources [5]);
-		Debug.Log (Resources [0].Count + Resources [1].Count + Resources [4].Count + Resources [5].Count);
+		Debug.Log (Resources.Count);
+		//CreateResource (Resources [0]);
+		//CreateResource (Resources [1]);
+		//CreateResource (Resources [4]);
+		//CreateResource (Resources [5]);
+		//Debug.Log (Resources [0].Count + Resources [1].Count + Resources [4].Count + Resources [5].Count);
     }
     void buildTDMap()
     {
@@ -106,13 +110,43 @@ public class WorldGenerator : MonoBehaviour
         //Debug.Log(TGmap);
         //int numTiles = mapSize ^ 2;
         //Debug.Log(numTiles);
+		Debug.Log (tileMapLocations.Length);
         for (int y = 0; y < mapSize+2; y++)
         {
             for (int x = 0; x < mapSize+2; x++)
             {
-                //Debug.Log("start inner loop");
-                //Debug.Log(this.GetComponent<MeshRenderer>().sharedMaterials[(y * mapSize) + x]);
+                Debug.Log("start inner loop");
 				tileMapLocations[x + (y *(mapSize+2))] = new Vector2((x-1) * meshSize /* 0.64f*/, (y-1) * meshSize /* 0.64f*/);
+				if(x + (y *(mapSize+2)) == 0)
+				{
+					textureAssignments[x + (y *(mapSize+2))] = mapSize * mapSize - 1;
+				}
+				else if(x + (y *(mapSize+2)) < mapSize+2)
+				{
+					textureAssignments[x + (y *(mapSize+2))] = mapSize * mapSize - (mapSize - (x - 1));
+					if(textureAssignments[x + (y *(mapSize+2))] >= mapSize * mapSize)
+						textureAssignments[x + (y *(mapSize+2))] = mapSize * mapSize - mapSize;
+				}
+				else if(x == 0)
+				{
+					textureAssignments[x + (y *(mapSize+2))] = (mapSize * y) - 1;
+					if(textureAssignments[x + (y *(mapSize+2))] >= mapSize * mapSize)
+						textureAssignments[x + (y *(mapSize+2))] = mapSize - 1;					
+				}
+				else if(y > mapSize)
+				{
+					textureAssignments[x + (y *(mapSize+2))] = x - 1;
+					if(textureAssignments[x + (y *(mapSize+2))] == mapSize)
+						textureAssignments[x + (y *(mapSize+2))] = 0;
+				}
+				else if(x > mapSize)
+				{
+					textureAssignments[x + (y *(mapSize+2))] =  (x + (y *(mapSize+2))) - ((mapSize * 2) + (y * mapSize) + 1);
+				}
+				else
+				{
+					textureAssignments[x + (y *(mapSize+2))] = (x + (y *(mapSize+2))) - (mapSize + (y * mapSize) + 1);
+				}
                 //g = (GameObject)Instantiate(TGmapPrefab);
                 // Debug.Log("calling Setup");
 				//Debug.Log (tileMapLocations[x + (y *mapSize)]);
@@ -124,6 +158,7 @@ public class WorldGenerator : MonoBehaviour
 		{
 			for (int xMap = 0; xMap < mapSize; xMap++)
 			{
+				Debug.Log("this, right?");
 				BuildTexture(xMap * meshSize, yMap * meshSize);
 			}
 		}
@@ -278,11 +313,25 @@ public class WorldGenerator : MonoBehaviour
 			float dX = Camera.main.transform.position.x - (tileMapLocations[i].x + meshSize * 0.5f);
 			float dY = Camera.main.transform.position.y - (tileMapLocations[i].y + meshSize * 0.5f);
 			float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
-			//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
-			if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10)
+			if(mapsDrawn.Contains(i))
 			{
-				Debug.Log ("Map " + i + " is ready to be drawn.");
-				//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
+				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10)
+				{
+
+				}
+			}
+			else
+			{
+				//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
+				if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10)
+				{
+					Debug.Log ("Map " + i + " is ready to be drawn.");
+					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
+					mapsDrawn.Add(i);
+					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
+					g.GetComponent<TGMap>().Setup
+						(this.GetComponent<MeshRenderer>().sharedMaterials[textureAssignments[i]], meshSize);
+				}
 			}
 		}
 	}
