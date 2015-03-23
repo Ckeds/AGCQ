@@ -101,8 +101,13 @@ public class Player : WorldObject
 		{
 			//check for item or weapon here
             g = (GameObject)Instantiate(testParticle);
-            g.GetComponent<BaseProjectile>().Setup(this.gameObject);
-			
+            g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 1, 0);
+
+            g = (GameObject)Instantiate(testParticle);
+            g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 1, 5);
+
+            g = (GameObject)Instantiate(testParticle);
+            g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 1, -5);
 		}
 		//Debug.Log (1 / Time.deltaTime);
 		Move();

@@ -5,9 +5,9 @@ using System.Collections;
 
 public class BaseProjectile : MonoBehaviour 
 {
-    public float speed = 5;
+    public float speed;
     public float lifespan;
-    public int damage;
+    public float damage;
 
 	// Use this for initialization
 	public virtual void Awake () 
@@ -20,20 +20,30 @@ public class BaseProjectile : MonoBehaviour
     {
         lifespan -= Time.deltaTime;
         if(lifespan<=0)
-        { Destroy(this.gameObject); }
+        {
+            CleanUp();
+            Destroy(this.gameObject); 
+        }
         else
         {
             this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
             //Debug.Log(rigidbody2D.velocity);
         }
 	}
-    public void Setup(GameObject shooter)
+    public virtual void Setup(GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, int rotationMod = 0)
     {
+        damage *= damageMod;
+        speed *= speedMod;
+
         this.transform.position = shooter.transform.position;
         this.transform.rotation = shooter.transform.rotation;
-        Debug.Log(this.transform.up * speed);
+        this.transform.Rotate(0, 0, rotationMod);
         //rigidbody2D.AddForce(this.transform.up * speed);
         rigidbody2D.velocity = this.transform.up * speed;
         rigidbody2D.velocity += shooter.GetComponent<Rigidbody2D>().velocity;
+    }
+    public virtual void CleanUp()
+    {
+
     }
 }

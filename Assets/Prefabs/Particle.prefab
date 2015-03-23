@@ -12,6 +12,7 @@ GameObject:
   - 50: {fileID: 5036450}
   - 95: {fileID: 9536450}
   - 114: {fileID: 11456428}
+  - 148: {fileID: 14855008}
   m_Layer: 0
   m_Name: Particle
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 136450}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .829999983, y: .699999988, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,6 +76,19 @@ MonoBehaviour:
   speed: 5
   lifespan: 10
   damage: 2
+  particles: {fileID: 19869582, guid: f9beca240007ddc4d95e2f9d5f2c36a4, type: 2}
+--- !u!148 &14855008
+NetworkView:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 136450}
+  m_Enabled: 1
+  m_StateSynchronization: 1
+  m_Observed: {fileID: 11456428}
+  m_ViewID:
+    m_ID: 0
+    m_Type: 0
 --- !u!212 &21236450
 SpriteRenderer:
   m_ObjectHideFlags: 1
