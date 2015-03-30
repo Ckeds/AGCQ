@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteInEditMode]
-
 public class WorldGenerator : MonoBehaviour 
 {
 	[System.Serializable]
@@ -44,6 +42,7 @@ public class WorldGenerator : MonoBehaviour
     public GameObject waterCollider;
 
     public GameObject TGmapPrefab;
+	public Texture2D[] mapTextures;
     public List<List<Resource>> Resources;
 	private int tileResolution = 64;
 	Color[][] tileMap;
@@ -88,13 +87,14 @@ public class WorldGenerator : MonoBehaviour
     {
 		tileMapLocations = new Vector2[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
+		mapTextures = new Texture2D[mapSize * mapSize];
 		Resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
         buildTDMap();
 		tileMap = ChopUpTiles ();
         buildTGMaps();
 		Debug.Log (Resources.Count);
-		//CreateResource (Resources [0]);
+		CreateResource (Resources [0]);
 		//CreateResource (Resources [1]);
 		//CreateResource (Resources [4]);
 		//CreateResource (Resources [5]);
@@ -145,7 +145,7 @@ public class WorldGenerator : MonoBehaviour
 				}
 				else
 				{
-					textureAssignments[x + (y *(mapSize+2))] = (x + (y *(mapSize+2))) - (mapSize + (y * mapSize) + 1);
+					textureAssignments[x + (y *(mapSize+2))] = (x + (y * mapSize) - (mapSize + 1));
 				}
                 //g = (GameObject)Instantiate(TGmapPrefab);
                 // Debug.Log("calling Setup");
@@ -281,7 +281,6 @@ public class WorldGenerator : MonoBehaviour
 	void BuildTexture(int startX, int startY)
 	{
 		//Debug.Log("Start a Texture");
-		int meshToUse = (startX / meshSize) + (startY * mapSize / meshSize);
 		int texWidth = meshSize * tileResolution;
 		int texHeight = meshSize * tileResolution;
 		Texture2D mapTexture = new Texture2D(texWidth, texHeight);
@@ -302,8 +301,7 @@ public class WorldGenerator : MonoBehaviour
 		mapTexture.wrapMode = TextureWrapMode.Clamp;
 		mapTexture.Apply();
 		Resources.Add (mapResources);
-		//Debug.Log (Resources[startX/meshSize + (startY/meshSize) * mapSize].Count);
-		GetComponent<MeshRenderer> ().sharedMaterials [meshToUse].mainTexture = mapTexture;
+		mapTextures [(startX / meshSize) + (startY * mapSize / meshSize)] = mapTexture;
 		
 	}
 	public void Update()
@@ -329,8 +327,9 @@ public class WorldGenerator : MonoBehaviour
 					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
 					mapsDrawn.Add(i);
 					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
+					Debug.Log(textureAssignments[i]);
 					g.GetComponent<TGMap>().Setup
-						(this.GetComponent<MeshRenderer>().sharedMaterials[textureAssignments[i]], meshSize);
+						(mapTextures[textureAssignments[i]], new Rect(0,0,meshSize*tileResolution,meshSize*tileResolution));
 				}
 			}
 		}

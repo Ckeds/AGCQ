@@ -2,26 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
-
 public class TGMap : MonoBehaviour
 {
-
-    public Texture2D terrainTiles;
-    public TDMap map;
-    int meshSize = 128;
-    Material textureMap;
-
+	Texture2D textureMap;
 
     // Use this for initialization
-    public void Setup(Material m, int mesh)
+    public void Setup(Texture2D map, Rect r)
     {
         //Debug.Log("Building a mesh...");
-        textureMap = m;
-		meshSize = mesh;
-        BuildMesh();
+        textureMap = map;
+		this.GetComponent<SpriteRenderer> ().sprite = 
+			Sprite.Create(textureMap, r, new Vector2(0,0));
+		this.transform.localScale = new Vector3 (1.5625f, 1.5625f, 1);
 	}
     void Start()
     {
@@ -85,38 +77,5 @@ public class TGMap : MonoBehaviour
         //Debug.Log("End a texture");
 
     }*/
-
-     public void BuildMesh()
-    {
-        //Debug.Log("Start a mesh");
-        Mesh m = new Mesh();
-        m.name = "ScriptedMesh";
-        m.vertices = new Vector3[] 
-        {
-         new Vector3(0, 0, 0),
-         new Vector3(meshSize, 0, 0),
-         new Vector3(meshSize, meshSize, 0),
-         new Vector3(0, meshSize, 0)
-       };
-        m.uv = new Vector2[] 
-        {
-         new Vector2 (0, 0),
-         new Vector2 (1, 0),
-         new Vector2(1, 1),
-         new Vector2 (0, 1)
-       };
-        m.triangles = new int[] { 0, 2, 1, 0, 3, 2 };
-        m.RecalculateNormals();
-        m.RecalculateBounds();
-        m.Optimize();
-
-        // Assign our mesh to our filter/renderer/collider
-        MeshFilter mesh_filter = GetComponent<MeshFilter>();
-
-        mesh_filter.mesh = m;
-		GetComponent<MeshRenderer>().sharedMaterial = textureMap;
-        //Debug.Log("End a mesh");
-        //BuildTexture(map);
-    }
 
 }
