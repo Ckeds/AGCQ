@@ -40,6 +40,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534eed2cb1a142e48b607bc2ca03ecd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
+  dirtPile: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
+  sandPile: {fileID: 119152, guid: 56ed4a9e0ff862b48b8949582d3eb4ae, type: 2}
+  tree1: {fileID: 100000, guid: 109a391ce2f23e34a8f8dc7203d8a825, type: 2}
+  tree2: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
+  waterCollider: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
 --- !u!212 &21253446
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -34,16 +34,9 @@ public class WorldGenerator : MonoBehaviour
     public Texture2D terrainTiles;
     public TDMap map;
 
-    public GameObject rockPile;
-    public GameObject dirtPile;
-    public GameObject sandPile;
-    public GameObject tree1;
-    public GameObject tree2;
-    public GameObject waterCollider;
-
     public GameObject TGmapPrefab;
 	public Texture2D[] mapTextures;
-    public List<List<Resource>> Resources;
+    public List<List<Resource>> resources;
 	private int tileResolution = 64;
 	Color[][] tileMap;
 	public Vector2 [] tileMapLocations;
@@ -88,17 +81,13 @@ public class WorldGenerator : MonoBehaviour
 		tileMapLocations = new Vector2[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
 		mapTextures = new Texture2D[mapSize * mapSize];
-		Resources = new List<List<Resource>> ();
+		resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
         buildTDMap();
 		tileMap = ChopUpTiles ();
         buildTGMaps();
-		Debug.Log (Resources.Count);
-		CreateResource (Resources [0]);
-		//CreateResource (Resources [1]);
-		//CreateResource (Resources [4]);
-		//CreateResource (Resources [5]);
-		//Debug.Log (Resources [0].Count + Resources [1].Count + Resources [4].Count + Resources [5].Count);
+		//Debug.Log (resources.Count);
+		//CreateResource (resources [0]);
     }
     void buildTDMap()
     {
@@ -106,6 +95,14 @@ public class WorldGenerator : MonoBehaviour
     }
     void buildTGMaps()
     {
+		for (int yMap = 0; yMap < mapSize; yMap++)
+		{
+			for (int xMap = 0; xMap < mapSize; xMap++)
+			{
+				//Debug.Log("this, right?");
+				BuildTexture(xMap * meshSize, yMap * meshSize);
+			}
+		}
         //GameObject g = null;
         //Debug.Log(TGmap);
         //int numTiles = mapSize ^ 2;
@@ -115,7 +112,7 @@ public class WorldGenerator : MonoBehaviour
         {
             for (int x = 0; x < mapSize+2; x++)
             {
-                Debug.Log("start inner loop");
+                //Debug.Log("start inner loop");
 				tileMapLocations[x + (y *(mapSize+2))] = new Vector2((x-1) * meshSize /* 0.64f*/, (y-1) * meshSize /* 0.64f*/);
 				if(x + (y *(mapSize+2)) == 0)
 				{
@@ -141,7 +138,7 @@ public class WorldGenerator : MonoBehaviour
 				}
 				else if(x > mapSize)
 				{
-					textureAssignments[x + (y *(mapSize+2))] =  (x + (y *(mapSize+2))) - ((mapSize * 2) + (y * mapSize) + 1);
+					textureAssignments[x + (y *(mapSize+2))] =  (y *mapSize) - mapSize;
 				}
 				else
 				{
@@ -154,16 +151,8 @@ public class WorldGenerator : MonoBehaviour
                 //Debug.Log("End inner loop");
             }
         }
-		for (int yMap = 0; yMap < mapSize; yMap++)
-		{
-			for (int xMap = 0; xMap < mapSize; xMap++)
-			{
-				Debug.Log("this, right?");
-				BuildTexture(xMap * meshSize, yMap * meshSize);
-			}
-		}
     }
-    public List<Resource> placeResource(TDTile tile, List<Resource> res)
+    public List<Resource> placeResource(TDTile tile, List<Resource> res, int x, int y)
     {
 		int rand = Random.Range(1, 100);
         Resource r = new Resource();
@@ -177,12 +166,12 @@ public class WorldGenerator : MonoBehaviour
          	       if (random == 0)
             	    {
                   	 	//rock
-						r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'r';
                		}
                 	else if (random == 1)
                 	{
-						r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'd';
 					}
 				else if (random == 2)
@@ -190,13 +179,13 @@ public class WorldGenerator : MonoBehaviour
                     	int randTreeA = Random.Range(0, 10);
                     	if (randTreeA == 0)
                     	{
-							r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+							r.position = new Vector2(x + .5f, y + .5f);
 							r.type = 'p';
 						}
 						else
 						{
 							r = new Resource();
-							r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+							r.position = new Vector2(x + .5f, y + .5f);
 							r.type = 'o';
 						}
 					}
@@ -206,7 +195,7 @@ public class WorldGenerator : MonoBehaviour
             case TDTypes.TYPE.DESERT:
 				if(rand <= sandPercent)
 				{
-					r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 's';
 				}
 			break;
@@ -217,12 +206,12 @@ public class WorldGenerator : MonoBehaviour
               	  	int randTree = Random.Range(0, 10);
 					if (randTree == 0)
 					{
-						r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'p';
 					}
 					else
 					{
-						r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'o';
 					}
 				}
@@ -231,7 +220,7 @@ public class WorldGenerator : MonoBehaviour
             case TDTypes.TYPE.DIRT:
 				if(rand <= dirtPercent)
 				{
-					r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'd';
 				}
 				break;
@@ -239,7 +228,7 @@ public class WorldGenerator : MonoBehaviour
 		case TDTypes.TYPE.STONE:
 				if(rand <= stonePercent)
 				{
-					r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'r';
 				}
 			break;
@@ -247,7 +236,7 @@ public class WorldGenerator : MonoBehaviour
 		case TDTypes.TYPE.OCEAN:
 				if(!walkOnWater)
 				{
-					r.position = new Vector2(tile.positionX + .5f, tile.positionY + .5f);
+					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'w';
 				}
 			break;
@@ -292,7 +281,7 @@ public class WorldGenerator : MonoBehaviour
 			{
 				Color[] p = tileMap[map.GetTileAt(x, y)];
 				mapTexture.SetPixels((int)((x-startX) * tileResolution), (int)((y-startY) * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
-				mapResources = placeResource(map.mapData[x,y], mapResources);
+				mapResources = placeResource(map.mapData[x,y], mapResources, x-startX, y-startY);
 			}
 		}
 		//Debug.Log("End texture loops");
@@ -300,41 +289,44 @@ public class WorldGenerator : MonoBehaviour
 		mapTexture.filterMode = FilterMode.Trilinear;
 		mapTexture.wrapMode = TextureWrapMode.Clamp;
 		mapTexture.Apply();
-		Resources.Add (mapResources);
+		resources.Add (mapResources);
 		mapTextures [(startX / meshSize) + (startY * mapSize / meshSize)] = mapTexture;
 		
 	}
+
 	public void Update()
 	{
 		for (int i = 0; i < tileMapLocations.Length; i++)
 		{
+			GameObject g = null;
 			float dX = Camera.main.transform.position.x - (tileMapLocations[i].x + meshSize * 0.5f);
 			float dY = Camera.main.transform.position.y - (tileMapLocations[i].y + meshSize * 0.5f);
+			float size = Camera.main.orthographicSize;
 			float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 			if(mapsDrawn.Contains(i))
 			{
-				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10)
+				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
 				{
-
+					mapsDrawn.Remove(i);
 				}
 			}
 			else
 			{
 				//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
-				if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10)
+				if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
 				{
 					Debug.Log ("Map " + i + " is ready to be drawn.");
 					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
 					mapsDrawn.Add(i);
-					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
+					g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
 					Debug.Log(textureAssignments[i]);
-					g.GetComponent<TGMap>().Setup
-						(mapTextures[textureAssignments[i]], new Rect(0,0,meshSize*tileResolution,meshSize*tileResolution));
+					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], 
+						 new Rect(0,0,meshSize*tileResolution,meshSize*tileResolution), resources[textureAssignments[i]]);
 				}
 			}
 		}
 	}
-	public void CreateResource(List<Resource> r)
+	/*public void CreateResource(List<Resource> r, Vector2 pos)
 	{
 		for (int i = 0; i < r.Count; i++)
 			{
@@ -360,5 +352,5 @@ public class WorldGenerator : MonoBehaviour
 					break;
 			}
 		}
-	}
+	}*/
 }

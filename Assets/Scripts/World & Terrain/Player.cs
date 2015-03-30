@@ -197,7 +197,7 @@ public class Player : WorldObject
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
 		rigidbody2D.AddForce (movement);
-		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, -1);
 		//Debug.Log (rigidbody2D.velocity);
 	}
 	private void SyncedMovement ()
@@ -209,7 +209,7 @@ public class Player : WorldObject
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
-		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, -1);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
 	void UseItem()

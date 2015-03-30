@@ -437,8 +437,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 4
-  meshSize: 64
+  mapSize: 16
+  meshSize: 16
   numRivers: 0
   numLakes: 0
   forestDensity: 5
@@ -451,8 +451,8 @@ MonoBehaviour:
   stonePercent: 20
   sandPercent: 15
   forestPercent: 40
-  plainsPercent: 2
-  dirtPercent: 4
+  plainsPercent: 5
+  dirtPercent: 5
   walkOnWater: 0
   terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
   rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
@@ -660,7 +660,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: mapSize
-      value: 4
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: mapTextures.Array.data[0]
@@ -736,7 +736,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: meshSize
-      value: 64
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: stonePercent
@@ -752,11 +752,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: plainsPercent
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
       propertyPath: dirtPercent
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
