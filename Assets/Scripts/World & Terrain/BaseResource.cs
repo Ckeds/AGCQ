@@ -12,7 +12,7 @@ public class BaseResource : WorldObject {
 	{
 		isDamageable = true;
 		//Debug.Log ("I did it");
-
+		anim.enabled = false;
 	}
 	public override void TakeDamage (int damageTaken)
 	{
@@ -22,5 +22,12 @@ public class BaseResource : WorldObject {
 	{
 
 	}
-
+	void OnBecameVisible() 
+	{
+		anim.enabled = true;
+	}
+	void OnBecameInvisible() 
+	{
+		anim.enabled = false;
+	}
 }

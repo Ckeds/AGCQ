@@ -10,21 +10,18 @@ public class TGMap : MonoBehaviour
 	public GameObject tree1;
 	public GameObject tree2;
 	public GameObject waterCollider;
-
-	Texture2D textureMap;
+	
 	public List<GameObject> resource;
 	float width;
 	float height;
 
     // Use this for initialization
-	public void Setup(Texture2D map, Rect rec, List<WorldGenerator.Resource> res)
+	public void Setup(Sprite map, List<WorldGenerator.Resource> res)
     {
         //Debug.Log("Building a mesh...");
-        textureMap = map;
-		this.GetComponent<SpriteRenderer> ().sprite = 
-			Sprite.Create(textureMap, rec, new Vector2(0,0));
-		width = rec.width * 1.5625f / 100;
-		height = rec.height * 1.5625f / 100;
+		this.GetComponent<SpriteRenderer> ().sprite = map;
+		width = map.rect.width * 1.5625f / 100;
+		height = map.rect.height * 1.5625f / 100;
 		this.transform.localScale = new Vector3 (1.5625f, 1.5625f, 1);
 		CreateResource (res);
 	}
@@ -36,7 +33,7 @@ public class TGMap : MonoBehaviour
 		float size = Camera.main.orthographicSize;
 		float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 		//Debug.Log (distance);
-		if(distance >= Mathf.Sqrt(width * height / 2) + 10 + size)
+		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
 		{
 			foreach(GameObject g in resource)
 			{
@@ -54,22 +51,22 @@ public class TGMap : MonoBehaviour
 			switch(r[i].type)
 			{
 			case 'p': 
-				g =  (GameObject)Instantiate(tree1, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g =  (GameObject)Instantiate(tree1, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			case 'o': 
-				g = (GameObject)Instantiate(tree2, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g = (GameObject)Instantiate(tree2, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			case 's': 
-				g = (GameObject)Instantiate(sandPile, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g = (GameObject)Instantiate(sandPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			case 'd': 
-				g = (GameObject)Instantiate(dirtPile, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g = (GameObject)Instantiate(dirtPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			case 'r': 
-				g = (GameObject)Instantiate(rockPile, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g = (GameObject)Instantiate(rockPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			case 'w': 
-				g = (GameObject)Instantiate(waterCollider, r[i].position + mapPos - transform.forward, Quaternion.identity);
+				g = (GameObject)Instantiate(waterCollider, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
 				break;
 			}
 			resource.Add(g);

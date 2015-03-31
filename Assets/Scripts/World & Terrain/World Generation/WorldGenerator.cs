@@ -35,11 +35,11 @@ public class WorldGenerator : MonoBehaviour
     public TDMap map;
 
     public GameObject TGmapPrefab;
-	public Texture2D[] mapTextures;
+	public Sprite[] mapTextures;
     public List<List<Resource>> resources;
 	private int tileResolution = 64;
 	Color[][] tileMap;
-	public Vector2 [] tileMapLocations;
+	public Vector3 [] tileMapLocations;
 	public int[] textureAssignments;
 	public List<int> mapsDrawn;
 	// Use this for initialization
@@ -72,15 +72,15 @@ public class WorldGenerator : MonoBehaviour
         if (dirtPercent > 100)
             dirtPercent = 100;
         buildWorld();
-
+		map = null;
 
 
 	}
     public void buildWorld()
     {
-		tileMapLocations = new Vector2[(mapSize + 2) * (mapSize + 2)];
+		tileMapLocations = new Vector3[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
-		mapTextures = new Texture2D[mapSize * mapSize];
+		mapTextures = new Sprite[mapSize * mapSize];
 		resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
         buildTDMap();
@@ -107,13 +107,13 @@ public class WorldGenerator : MonoBehaviour
         //Debug.Log(TGmap);
         //int numTiles = mapSize ^ 2;
         //Debug.Log(numTiles);
-		Debug.Log (tileMapLocations.Length);
+		//Debug.Log (tileMapLocations.Length);
         for (int y = 0; y < mapSize+2; y++)
         {
             for (int x = 0; x < mapSize+2; x++)
             {
                 //Debug.Log("start inner loop");
-				tileMapLocations[x + (y *(mapSize+2))] = new Vector2((x-1) * meshSize /* 0.64f*/, (y-1) * meshSize /* 0.64f*/);
+				tileMapLocations[x + (y *(mapSize+2))] = new Vector3((x-1) * meshSize /* 0.64f*/, (y-1) * meshSize /* 0.64f*/, 1);
 				if(x + (y *(mapSize+2)) == 0)
 				{
 					textureAssignments[x + (y *(mapSize+2))] = mapSize * mapSize - 1;
@@ -289,19 +289,21 @@ public class WorldGenerator : MonoBehaviour
 		mapTexture.filterMode = FilterMode.Trilinear;
 		mapTexture.wrapMode = TextureWrapMode.Clamp;
 		mapTexture.Apply();
+		Sprite s = Sprite.Create(mapTexture, new Rect(0,0,meshSize * tileResolution, meshSize * tileResolution), new Vector2(0,0));
 		resources.Add (mapResources);
-		mapTextures [(startX / meshSize) + (startY * mapSize / meshSize)] = mapTexture;
+		mapTextures [(startX / meshSize) + (startY * mapSize / meshSize)] = s;
 		
 	}
 
 	public void Update()
 	{
+		float camX = Camera.main.transform.position.x;
+		float camY = Camera.main.transform.position.y;
+		float size = Camera.main.orthographicSize;
 		for (int i = 0; i < tileMapLocations.Length; i++)
 		{
-			GameObject g = null;
-			float dX = Camera.main.transform.position.x - (tileMapLocations[i].x + meshSize * 0.5f);
-			float dY = Camera.main.transform.position.y - (tileMapLocations[i].y + meshSize * 0.5f);
-			float size = Camera.main.orthographicSize;
+			float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
+			float dY = camY - (tileMapLocations[i].y + meshSize * 0.5f);
 			float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 			if(mapsDrawn.Contains(i))
 			{
@@ -318,39 +320,11 @@ public class WorldGenerator : MonoBehaviour
 					Debug.Log ("Map " + i + " is ready to be drawn.");
 					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
 					mapsDrawn.Add(i);
-					g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
-					Debug.Log(textureAssignments[i]);
-					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], 
-						 new Rect(0,0,meshSize*tileResolution,meshSize*tileResolution), resources[textureAssignments[i]]);
+					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
+					//Debug.Log(textureAssignments[i]);
+					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]]);
 				}
 			}
 		}
 	}
-	/*public void CreateResource(List<Resource> r, Vector2 pos)
-	{
-		for (int i = 0; i < r.Count; i++)
-			{
-			switch(r[i].type)
-			{
-				case 'p': 
-					Instantiate(tree1, r[i].position, Quaternion.identity);
-					break;
-				case 'o': 
-					Instantiate(tree2, r[i].position, Quaternion.identity);
-					break;
-				case 's': 
-					Instantiate(sandPile, r[i].position, Quaternion.identity);
-					break;
-				case 'd': 
-					Instantiate(dirtPile, r[i].position, Quaternion.identity);
-					break;
-				case 'r': 
-					Instantiate(rockPile, r[i].position, Quaternion.identity);
-					break;
-				case 'w': 
-					Instantiate(waterCollider, r[i].position, Quaternion.identity);
-					break;
-			}
-		}
-	}*/
 }

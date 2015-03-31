@@ -75,63 +75,11 @@ NavMeshSettings:
     heightInaccuracy: 10
     tileSizeHint: 0
   m_NavMesh: {fileID: 0}
---- !u!1001 &289450027
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 14800000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_ViewID.m_ID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 14800000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-      propertyPath: m_ViewID.m_Type
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-  m_RootGameObject: {fileID: 573024681}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
 --- !u!1 &573024681
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabParentObject: {fileID: 128122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+  m_PrefabInternal: {fileID: 1858543836}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 573024686}
@@ -139,6 +87,7 @@ GameObject:
   - 114: {fileID: 573024684}
   - 114: {fileID: 573024683}
   - 148: {fileID: 573024682}
+  - 114: {fileID: 573024687}
   m_Layer: 0
   m_Name: GameManagerGO
   m_TagString: Untagged
@@ -149,9 +98,9 @@ GameObject:
 --- !u!148 &573024682
 NetworkView:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 14800000, guid: f2e29265e5686684ab41c7e2701bbf51,
+  m_PrefabParentObject: {fileID: 14828122, guid: f2e29265e5686684ab41c7e2701bbf51,
     type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabInternal: {fileID: 1858543836}
   m_GameObject: {fileID: 573024681}
   m_Enabled: 1
   m_StateSynchronization: 1
@@ -162,9 +111,9 @@ NetworkView:
 --- !u!114 &573024683
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: f2e29265e5686684ab41c7e2701bbf51,
+  m_PrefabParentObject: {fileID: 11428124, guid: f2e29265e5686684ab41c7e2701bbf51,
     type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabInternal: {fileID: 1858543836}
   m_GameObject: {fileID: 573024681}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -179,9 +128,9 @@ MonoBehaviour:
 --- !u!114 &573024684
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400002, guid: f2e29265e5686684ab41c7e2701bbf51,
+  m_PrefabParentObject: {fileID: 11428126, guid: f2e29265e5686684ab41c7e2701bbf51,
     type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabInternal: {fileID: 1858543836}
   m_GameObject: {fileID: 573024681}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -191,9 +140,9 @@ MonoBehaviour:
 --- !u!114 &573024685
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: f2e29265e5686684ab41c7e2701bbf51,
+  m_PrefabParentObject: {fileID: 11428128, guid: f2e29265e5686684ab41c7e2701bbf51,
     type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabInternal: {fileID: 1858543836}
   m_GameObject: {fileID: 573024681}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -259,8 +208,8 @@ MonoBehaviour:
 --- !u!4 &573024686
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
-  m_PrefabInternal: {fileID: 289450027}
+  m_PrefabParentObject: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+  m_PrefabInternal: {fileID: 1858543836}
   m_GameObject: {fileID: 573024681}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -268,6 +217,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &573024687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51,
+    type: 2}
+  m_PrefabInternal: {fileID: 1858543836}
+  m_GameObject: {fileID: 573024681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapSize: 4
+  meshSize: 32
+  numRivers: 1
+  numLakes: 1
+  forestDensity: 5
+  numDeserts: 2
+  desertSize: 25
+  desertDensity: 8000
+  numStone: 2
+  stoneSize: 35
+  stoneDensity: 6000
+  stonePercent: 20
+  sandPercent: 15
+  forestPercent: 30
+  plainsPercent: 2
+  dirtPercent: 3
+  walkOnWater: 0
+  terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
+  TGmapPrefab: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
+  mapTextures: []
+  tileMapLocations: []
+  textureAssignments: 
+  mapsDrawn: 
 --- !u!1001 &622240766
 Prefab:
   m_ObjectHideFlags: 0
@@ -281,7 +265,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 061ca25f6dfaeb2469e44c61bfe447b1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 061ca25f6dfaeb2469e44c61bfe447b1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -305,7 +289,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 061ca25f6dfaeb2469e44c61bfe447b1, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 061ca25f6dfaeb2469e44c61bfe447b1, type: 2}
@@ -409,85 +393,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
---- !u!1 &1284823827
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 100000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-  m_PrefabInternal: {fileID: 2110196909}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1284823832}
-  - 114: {fileID: 1284823828}
-  m_Layer: 0
-  m_Name: World Builder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1284823828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d,
-    type: 2}
-  m_PrefabInternal: {fileID: 2110196909}
-  m_GameObject: {fileID: 1284823827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapSize: 16
-  meshSize: 16
-  numRivers: 0
-  numLakes: 0
-  forestDensity: 5
-  numDeserts: 2
-  desertSize: 25
-  desertDensity: 8000
-  numStone: 2
-  stoneSize: 35
-  stoneDensity: 6000
-  stonePercent: 20
-  sandPercent: 15
-  forestPercent: 40
-  plainsPercent: 5
-  dirtPercent: 5
-  walkOnWater: 0
-  terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
-  rockPile: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
-  dirtPile: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
-  sandPile: {fileID: 100000, guid: 51e334994a25ec04d853772a18231b69, type: 2}
-  tree1: {fileID: 100000, guid: 109a391ce2f23e34a8f8dc7203d8a825, type: 2}
-  tree2: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
-  waterCollider: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
-  TGmapPrefab: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
-  mapTextures:
-  - {fileID: 1936052593}
-  tileMapLocations:
-  - {x: -128, y: -128}
-  - {x: 0, y: -128}
-  - {x: 128, y: -128}
-  - {x: -128, y: 0}
-  - {x: 0, y: 0}
-  - {x: 128, y: 0}
-  - {x: -128, y: 128}
-  - {x: 0, y: 128}
-  - {x: 128, y: 128}
-  textureAssignments: 000000000000000000000000000000000100000001000000000000000000000000000000
-  mapsDrawn: 00000000010000000300000004000000
---- !u!4 &1284823832
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-  m_PrefabInternal: {fileID: 2110196909}
-  m_GameObject: {fileID: 1284823827}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 144.600143, y: 53.0868187, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
 --- !u!1 &1553200978
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,11 +415,111 @@ Transform:
   m_PrefabInternal: {fileID: 622240766}
   m_GameObject: {fileID: 1553200978}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1001 &1858543836
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 14828122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_ViewID.m_ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14828122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: m_ViewID.m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: terrainTiles
+      value: 
+      objectReference: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: TGmapPrefab
+      value: 
+      objectReference: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: mapSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: meshSize
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: stonePercent
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: sandPercent
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: forestPercent
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: plainsPercent
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: walkOnWater
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: dirtPercent
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: numRivers
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: numLakes
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+  m_RootGameObject: {fileID: 573024681}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1932636022
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,191 +583,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!28 &1936052593
-Texture2D:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_AlphaIsTransparency: 0
-  m_Width: 0
-  m_Height: 0
-  m_CompleteImageSize: 0
-  m_TextureFormat: 5
-  m_MipMap: 0
-  m_IsReadable: 1
-  m_ReadAllowed: 1
-  m_ImageCount: 0
-  m_TextureDimension: 0
-  m_TextureSettings:
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapMode: 0
-  m_LightmapFormat: 0
-  m_ColorSpace: 0
-  image data: 0
-  _typelessdata: 
---- !u!1001 &2110196909
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapsDrawn.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapTextures.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: textureAssignments.Array.size
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 144.600143
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 53.0868187
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapSize
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapTextures.Array.data[0]
-      value: 
-      objectReference: {fileID: 1936052593}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[0].x
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[0].y
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[1].y
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[2].x
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[2].y
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[3].x
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[5].x
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[6].x
-      value: -128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[6].y
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[7].y
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[8].x
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: tileMapLocations.Array.data[8].y
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: textureAssignments.Array.data[4]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: textureAssignments.Array.data[5]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapsDrawn.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapsDrawn.Array.data[2]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: mapsDrawn.Array.data[3]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: meshSize
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: stonePercent
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: sandPercent
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: forestPercent
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: plainsPercent
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-      propertyPath: dirtPercent
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2300000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-    - {fileID: 3300000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-    - {fileID: 6400000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-  m_ParentPrefab: {fileID: 100100000, guid: 88dfad4fb594fe044b63a60dc9f0e40d, type: 2}
-  m_RootGameObject: {fileID: 1284823827}
-  m_IsPrefabParent: 0
-  m_IsExploded: 1
