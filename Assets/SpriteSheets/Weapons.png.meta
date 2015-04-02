@@ -1,13 +1,14 @@
 fileFormatVersion: 2
-guid: b3843f9e1d256714eabc67be2334e7b9
+guid: 4cd90adf1bad1af4fa8310a1aa70ab8e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Oak_Tree_0
-    21300002: Oak_Tree_1
-    21300004: Oak_Tree_2
-    21300006: Oak_Tree_3
-    21300008: Oak_Tree_4
-    21300010: Oak_Tree_5
+    21300000: Weapons_0
+    21300002: Weapons_1
+    21300004: Weapons_2
+    21300006: Weapons_3
+    21300008: Weapons_4
+    21300010: Weapons_5
+    21300012: Weapons_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,65 +50,75 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Oak_Tree_0
+    - name: Weapons_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Oak_Tree_1
+    - name: Weapons_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Weapons_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Oak_Tree_2
+    - name: Weapons_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Weapons_4
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Oak_Tree_3
+    - name: Weapons_5
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Weapons_6
       rect:
         serializedVersion: 2
         x: 384
         y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Oak_Tree_4
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Oak_Tree_5
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 9
-      pivot: {x: .5, y: .25}
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 
