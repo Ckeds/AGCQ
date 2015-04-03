@@ -317,7 +317,7 @@ public class WorldGenerator : MonoBehaviour
 				//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
 				if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
 				{
-					Debug.Log ("Map " + i + " is ready to be drawn.");
+					//Debug.Log ("Map " + i + " is ready to be drawn.");
 					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
 					mapsDrawn.Add(i);
 					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);

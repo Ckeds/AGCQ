@@ -269,7 +269,7 @@ public class Player : WorldObject
 	}
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if(coll.gameObject.tag == "Resource")
+		if(coll.gameObject.tag == "Resource" && coll.gameObject.GetComponent<WorldObject> ())
 			coll.gameObject.GetComponent<WorldObject> ().TakeDamage (1);
 	}
 	[RPC]
