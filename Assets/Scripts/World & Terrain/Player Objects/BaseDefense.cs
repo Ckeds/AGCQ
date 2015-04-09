@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseDefense : WorldObject 
 {
-    public override void Start()
+    public override void Awake()
     {
         isDamageable = true;
 

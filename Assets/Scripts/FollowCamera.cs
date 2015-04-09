@@ -8,10 +8,11 @@ public class FollowCamera : MonoBehaviour {
 	Vector3 currentMovement;
 	float currentZoom;
 	float previousZoom;
+	Camera c;
 	
 	// Use this for initialization
 	void Start (){
-
+		c = this.gameObject.GetComponent<Camera> ();
 	}
 	
 	// Update is called once per frame
@@ -35,11 +36,11 @@ public class FollowCamera : MonoBehaviour {
 			currentZoom += previousZoom;
 			if(currentZoom >= .2f)
 				currentZoom = .2f;
-			Camera.main.orthographicSize += currentZoom;
-			if(Camera.main.orthographicSize >= 6)
-				Camera.main.orthographicSize = 6;
-			if(Camera.main.orthographicSize <= 3)
-				Camera.main.orthographicSize = 3;
+			c.orthographicSize += currentZoom;
+			if(c.orthographicSize >= 6)
+				c.orthographicSize = 6;
+			if(c.orthographicSize <= 3)
+				c.orthographicSize = 3;
 			previousZoom = currentZoom / 2;
 		}
 		

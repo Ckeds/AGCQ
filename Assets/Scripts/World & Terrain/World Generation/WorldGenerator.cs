@@ -14,6 +14,7 @@ public class WorldGenerator : MonoBehaviour
     public int mapSize;
 
     public int meshSize = 128;
+	public int mapUnitySize;
     public int numRivers = 0;
     public int numLakes = 0;
     public int forestDensity = 5;
@@ -42,6 +43,14 @@ public class WorldGenerator : MonoBehaviour
 	public Vector3 [] tileMapLocations;
 	public int[] textureAssignments;
 	public List<int> mapsDrawn;
+	public ResourceManager rM;
+	int rocks = 0;
+	int oaks = 0;
+	int pines = 0;
+	int sands = 0;
+	int waters = 0;
+	int dirts = 0;
+	Camera c;
 	// Use this for initialization
 	void Start () 
     {
@@ -73,11 +82,13 @@ public class WorldGenerator : MonoBehaviour
             dirtPercent = 100;
         buildWorld();
 		map = null;
-
+		mapUnitySize = mapSize * meshSize;
 
 	}
     public void buildWorld()
     {
+		c = Camera.main;
+		rM = GameObject.Find ("ResourcePool").GetComponent<ResourceManager> ();
 		tileMapLocations = new Vector3[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
 		mapTextures = new Sprite[mapSize * mapSize];
@@ -86,6 +97,7 @@ public class WorldGenerator : MonoBehaviour
         buildTDMap();
 		tileMap = ChopUpTiles ();
         buildTGMaps();
+		rM.Setup (mapSize, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize); 
 		//Debug.Log (resources.Count);
 		//CreateResource (resources [0]);
     }
@@ -168,11 +180,13 @@ public class WorldGenerator : MonoBehaviour
                   	 	//rock
 						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'r';
+						rocks++;
                		}
                 	else if (random == 1)
                 	{
 						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'd';
+						dirts++;
 					}
 				else if (random == 2)
                 	{
@@ -181,12 +195,14 @@ public class WorldGenerator : MonoBehaviour
                     	{
 							r.position = new Vector2(x + .5f, y + .5f);
 							r.type = 'p';
+							pines++;
 						}
 						else
 						{
 							r = new Resource();
 							r.position = new Vector2(x + .5f, y + .5f);
 							r.type = 'o';
+							oaks++;
 						}
 					}
 				}
@@ -197,6 +213,7 @@ public class WorldGenerator : MonoBehaviour
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 's';
+					sands++;
 				}
 			break;
 
@@ -208,11 +225,13 @@ public class WorldGenerator : MonoBehaviour
 					{
 						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'p';
+						pines++;
 					}
 					else
 					{
 						r.position = new Vector2(x + .5f, y + .5f);
 						r.type = 'o';
+						oaks++;
 					}
 				}
 				break;
@@ -222,6 +241,7 @@ public class WorldGenerator : MonoBehaviour
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'd';
+					dirts++;
 				}
 				break;
 			
@@ -230,6 +250,7 @@ public class WorldGenerator : MonoBehaviour
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'r';
+					rocks++;
 				}
 			break;
 			
@@ -238,12 +259,13 @@ public class WorldGenerator : MonoBehaviour
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'w';
+					waters++;
 				}
 			break;
 			
 		default:
                 break;
-        }
+		}
 		if (r.type != 'z')
 			res.Add (r);
 		return res;
@@ -297,9 +319,9 @@ public class WorldGenerator : MonoBehaviour
 
 	public void Update()
 	{
-		float camX = Camera.main.transform.position.x;
-		float camY = Camera.main.transform.position.y;
-		float size = Camera.main.orthographicSize;
+		float camX = c.transform.position.x;
+		float camY = c.transform.position.y;
+		float size = c.orthographicSize;
 		for (int i = 0; i < tileMapLocations.Length; i++)
 		{
 			float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
@@ -309,7 +331,7 @@ public class WorldGenerator : MonoBehaviour
 			{
 				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
 				{
-					mapsDrawn.Remove(i);
+					//mapsDrawn.Remove(i);
 				}
 			}
 			else
@@ -320,9 +342,12 @@ public class WorldGenerator : MonoBehaviour
 					//Debug.Log ("Map " + i + " is ready to be drawn.");
 					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
 					mapsDrawn.Add(i);
-					GameObject g = (GameObject)Instantiate(TGmapPrefab, tileMapLocations[i], Quaternion.identity);
+					GameObject g = rM.GetMap();
+					g.SetActive(true);
+					Debug.Log(g.activeInHierarchy);
+					g.transform.position = tileMapLocations[i];
 					//Debug.Log(textureAssignments[i]);
-					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]]);
+					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM);
 				}
 			}
 		}

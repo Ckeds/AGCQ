@@ -75,6 +75,78 @@ NavMeshSettings:
     heightInaccuracy: 10
     tileSizeHint: 0
   m_NavMesh: {fileID: 0}
+--- !u!1001 &240676156
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: water
+      value: 
+      objectReference: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: sand
+      value: 
+      objectReference: {fileID: 119152, guid: 56ed4a9e0ff862b48b8949582d3eb4ae, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: rock
+      value: 
+      objectReference: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: pine
+      value: 
+      objectReference: {fileID: 100000, guid: 109a391ce2f23e34a8f8dc7203d8a825, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: oak
+      value: 
+      objectReference: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: dirt
+      value: 
+      objectReference: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
+    - target: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+      propertyPath: map
+      value: 
+      objectReference: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+  m_RootGameObject: {fileID: 1652520250}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &573024681
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,13 +303,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapSize: 4
   meshSize: 64
-  numRivers: 1
-  numLakes: 2
+  mapUnitySize: 0
+  numRivers: 0
+  numLakes: 0
   forestDensity: 5
-  numDeserts: 2
+  numDeserts: 0
   desertSize: 25
   desertDensity: 6000
-  numStone: 2
+  numStone: 0
   stoneSize: 35
   stoneDensity: 6000
   stonePercent: 15
@@ -252,6 +325,7 @@ MonoBehaviour:
   tileMapLocations: []
   textureAssignments: 
   mapsDrawn: 
+  rM: {fileID: 0}
 --- !u!1001 &622240766
 Prefab:
   m_ObjectHideFlags: 0
@@ -420,6 +494,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &1652520250
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 199810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+  m_PrefabInternal: {fileID: 240676156}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1652520252}
+  - 114: {fileID: 1652520251}
+  m_Layer: 0
+  m_Name: ResourcePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1652520251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3,
+    type: 2}
+  m_PrefabInternal: {fileID: 240676156}
+  m_GameObject: {fileID: 1652520250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b44938d1b94fa2458cf9b279c6469b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
+  rock: {fileID: 100000, guid: ce241a02ca52a014f9e94145d7648957, type: 2}
+  pine: {fileID: 100000, guid: 109a391ce2f23e34a8f8dc7203d8a825, type: 2}
+  oak: {fileID: 100000, guid: 3ccba04ce90c399439bd465550818cab, type: 2}
+  dirt: {fileID: 100000, guid: f8cf15c0aa8fab74bafb79c7c9b988f7, type: 2}
+  sand: {fileID: 119152, guid: 56ed4a9e0ff862b48b8949582d3eb4ae, type: 2}
+  water: {fileID: 100000, guid: 6f9b6e27348fe6d41a62c9464cf4131d, type: 2}
+--- !u!4 &1652520252
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 499810, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
+  m_PrefabInternal: {fileID: 240676156}
+  m_GameObject: {fileID: 1652520250}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1001 &1858543836
 Prefab:
   m_ObjectHideFlags: 0
@@ -509,15 +630,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numRivers
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numLakes
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numStone
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: forestDensity
@@ -529,7 +650,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numDeserts
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: desertSize

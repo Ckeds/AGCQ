@@ -5,7 +5,7 @@ public class DirtPile : BaseResource
 {
 
 		// Use this for initialization
-		new public void Start ()
+		new public void Awake ()
 		{
 			type = "dirt";
 			tier = 1;
@@ -13,7 +13,7 @@ public class DirtPile : BaseResource
 			maxHealth = 10;
 			currentHealth = 10;
 			anim.SetFloat ("Health", currentHealth);
-			base.Start ();
+			base.Awake ();
 		}
 	
 		// Update is called once per frame

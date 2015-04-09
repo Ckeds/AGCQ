@@ -15,6 +15,7 @@ public class Player : WorldObject
 	public GameObject player;
 	public GameObject itemFab;
     public GameObject testParticle;
+	Camera c;
 
 	//Animator
 	Animator animator;
@@ -27,6 +28,8 @@ public class Player : WorldObject
 	float previousH = 0f;
 	float scale = 2f;
 	float scaleSprint = 4f;
+	float maxX;
+	float maxY;
 
 	//Sync varibles
 	float syncDelay = 0f;
@@ -56,7 +59,8 @@ public class Player : WorldObject
 	GameObject[] equipped;
 
 	// Use this for initialization
-	public override void Start ()
+
+	public override void Awake()
 	{
 		maxHealth = 50;
 		currentHealth = maxHealth;
@@ -71,6 +75,10 @@ public class Player : WorldObject
 		{
 			animator.applyRootMotion = false;
 		}
+		else
+		{
+			c = Camera.main;
+		}
 		items [0] = (GameObject)Instantiate (itemFab);
 		items [0].hideFlags = HideFlags.HideInHierarchy;
 		//Destroy (items [0]);
@@ -84,10 +92,8 @@ public class Player : WorldObject
 				items [i].GetComponent<BaseItem>().CreateGUITexHover ();
 			}
 		}
-	}
-
-	void Awake()
-	{
+		maxX = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ().mapUnitySize;
+		maxY = maxX;
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
 		lastSyncTime = Time.time;
@@ -118,6 +124,25 @@ public class Player : WorldObject
 			InputMovement ();
 		else 
 			SyncedMovement();
+		Vector2 p = rigidbody2D.position;
+		if(p.x > maxX)
+		{
+			p.x -= maxX;
+		}
+		if(this.transform.position.y > maxY)
+		{
+			p.y -= maxY;
+		}
+		if(this.transform.position.x < 0)
+		{
+			p.x += maxX;
+		}
+		if(this.transform.position.y < 0)
+		{
+			p.y += maxY;
+		}
+		rigidbody2D.position = p;
+		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, -1);
 	}
 	private void InputMovement()
 	{
@@ -159,10 +184,10 @@ public class Player : WorldObject
 		}
 		//store Movement
 		movement = new Vector2 (h, v);
-		
+
 		//following code used to make player character face mouse
-		Vector2 mouse = Camera.main.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
-		Vector3 objpos = Camera.main.WorldToViewportPoint(transform.position);        //Object position on screen
+		Vector2 mouse = c.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
+		Vector3 objpos = c.WorldToViewportPoint(transform.position);        //Object position on screen
 		Vector2 relobjpos = new Vector2(objpos.x - 0.5f, objpos.y - 0.5f);            //Set coordinates relative to object's center
 		Vector2 relmousepos = new Vector2(mouse.x - 0.5f, mouse.y - 0.5f) - relobjpos;//Mouse cursor relative to object's center
 		float angle = Vector2.Angle(Vector2.up, relmousepos);                         //Angle calculation
@@ -197,7 +222,6 @@ public class Player : WorldObject
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
 		rigidbody2D.AddForce (movement);
-		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, -1);
 		//Debug.Log (rigidbody2D.velocity);
 	}
 	private void SyncedMovement ()
@@ -209,7 +233,6 @@ public class Player : WorldObject
 		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
-		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, -1);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
 	void UseItem()

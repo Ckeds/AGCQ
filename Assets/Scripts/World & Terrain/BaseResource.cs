@@ -8,7 +8,7 @@ public class BaseResource : WorldObject {
 	protected Animator anim;
 
 	// Use this for initialization
-	public override void Start () 
+	public override void Awake () 
 	{
 		isDamageable = true;
 		//Debug.Log ("I did it");
@@ -25,6 +25,7 @@ public class BaseResource : WorldObject {
 	void OnBecameVisible() 
 	{
 		anim.enabled = true;
+		anim.SetFloat ("Health", currentHealth);
 	}
 	void OnBecameInvisible() 
 	{

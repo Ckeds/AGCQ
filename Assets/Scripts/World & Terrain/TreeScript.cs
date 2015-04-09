@@ -13,7 +13,7 @@ public class TreeScript : BaseResource {
 	}
 
 	// Use this for initialization
-	new public void Start () 
+	new public void Awake () 
 	{
 		type = "tree";
 		tier = 1;
@@ -22,11 +22,11 @@ public class TreeScript : BaseResource {
 		maxHealth = 10;
 		currentHealth = 10;
 		anim.SetFloat ("Time", growthTimer);
-		base.Start ();
+		InvokeRepeating ("AnimValue", 0, 1f);
+		base.Awake ();
 	}
-	
-	// Update is called once per frame
-	public void Update () 
+
+	void AnimValue () 
 	{
 		growthTimer = Time.time - Time.deltaTime;
 		if (startGrown)

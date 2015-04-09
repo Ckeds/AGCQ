@@ -9,15 +9,9 @@ public class WorldObject : MonoBehaviour
 	protected bool isDamageable;
 
 	// Use this for initialization
-	public virtual void Start () 
+	public virtual void Awake () 
 	{
-		isDamageable = false;
-	}
-
-	public virtual void Move(float XMove, float YMove)
-	{
-		positionX += XMove;
-		positionY += YMove;
+		//isDamageable = false;
 	}
 	public virtual void TakeDamage(int damageTaken)
 	{
@@ -30,11 +24,7 @@ public class WorldObject : MonoBehaviour
 	}
 	public virtual void OnDeath()
 	{
-		if(this.GetComponent<NetworkView>())
-		{
-			Network.Destroy (this.gameObject);
-		}
-		Destroy(this.gameObject);
+		this.gameObject.SetActive(false);
 	}
 
 

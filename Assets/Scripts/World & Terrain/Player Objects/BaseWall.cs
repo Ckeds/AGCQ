@@ -4,9 +4,9 @@ using System.Collections;
 public class BaseWall : BaseDefense
 {
     protected int armor;
-    new public void Start()
+    new public void Awake()
     {
-        base.Start();
+        base.Awake();
 	}
 	
 	new public void Update () 

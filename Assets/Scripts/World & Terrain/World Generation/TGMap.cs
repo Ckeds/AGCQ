@@ -4,22 +4,21 @@ using System.Collections.Generic;
 
 public class TGMap : MonoBehaviour
 {
-	public GameObject rockPile;
-	public GameObject dirtPile;
-	public GameObject sandPile;
-	public GameObject tree1;
-	public GameObject tree2;
-	public GameObject waterCollider;
-	
 	public List<GameObject> resource;
 	float width;
 	float height;
+	ResourceManager rM;
+	Camera c;
 
     // Use this for initialization
-	public void Setup(Sprite map, List<WorldGenerator.Resource> res)
+	public void Setup(Sprite map, List<WorldGenerator.Resource> res, ResourceManager r)
     {
         //Debug.Log("Building a mesh...");
+		c = Camera.main;
+		resource = new List<GameObject> ();
 		this.GetComponent<SpriteRenderer> ().sprite = map;
+		rM = r;
+		Debug.Log ("HERE");
 		width = map.rect.width * 1.5625f / 100;
 		height = map.rect.height * 1.5625f / 100;
 		this.transform.localScale = new Vector3 (1.5625f, 1.5625f, 1);
@@ -28,19 +27,19 @@ public class TGMap : MonoBehaviour
     void Update()
     {	
 		//Debug.Log ("here");
-		float dX = Camera.main.transform.position.x - (this.transform.position.x + (width / 2));
-		float dY = Camera.main.transform.position.y - (this.transform.position.y + (height / 2));
-		float size = Camera.main.orthographicSize;
+		float dX = c.transform.position.x - (this.transform.position.x + (width / 2));
+		float dY = c.transform.position.y - (this.transform.position.y + (height / 2));
+		float size = c.orthographicSize;
 		float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 		//Debug.Log (distance);
-		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
+		/*if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
 		{
 			foreach(GameObject g in resource)
 			{
-				Destroy(g);
+				g.SetActive(false);
 			}
-			Destroy(this.gameObject);
-		}
+			this.gameObject.SetActive(false);
+		}*/
 	}
 	public void CreateResource(List<WorldGenerator.Resource> r)
 	{
@@ -51,26 +50,27 @@ public class TGMap : MonoBehaviour
 			switch(r[i].type)
 			{
 			case 'p': 
-				g =  (GameObject)Instantiate(tree1, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetPine();
 				break;
 			case 'o': 
-				g = (GameObject)Instantiate(tree2, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetOak();
 				break;
 			case 's': 
-				g = (GameObject)Instantiate(sandPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetSand();
 				break;
 			case 'd': 
-				g = (GameObject)Instantiate(dirtPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetDirt();
 				break;
 			case 'r': 
-				g = (GameObject)Instantiate(rockPile, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetRock();
 				break;
 			case 'w': 
-				g = (GameObject)Instantiate(waterCollider, r[i].position + mapPos - (3 * transform.forward), Quaternion.identity);
+				g =  rM.GetWater();
 				break;
 			}
+			g.transform.position = r[i].position + mapPos - (3 * transform.forward);
+			g.SetActive(true);
 			resource.Add(g);
 		}
-	}
-	
+	}	
 }

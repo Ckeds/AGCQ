@@ -5,7 +5,7 @@ public class RockPile : BaseResource
 {
 
 	// Use this for initialization
-	new public void Start ()
+	new public void Awake ()
 	{
 		//Debug.Log ("I DID THIS TOO");
 		type = "rock";
@@ -14,7 +14,7 @@ public class RockPile : BaseResource
 		maxHealth = 10;
 		currentHealth = 10;
 		anim.SetFloat ("Health", currentHealth);
-		base.Start ();
+		base.Awake ();
 	}
 		
 	// Update is called once per frame

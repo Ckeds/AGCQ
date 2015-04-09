@@ -27,7 +27,7 @@ public class Enemy : WorldObject {
 
 
 	// Use this for initialization
-	public override void Start () 
+	public override void Awake()
 	{
 		FindTarget ();
 		syncStartPosition = transform.position;
@@ -38,9 +38,6 @@ public class Enemy : WorldObject {
 		anim = this.gameObject.GetComponent<Animator> ();
 		if (!networkView.isMine)
 			anim.applyRootMotion = false;
-	}
-	void Awake()
-	{
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
 		lastSyncTime = Time.time;

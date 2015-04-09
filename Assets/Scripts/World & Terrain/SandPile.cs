@@ -5,7 +5,7 @@ public class SandPile : BaseResource
 {
 
 		// Use this for initialization
-		new public void Start ()
+		new public void Awake ()
 		{
 			type = "sand";
 			tier = 1;
@@ -13,7 +13,7 @@ public class SandPile : BaseResource
 			maxHealth = 10;
 			currentHealth = 10;
 			anim.SetFloat ("Health", currentHealth);
-			base.Start ();
+			base.Awake ();
 		}
 
 		public override void TakeDamage (int damageTaken)

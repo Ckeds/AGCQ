@@ -5,7 +5,7 @@ public class WoodWall : BaseWall
 {
 
 	// Use this for initialization
-	new void Start () 
+	new void Awake () 
     {
         maxHealth = 150;
         currentHealth = 150;
