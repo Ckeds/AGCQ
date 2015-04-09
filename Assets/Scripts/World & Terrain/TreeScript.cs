@@ -22,10 +22,18 @@ public class TreeScript : BaseResource {
 		maxHealth = 10;
 		currentHealth = 10;
 		anim.SetFloat ("Time", growthTimer);
-		InvokeRepeating ("AnimValue", 0, 1f);
 		base.Awake ();
 	}
-
+	public override void OnBecameVisible()
+	{
+		InvokeRepeating ("AnimValue", 0, 1f);
+		base.OnBecameVisible ();
+	}
+	public override void OnBecameInvisible()
+	{
+		CancelInvoke ();
+		base.OnBecameInvisible ();
+	}
 	void AnimValue () 
 	{
 		growthTimer = Time.time - Time.deltaTime;

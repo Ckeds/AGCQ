@@ -331,7 +331,7 @@ public class WorldGenerator : MonoBehaviour
 			{
 				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
 				{
-					//mapsDrawn.Remove(i);
+					mapsDrawn.Remove(i);
 				}
 			}
 			else

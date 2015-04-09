@@ -22,12 +22,12 @@ public class BaseResource : WorldObject {
 	{
 
 	}
-	void OnBecameVisible() 
+	public virtual void OnBecameVisible() 
 	{
 		anim.enabled = true;
 		anim.SetFloat ("Health", currentHealth);
 	}
-	void OnBecameInvisible() 
+	public virtual void OnBecameInvisible() 
 	{
 		anim.enabled = false;
 	}

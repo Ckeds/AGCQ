@@ -32,14 +32,14 @@ public class TGMap : MonoBehaviour
 		float size = c.orthographicSize;
 		float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 		//Debug.Log (distance);
-		/*if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
+		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
 		{
 			foreach(GameObject g in resource)
 			{
 				g.SetActive(false);
 			}
 			this.gameObject.SetActive(false);
-		}*/
+		}
 	}
 	public void CreateResource(List<WorldGenerator.Resource> r)
 	{
