@@ -32,5 +32,6 @@ public class TestParticle : BaseProjectile
         //particles.Clear();
         particles.IsAlive(false);
         Destroy(particles.gameObject, 1.0f);
+		base.CleanUp ();
     }
 }

@@ -21,8 +21,7 @@ public class BaseProjectile : MonoBehaviour
         lifespan -= Time.deltaTime;
         if(lifespan<=0)
         {
-            CleanUp();
-            Destroy(this.gameObject); 
+            CleanUp(); 
         }
         else
         {
@@ -35,15 +34,25 @@ public class BaseProjectile : MonoBehaviour
         damage *= damageMod;
         speed *= speedMod;
 
-        this.transform.position = shooter.transform.position;
+        this.transform.position = shooter.transform.position + transform.forward;
         this.transform.rotation = shooter.transform.rotation;
         this.transform.Rotate(0, 0, rotationMod);
         //rigidbody2D.AddForce(this.transform.up * speed);
         rigidbody2D.velocity = this.transform.up * speed;
         rigidbody2D.velocity += shooter.GetComponent<Rigidbody2D>().velocity;
     }
+	public virtual void OnTriggerEnter2D(Collider2D coll)
+	{
+		if(coll.gameObject.GetComponent<Enemy>())
+		{
+			coll.gameObject.GetComponent<WorldObject> ().TakeDamage (1);
+			CleanUp();
+		}
+		if(coll.gameObject.GetComponent<BaseResource>())
+			CleanUp();
+	}
     public virtual void CleanUp()
     {
-
+		Destroy(this.gameObject);
     }
 }
