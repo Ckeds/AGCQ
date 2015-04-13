@@ -63,7 +63,7 @@ public class BaseItem : MonoBehaviour {
 	public void CreateGUITexHover()
 	{
 		SpriteRenderer sr =GetComponent<SpriteRenderer>();
-		Debug.Log (sr);
+		//Debug.Log (sr);
 		Texture2D tex = sr.sprite.texture;
 		Color[] spriteToDraw = tex.GetPixels();
 		Debug.Log(spriteToDraw[0]);

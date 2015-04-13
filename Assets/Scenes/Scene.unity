@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 16
+  mapSize: 2
   meshSize: 16
   mapUnitySize: 0
   numRivers: 3
@@ -598,7 +598,7 @@ Prefab:
       objectReference: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: mapSize
-      value: 16
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: meshSize

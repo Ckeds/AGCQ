@@ -88,7 +88,7 @@ MonoBehaviour:
   speed: 5
   lifespan: 10
   damage: 2
-  particles: {fileID: 19869582, guid: f9beca240007ddc4d95e2f9d5f2c36a4, type: 2}
+  particles: {fileID: 19827488, guid: 42f42ecf459dd244fa7c5b4e4bfa8642, type: 2}
 --- !u!148 &14855008
 NetworkView:
   m_ObjectHideFlags: 1
