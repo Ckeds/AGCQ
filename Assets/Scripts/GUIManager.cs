@@ -21,6 +21,7 @@ public class GUIManager : MonoBehaviour {
 	public GUIState CurrentState
 	{
 		get { return currentState; }
+		set { currentState = value; }
 	}
 	private GUIState gotoState;
 	private NetworkManager nwm; 

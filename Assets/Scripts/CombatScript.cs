@@ -29,7 +29,7 @@ public class CombatScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!Alive && networkView.isMine)
+		if (!Alive && GetComponent<NetworkView>().isMine)
 		{
 			Die();
 			//Network.DestroyPlayerObjects(networkView.viewID.owner);
@@ -38,7 +38,7 @@ public class CombatScript : MonoBehaviour {
 	
 	void OnCollisionEnter2D(Collision2D coll)
 	{
-		if (tag == "Player" && coll.gameObject.tag == "Enemy" && networkView.isMine)
+		if (tag == "Player" && coll.gameObject.tag == "Enemy" && GetComponent<NetworkView>().isMine)
 		{
 			AlterHealth(-1);
 			coll.gameObject.GetComponent<EnemyScript>().Explode();
@@ -49,14 +49,14 @@ public class CombatScript : MonoBehaviour {
 	{
 		if (tag == "Player")
 		{
-			Network.RemoveRPCs(networkView.viewID.owner,1);
-			Network.RemoveRPCs(networkView.viewID.owner,2);
+			Network.RemoveRPCs(GetComponent<NetworkView>().viewID.owner,1);
+			Network.RemoveRPCs(GetComponent<NetworkView>().viewID.owner,2);
 			Network.Destroy(gameObject.GetComponent<Player>().PlayerName);
 			Network.Destroy(gameObject);
 		}	
 		else if (tag == "Enemy")
 		{
-			Network.RemoveRPCs(networkView.viewID);
+			Network.RemoveRPCs(GetComponent<NetworkView>().viewID);
 			Network.Destroy(gameObject);
 		}
 	}
@@ -64,7 +64,7 @@ public class CombatScript : MonoBehaviour {
 	public void AlterHealth(float delta)
 	{
 		Health += delta;
-		networkView.RPC("HealthAltered",RPCMode.Others, networkView.viewID, Health);
+		GetComponent<NetworkView>().RPC("HealthAltered",RPCMode.Others, GetComponent<NetworkView>().viewID, Health);
 	}
 	
 	[RPC]

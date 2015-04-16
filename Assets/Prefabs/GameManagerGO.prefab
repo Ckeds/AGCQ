@@ -43,8 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590291aee2313cc48b995e9cadcf54f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSize: 0
-  meshSize: 128
+  mapSize: 6
+  meshSize: 16
+  mapUnitySize: 0
   numRivers: 0
   numLakes: 0
   forestDensity: 5
@@ -60,12 +61,13 @@ MonoBehaviour:
   plainsPercent: 0
   dirtPercent: 0
   walkOnWater: 0
-  terrainTiles: {fileID: 0}
-  TGmapPrefab: {fileID: 0}
+  terrainTiles: {fileID: 2800000, guid: 2ea3cce54c7e9ee4e949e1e54aab3a7f, type: 3}
+  TGmapPrefab: {fileID: 100000, guid: d4ba5530f4117eb43a0fa2e25b285ada, type: 2}
   mapTextures: []
   tileMapLocations: []
   textureAssignments: 
   mapsDrawn: 
+  rM: {fileID: 11466050, guid: 09e5e058e514dd54dbb2398fa9d21fd3, type: 2}
 --- !u!114 &11428124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 500d868979ea87340ac5877d433730ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 128122}
 --- !u!114 &11428128
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,9 +18,9 @@ public class NameMover : MonoBehaviour {
 	{
 		this.GetComponent<TextMesh> ().text = name;
 		objectToFollow = NetworkView.Find (id).gameObject;
-		if (networkView.isMine) {
+		if (GetComponent<NetworkView>().isMine) {
 			Debug.Log ("Solution is plausible");
-			renderer.enabled = false;
+			GetComponent<Renderer>().enabled = false;
 		}
 		objectToFollow.GetComponent<Player> ().PlayerName = this.gameObject;
 	}

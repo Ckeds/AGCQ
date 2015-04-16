@@ -35,7 +35,7 @@ public class TGMapInspector : Editor
 			if(tm.resources != null)
 				tm.resources.Clear();
 			tm.map = null;
-			EditorUtility.UnloadUnusedAssets();
+			EditorUtility.UnloadUnusedAssetsImmediate();
         }
         if (GUILayout.Button("Clear Objects"))
         {

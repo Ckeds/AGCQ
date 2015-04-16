@@ -89,6 +89,7 @@ MonoBehaviour:
   lifespan: 10
   damage: 2
   particles: {fileID: 19827488, guid: 42f42ecf459dd244fa7c5b4e4bfa8642, type: 2}
+  contact: {fileID: 19865042, guid: 325aa0c063e47514b88970081db50258, type: 2}
 --- !u!148 &14855008
 NetworkView:
   m_ObjectHideFlags: 1

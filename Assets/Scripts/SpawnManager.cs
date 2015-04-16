@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour {
 		get {return spawnEnemies;}
 		set
 		{
-			networkView.RPC("SpawningEnemies",RPCMode.All, value);
+			GetComponent<NetworkView>().RPC("SpawningEnemies",RPCMode.All, value);
 		}
 	}
 	
@@ -35,7 +35,7 @@ public class SpawnManager : MonoBehaviour {
 			GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 			for (int i = 0; i < players.Length; i++)
 			{
-				if (players[i].networkView.isMine)
+				if (players[i].GetComponent<NetworkView>().isMine)
 					return true;
 			}
 			return false;
@@ -94,9 +94,9 @@ public class SpawnManager : MonoBehaviour {
 		                                                   Quaternion.identity, 2);
 		Camera.main.GetComponent<FollowCamera> ().target = player.GetComponent<Player>();
 		GetComponent<GUIManager> ().MyPlayer = player.GetComponent<Player> ();
-		name.networkView.RPC ("CreateName", RPCMode.AllBuffered, player.networkView.viewID,
+		name.GetComponent<NetworkView>().RPC ("CreateName", RPCMode.AllBuffered, player.GetComponent<NetworkView>().viewID,
 		                      PlayerPrefs.GetString ("playerName"));
-		player.networkView.RPC("SetupPlayer", RPCMode.AllBuffered, player.networkView.viewID);
+		player.GetComponent<NetworkView>().RPC("SetupPlayer", RPCMode.AllBuffered, player.GetComponent<NetworkView>().viewID);
 	} 
 	
 	public void SpawnEnemy()

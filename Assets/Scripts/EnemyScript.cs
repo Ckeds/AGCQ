@@ -71,9 +71,9 @@ public class EnemyScript : MonoBehaviour {
 	{
 		counter += Time.deltaTime;
 		
-		if (networkView.isMine)
+		if (GetComponent<NetworkView>().isMine)
 		{
-			Vector2 previousForce = rigidbody2D.velocity;
+			Vector2 previousForce = GetComponent<Rigidbody2D>().velocity;
 			if (counter > 0)
 			{
 				FindTarget();
@@ -90,23 +90,23 @@ public class EnemyScript : MonoBehaviour {
 			//Debug.Log(delta);
 			delta.Normalize();
 			delta *= Accel;
-			Accel = 2 + rigidbody2D.velocity.magnitude/4;
-			rigidbody2D.AddForce(-previousForce);
-			rigidbody2D.AddForce(delta * 1.5f);
-			if (rigidbody2D.velocity.magnitude > Speed)
+			Accel = 2 + GetComponent<Rigidbody2D>().velocity.magnitude/4;
+			GetComponent<Rigidbody2D>().AddForce(-previousForce);
+			GetComponent<Rigidbody2D>().AddForce(delta * 1.5f);
+			if (GetComponent<Rigidbody2D>().velocity.magnitude > Speed)
 			{
 				Debug.Log("SLOW DOWN");
-				Vector2 slow = -rigidbody2D.velocity;
+				Vector2 slow = -GetComponent<Rigidbody2D>().velocity;
 				slow.Normalize();
-				slow *= rigidbody2D.velocity.magnitude - Speed;
+				slow *= GetComponent<Rigidbody2D>().velocity.magnitude - Speed;
 				
-				rigidbody2D.AddForce(slow);
+				GetComponent<Rigidbody2D>().AddForce(slow);
 			}
-			float angle = Mathf.Atan2(rigidbody2D.velocity.y, rigidbody2D.velocity.x);
+			float angle = Mathf.Atan2(GetComponent<Rigidbody2D>().velocity.y, GetComponent<Rigidbody2D>().velocity.x);
 			angle = angle * (180 / Mathf.PI) - 90; 
 			//Debug.Log (angle);
-			rigidbody2D.rotation = angle;
-			moveSpeed = rigidbody2D.velocity.magnitude;
+			GetComponent<Rigidbody2D>().rotation = angle;
+			moveSpeed = GetComponent<Rigidbody2D>().velocity.magnitude;
 			
 		}
 		else
@@ -126,8 +126,8 @@ public class EnemyScript : MonoBehaviour {
 	private void SyncedMovement()
 	{
 		syncTime += Time.deltaTime;
-		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
 	}
 	
 	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info)
@@ -139,10 +139,10 @@ public class EnemyScript : MonoBehaviour {
 		
 		if (stream.isWriting)
 		{
-			networkPosition = rigidbody2D.position;
-			networkVelocity = rigidbody2D.velocity;
-			networkRotation = rigidbody2D.rotation;
-			networkAngVelocity = rigidbody2D.angularVelocity;
+			networkPosition = GetComponent<Rigidbody2D>().position;
+			networkVelocity = GetComponent<Rigidbody2D>().velocity;
+			networkRotation = GetComponent<Rigidbody2D>().rotation;
+			networkAngVelocity = GetComponent<Rigidbody2D>().angularVelocity;
 
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
@@ -160,9 +160,9 @@ public class EnemyScript : MonoBehaviour {
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
 			
-			syncStartPosition = rigidbody2D.position;
+			syncStartPosition = GetComponent<Rigidbody2D>().position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			syncStartRotation = rigidbody2D.rotation;
+			syncStartRotation = GetComponent<Rigidbody2D>().rotation;
 			syncEndRotation = networkRotation;
 		}
 	}
@@ -187,13 +187,13 @@ public class EnemyScript : MonoBehaviour {
 	public void AttractTo(Vector3 point)
 	{
 		target = point;
-		networkView.RPC("AttractedTo", RPCMode.All, networkView.viewID);
+		GetComponent<NetworkView>().RPC("AttractedTo", RPCMode.All, GetComponent<NetworkView>().viewID);
 	}
 	
 	[RPC]
 	public void AttractedTo(NetworkViewID id)
 	{
-		if (networkView.viewID == id)
+		if (GetComponent<NetworkView>().viewID == id)
 		{
 			counter = -findInterval;
 			//attractFlag.enabled = true;
@@ -215,13 +215,13 @@ public class EnemyScript : MonoBehaviour {
 	
 	public void Stun(float time)
 	{
-		networkView.RPC("Stunned", RPCMode.All, networkView.viewID, time);
+		GetComponent<NetworkView>().RPC("Stunned", RPCMode.All, GetComponent<NetworkView>().viewID, time);
 	}
 	
 	[RPC]
 	public void Stunned(NetworkViewID id, float time)
 	{
-		if (networkView.viewID == id)
+		if (GetComponent<NetworkView>().viewID == id)
 		{
 			counter = -time;
 			//attractFlag.enabled = true;

@@ -27,7 +27,7 @@ public class FollowCamera : MonoBehaviour {
 			}
 			if (currentMovement.magnitude < 0.0005f)
 				currentMovement = new Vector3(0,0,0);
-			this.transform.position = target.transform.position + (currentMovement / (10 / Camera.main.orthographicSize)) - transform.forward * 5f;
+			this.transform.position = target.transform.position + (currentMovement / (10 / c.orthographicSize)) - transform.forward * 5f;
 			//Debug.Log ("OBJECT: " + target.transform.position);
 			//Debug.Log ("CAMERA : " + this.transform.position);
 			//Debug.Log ("MOVEMENT: " + target.movement *10f);

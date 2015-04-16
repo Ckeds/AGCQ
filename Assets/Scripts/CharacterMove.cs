@@ -26,7 +26,7 @@ public class CharacterMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (!networkView.isMine)
+		if (!GetComponent<NetworkView>().isMine)
 		{
 			animator.applyRootMotion = false;
 		}
@@ -36,7 +36,7 @@ public class CharacterMove : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (networkView.isMine) {
+		if (GetComponent<NetworkView>().isMine) {
 			InputMovement ();
 		}
 		else {
@@ -45,7 +45,7 @@ public class CharacterMove : MonoBehaviour {
 	}
     private void InputMovement()
     {
-		Vector2 previousForce = rigidbody2D.velocity;
+		Vector2 previousForce = GetComponent<Rigidbody2D>().velocity;
 		if (v != 0) {
 			previousV = v;
 		}
@@ -104,22 +104,22 @@ public class CharacterMove : MonoBehaviour {
 		*/
 
 		//apply
-        rigidbody2D.rotation = angle;
-		rigidbody2D.AddForce (-previousForce);
-		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
+        GetComponent<Rigidbody2D>().rotation = angle;
+		GetComponent<Rigidbody2D>().AddForce (-previousForce);
+		float charSpeed = GetComponent<Rigidbody2D>().velocity.sqrMagnitude;
 		if(v == 0 && h == 0)
 		{
-			rigidbody2D.AddForce (-previousForce * 2);
+			GetComponent<Rigidbody2D>().AddForce (-previousForce * 2);
 			if (charSpeed <= .1f) {
-				rigidbody2D.velocity = new Vector2(0,0);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
 			}
 		}
 		animator.SetFloat ("charSpeed", charSpeed);
 		//Vector2 newPosition = rigidbody2D.position + (movement * Time.deltaTime);
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
-		rigidbody2D.AddForce (movement);
-		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		GetComponent<Rigidbody2D>().AddForce (movement);
+		this.transform.position = new Vector3 (GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
 		//Debug.Log (rigidbody2D.velocity);
     }
 	private void SyncedMovement ()
@@ -127,11 +127,11 @@ public class CharacterMove : MonoBehaviour {
 		syncTime += Time.deltaTime;
 		Debug.Log ("SyncStart : " + syncStartPosition);
 		Debug.Log ("SyncEnd : " + syncEndPosition);
-		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
+		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		float charSpeed = GetComponent<Rigidbody2D>().velocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
-		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
 	}
 	void OnTriggerEnter2D( Collider2D other )
 	{
@@ -152,10 +152,10 @@ public class CharacterMove : MonoBehaviour {
 		
 		if (stream.isWriting)
 		{
-			networkPosition = rigidbody2D.position;
-			networkVelocity = rigidbody2D.velocity;
-			networkRotation = rigidbody2D.rotation;
-			networkAngVelocity = rigidbody2D.angularVelocity;
+			networkPosition = GetComponent<Rigidbody2D>().position;
+			networkVelocity = GetComponent<Rigidbody2D>().velocity;
+			networkRotation = GetComponent<Rigidbody2D>().rotation;
+			networkAngVelocity = GetComponent<Rigidbody2D>().angularVelocity;
 
 			
 			stream.Serialize(ref networkPosition);
@@ -176,11 +176,11 @@ public class CharacterMove : MonoBehaviour {
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
-			syncStartPosition = rigidbody2D.position;
+			syncStartPosition = GetComponent<Rigidbody2D>().position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			syncStartRotation = rigidbody2D.rotation;
+			syncStartRotation = GetComponent<Rigidbody2D>().rotation;
 			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
-			rigidbody2D.velocity = networkVelocity;
+			GetComponent<Rigidbody2D>().velocity = networkVelocity;
 		}
 	}
 	[RPC]
@@ -188,7 +188,7 @@ public class CharacterMove : MonoBehaviour {
 	{
 		player = NetworkView.Find(id).gameObject;
 		Debug.Log (player);
-		networkView.observed = this;
+		GetComponent<NetworkView>().observed = this;
 		
 		//player.GetComponent<HumanScript>().clothes = player.GetComponentsInChildren<SkinnedMeshRenderer>()[2].materials[1];
 		//Color color = Color.black;

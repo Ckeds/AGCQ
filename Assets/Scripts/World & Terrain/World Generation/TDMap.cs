@@ -211,7 +211,7 @@ public class TDMap
         int maxDist = desertSize;
         int startPointX = randX;
         int startPointY = randY;
-		Debug.Log (startPointX + ", " + startPointY);
+		//Debug.Log (startPointX + ", " + startPointY);
         mapData[randX, randY] = new TDTile(TDTypes.TYPE.DESERT);
 
         for (int i = 0; i < desertDensity; i++)

@@ -36,7 +36,7 @@ public class Enemy : WorldObject {
 		currentHealth = maxHealth;
 		isDamageable = true;
 		anim = this.gameObject.GetComponent<Animator> ();
-		if (!networkView.isMine)
+		if (!GetComponent<NetworkView>().isMine)
 			anim.applyRootMotion = false;
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
@@ -51,14 +51,14 @@ public class Enemy : WorldObject {
 	}
 	void Move()
 	{
-		if (networkView.isMine) 
+		if (GetComponent<NetworkView>().isMine) 
 			AIMovement ();
 		else 
 			SyncedMovement();
 	}
 	private void AIMovement()
 	{
-		Vector2 previousForce = rigidbody2D.velocity;
+		//Vector2 previousForce = GetComponent<Rigidbody2D>().velocity;
 		if (counter > 0)
 		{
 			FindTarget();
@@ -69,34 +69,34 @@ public class Enemy : WorldObject {
 
 		delta.Normalize();
 		delta *= accel;
-		accel = 2 + rigidbody2D.velocity.magnitude/4;
-		rigidbody2D.AddForce(-previousForce);
-		rigidbody2D.AddForce(delta * 1.5f);
-		if (rigidbody2D.velocity.magnitude > speed)
+		accel = 2 + GetComponent<Rigidbody2D>().velocity.magnitude/4;
+		//GetComponent<Rigidbody2D>().AddForce(-previousForce);
+		GetComponent<Rigidbody2D>().AddForce(delta * 50);
+		if (GetComponent<Rigidbody2D>().velocity.magnitude > speed)
 		{
 			//Debug.Log("SLOW DOWN");
-			Vector2 slow = -rigidbody2D.velocity;
+			Vector2 slow = -GetComponent<Rigidbody2D>().velocity;
 			slow.Normalize();
-			slow *= rigidbody2D.velocity.magnitude - speed;
+			slow *= GetComponent<Rigidbody2D>().velocity.magnitude - speed;
 			
-			rigidbody2D.AddForce(slow);
+			GetComponent<Rigidbody2D>().AddForce(slow);
 		}
-		float angle = Mathf.Atan2(rigidbody2D.velocity.y, rigidbody2D.velocity.x) * (180 / Mathf.PI) - 90;
-		rigidbody2D.rotation = angle;
-		moveSpeed = rigidbody2D.velocity.magnitude;
-		anim.SetFloat ("charSpeed", rigidbody2D.velocity.magnitude);
-		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		float angle = Mathf.Atan2(GetComponent<Rigidbody2D>().velocity.y, GetComponent<Rigidbody2D>().velocity.x) * (180 / Mathf.PI) - 90;
+		GetComponent<Rigidbody2D>().rotation = angle;
+		moveSpeed = GetComponent<Rigidbody2D>().velocity.magnitude;
+		anim.SetFloat ("charSpeed", GetComponent<Rigidbody2D>().velocity.magnitude);
+		this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
 	}
 	private void SyncedMovement()
 	{
 		//Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
 		syncTime += Time.deltaTime;
-		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
+		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
 		//Debug.Log (rigidbody2D.velocity.sqrMagnitude);
-		anim.SetFloat ("charSpeed", rigidbody2D.velocity.sqrMagnitude);
+		anim.SetFloat ("charSpeed", GetComponent<Rigidbody2D>().velocity.sqrMagnitude);
 		if (counter > 0)
 			counter = -findInterval;
 	}
@@ -110,10 +110,10 @@ public class Enemy : WorldObject {
 		
 		if (stream.isWriting)
 		{
-			networkPosition = rigidbody2D.position;
-			networkVelocity = rigidbody2D.velocity;
-			networkRotation = rigidbody2D.rotation;
-			networkAngVelocity = rigidbody2D.angularVelocity;
+			networkPosition = GetComponent<Rigidbody2D>().position;
+			networkVelocity = GetComponent<Rigidbody2D>().velocity;
+			networkRotation = GetComponent<Rigidbody2D>().rotation;
+			networkAngVelocity = GetComponent<Rigidbody2D>().angularVelocity;
 			
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
@@ -132,11 +132,11 @@ public class Enemy : WorldObject {
 			//Debug.Log(syncDelay);
 			lastSyncTime = Time.time;
 			
-			syncStartPosition = rigidbody2D.position;
+			syncStartPosition = GetComponent<Rigidbody2D>().position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
-			syncStartRotation = rigidbody2D.rotation;
+			syncStartRotation = GetComponent<Rigidbody2D>().rotation;
 			syncEndRotation = networkRotation;
-			rigidbody2D.velocity = networkVelocity;
+			GetComponent<Rigidbody2D>().velocity = networkVelocity;
 		}
 	}
 	void OnCollisionEnter2D(Collision2D coll)

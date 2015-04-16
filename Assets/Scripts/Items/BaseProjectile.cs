@@ -8,6 +8,7 @@ public class BaseProjectile : MonoBehaviour
     public float speed;
     public float lifespan;
     public float damage;
+	public Vector2 vel;
 
 	// Use this for initialization
 	public virtual void Awake () 
@@ -16,7 +17,7 @@ public class BaseProjectile : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	public virtual void Update () 
+	public virtual void FixedUpdate () 
     {
         lifespan -= Time.deltaTime;
         if(lifespan<=0)
@@ -25,8 +26,9 @@ public class BaseProjectile : MonoBehaviour
         }
         else
         {
-            this.transform.position = new Vector3(rigidbody2D.position.x, rigidbody2D.position.y, 0);
-            //Debug.Log(rigidbody2D.velocity);
+			GetComponent<Rigidbody2D>().MovePosition(GetComponent<Rigidbody2D>().position + (vel * Time.deltaTime));
+            this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
+            //Debug.Log(GetComponent<Rigidbody2D>().velocity);
         }
 	}
     public virtual void Setup(GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, int rotationMod = 0)
@@ -38,8 +40,9 @@ public class BaseProjectile : MonoBehaviour
         this.transform.rotation = shooter.transform.rotation;
         this.transform.Rotate(0, 0, rotationMod);
         //rigidbody2D.AddForce(this.transform.up * speed);
-        rigidbody2D.velocity = this.transform.up * speed;
-        rigidbody2D.velocity += shooter.GetComponent<Rigidbody2D>().velocity;
+        vel = this.transform.up * speed;
+        vel += shooter.GetComponent<ConstantForce2D>().force / 100;
+		//Debug.Log (vel);
     }
 	public virtual void OnTriggerEnter2D(Collider2D coll)
 	{

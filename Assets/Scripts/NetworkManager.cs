@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class NetworkManager : MonoBehaviour {
-	
+
+	//public GameObject map;
 	public const int MAX_CLIENTS = 7;
 	public const int PORT_NUMBER = 25000;
 	public const string GAME_PREFIX = "AGameCalledQuest";
@@ -61,6 +62,9 @@ public class NetworkManager : MonoBehaviour {
 	{
 		Network.InitializeServer(maxPlayers, PORT_NUMBER, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(GAME_PREFIX + gameType, gameName);
+		//GameObject g = (GameObject)Network.Instantiate (map, Vector3.zero, Quaternion.identity, 0);
+		//g.GetComponent<GUIManager> ().CurrentState = GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState;
+		//Destroy(GameObject.Find("GameManagerGO"));
 	}
 	
 	public void JoinServer(HostData hostData)

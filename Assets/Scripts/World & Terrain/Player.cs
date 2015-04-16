@@ -16,6 +16,7 @@ public class Player : WorldObject
 	public GameObject itemFab;
     public GameObject testParticle;
 	Camera c;
+	Rigidbody2D rigid;
 
 	//Animator
 	Animator animator;
@@ -26,8 +27,8 @@ public class Player : WorldObject
 	float h = 0f;
 	float previousV = 0f;
 	float previousH = 0f;
-	float scale = 2f;
-	float scaleSprint = 4f;
+	float scale = 1f;
+	float scaleSprint = 1.5f;
 	float maxX;
 	float maxY;
 
@@ -71,7 +72,7 @@ public class Player : WorldObject
 		//fireDefense = 0;
 		isDamageable = false;
 		animator = GetComponent<Animator> ();
-		if (!networkView.isMine)
+		if (!GetComponent<NetworkView>().isMine)
 		{
 			animator.applyRootMotion = false;
 		}
@@ -97,6 +98,7 @@ public class Player : WorldObject
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;
 		lastSyncTime = Time.time;
+		rigid = GetComponent<Rigidbody2D> ();
 	}
 
 	// Update is called once per frame
@@ -111,15 +113,18 @@ public class Player : WorldObject
             
 		}
 		//Debug.Log (1 / Time.deltaTime);
+	}
+	public void FixedUpdate()
+	{
 		Move();
 	}
 	void Move()
 	{
-		if (networkView.isMine) 
+		if (GetComponent<NetworkView>().isMine) 
 			InputMovement ();
 		else 
 			SyncedMovement();
-		Vector2 p = rigidbody2D.position;
+		Vector2 p = rigid.position;
 		if(p.x > maxX)
 		{
 			p.x -= maxX;
@@ -136,12 +141,13 @@ public class Player : WorldObject
 		{
 			p.y += maxY;
 		}
-		rigidbody2D.position = p;
-		this.transform.position = new Vector3 (rigidbody2D.position.x, rigidbody2D.position.y, -1);
+		rigid.position = p;
+		this.transform.position = new Vector3 (rigid.position.x, rigid.position.y, -1);
 	}
 	private void InputMovement()
 	{
-		Vector2 previousForce = rigidbody2D.velocity;
+		Vector2 previousForce = rigid.velocity;
+		//Debug.Log (previousForce);
 		if (v != 0) {
 			previousV = v;
 		}
@@ -151,7 +157,6 @@ public class Player : WorldObject
 		//used to get input for direction
 		v = Input.GetAxis("Vertical");
 		h = Input.GetAxis("Horizontal");
-		
 		//Check for sprint
 		if(Input.GetKey(KeyCode.LeftShift)||Input.GetKey(KeyCode.RightShift))
 		{
@@ -180,13 +185,14 @@ public class Player : WorldObject
 		//store Movement
 		movement = new Vector2 (h, v);
 
+		//Debug.Log (movement);
 		//following code used to make player character face mouse
 		Vector2 mouse = c.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
 		Vector3 objpos = c.WorldToViewportPoint(transform.position);        //Object position on screen
 		Vector2 relobjpos = new Vector2(objpos.x - 0.5f, objpos.y - 0.5f);            //Set coordinates relative to object's center
 		Vector2 relmousepos = new Vector2(mouse.x - 0.5f, mouse.y - 0.5f) - relobjpos;//Mouse cursor relative to object's center
 		float angle = Vector2.Angle(Vector2.up, relmousepos);                         //Angle calculation
-		
+		//Debug.Log (angle);
 		//if mouse is on the left side of our object
 		if (relmousepos.x > 0)
 			angle = 360 - angle;
@@ -198,16 +204,16 @@ public class Player : WorldObject
 			movement = angle * movement;
 		}
 		*/
-		
 		//apply
-		rigidbody2D.rotation = angle;
-		rigidbody2D.AddForce (-previousForce);
-		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
+
+		this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+		rigid.velocity = previousForce;
+		float charSpeed = movement.sqrMagnitude;
 		if(v == 0 && h == 0)
 		{
-			rigidbody2D.AddForce (-previousForce * 2);
-			if (charSpeed <= .1f) {
-				rigidbody2D.velocity = new Vector2(0,0);
+			rigid.AddForce (-previousForce * 2);
+			if (charSpeed <= .01f) {
+				rigid.velocity = new Vector2(0,0);
 				previousH = 0;
 				previousV = 0;
 			}
@@ -216,17 +222,17 @@ public class Player : WorldObject
 		//Vector2 newPosition = rigidbody2D.position + (movement * Time.deltaTime);
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
-		rigidbody2D.AddForce (movement);
-		//Debug.Log (rigidbody2D.velocity);
+		GetComponent<ConstantForce2D>().force =  (movement * 100);
+		//Debug.Log (rigid.velocity);
 	}
 	private void SyncedMovement ()
 	{
 		syncTime += Time.deltaTime;
 		//Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
-		rigidbody2D.position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		rigidbody2D.rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		float charSpeed = rigidbody2D.velocity.sqrMagnitude;
+		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
+		float charSpeed = GetComponent<Rigidbody2D>().velocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
@@ -249,10 +255,10 @@ public class Player : WorldObject
 		
 		if (stream.isWriting)
 		{
-			networkPosition = rigidbody2D.position;
-			networkVelocity = rigidbody2D.velocity;
-			networkRotation = rigidbody2D.rotation;
-			networkAngVelocity = rigidbody2D.angularVelocity;
+			networkPosition = GetComponent<Rigidbody2D>().position;
+			networkVelocity = GetComponent<Rigidbody2D>().velocity;
+			networkRotation = GetComponent<Rigidbody2D>().rotation;
+			networkAngVelocity = GetComponent<Rigidbody2D>().angularVelocity;
 			
 			
 			stream.Serialize(ref networkPosition);
@@ -272,12 +278,12 @@ public class Player : WorldObject
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
-			syncStartPosition = rigidbody2D.position;
+			syncStartPosition = GetComponent<Rigidbody2D>().position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			//Debug.Log("syncEndPosition : " + syncEndPosition);
-			syncStartRotation = rigidbody2D.rotation;
+			syncStartRotation = GetComponent<Rigidbody2D>().rotation;
 			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
-			rigidbody2D.velocity = networkVelocity;
+			GetComponent<Rigidbody2D>().velocity = networkVelocity;
 		}
 	}
 	public override void OnDeath ()
