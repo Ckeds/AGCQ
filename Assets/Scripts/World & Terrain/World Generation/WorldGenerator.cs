@@ -30,6 +30,8 @@ public class WorldGenerator : MonoBehaviour
     public int forestPercent;
     public int plainsPercent;
     public int dirtPercent;
+	public int xMap;
+	public int yMap;
     public bool walkOnWater;
 
     public Texture2D terrainTiles;
@@ -51,6 +53,8 @@ public class WorldGenerator : MonoBehaviour
 	int waters = 0;
 	int dirts = 0;
 	Camera c;
+	bool coroutineDone;
+
 	// Use this for initialization
 	void Start () 
     {
@@ -80,12 +84,12 @@ public class WorldGenerator : MonoBehaviour
             dirtPercent = 0;
         if (dirtPercent > 100)
             dirtPercent = 100;
-        buildWorld();
-		map = null;
+		coroutineDone = false;
 		mapUnitySize = mapSize * meshSize;
+        StartCoroutine(buildWorld());
 
 	}
-    public void buildWorld()
+    public IEnumerator buildWorld()
     {
 		c = Camera.main;
 		rM = GameObject.Find ("ResourcePool").GetComponent<ResourceManager> ();
@@ -97,7 +101,20 @@ public class WorldGenerator : MonoBehaviour
         buildTDMap();
 		tileMap = ChopUpTiles ();
         buildTGMaps();
-		rM.Setup (mapSize, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize); 
+		for (yMap = 0; yMap < mapSize; yMap++)
+		{
+			for (xMap = 0; xMap < mapSize; xMap++)
+			{
+				//Debug.Log("this, right?");
+				BuildTexture(xMap * meshSize, yMap * meshSize);
+				yield return null;
+			}
+		}
+		rM.Setup (mapSize, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize);
+		coroutineDone = true;
+		Destroy(GameObject.Find("LoadBar"));
+		GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.StartScreen;
+		map = null;
 		//Debug.Log (resources.Count);
 		//CreateResource (resources [0]);
     }
@@ -107,14 +124,6 @@ public class WorldGenerator : MonoBehaviour
     }
     void buildTGMaps()
     {
-		for (int yMap = 0; yMap < mapSize; yMap++)
-		{
-			for (int xMap = 0; xMap < mapSize; xMap++)
-			{
-				//Debug.Log("this, right?");
-				BuildTexture(xMap * meshSize, yMap * meshSize);
-			}
-		}
         //GameObject g = null;
         //Debug.Log(TGmap);
         //int numTiles = mapSize ^ 2;
@@ -320,37 +329,45 @@ public class WorldGenerator : MonoBehaviour
 
 	public void Update()
 	{
-		float camX = c.transform.position.x;
-		float camY = c.transform.position.y;
-		float size = c.orthographicSize;
-		for (int i = 0; i < tileMapLocations.Length; i++)
+		if(coroutineDone)
 		{
-			float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
-			float dY = camY - (tileMapLocations[i].y + meshSize * 0.5f);
-			float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
-			if(mapsDrawn.Contains(i))
+			float camX = c.transform.position.x;
+			float camY = c.transform.position.y;
+			float size = c.orthographicSize;
+			for (int i = 0; i < tileMapLocations.Length; i++)
 			{
-				if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+				float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
+				float dY = camY - (tileMapLocations[i].y + meshSize * 0.5f);
+				float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
+				if(mapsDrawn.Contains(i))
 				{
-					mapsDrawn.Remove(i);
+					if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+					{
+						mapsDrawn.Remove(i);
+					}
+				}
+				else
+				{
+					//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
+					if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+					{
+						//Debug.Log ("Map " + i + " is ready to be drawn.");
+						//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
+						mapsDrawn.Add(i);
+						GameObject g = rM.GetMap();
+						g.SetActive(true);
+						//Debug.Log(g.activeInHierarchy);
+						g.transform.position = tileMapLocations[i];
+						//Debug.Log(textureAssignments[i]);
+						g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM);
+					}
 				}
 			}
-			else
-			{
-				//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
-				if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
-				{
-					//Debug.Log ("Map " + i + " is ready to be drawn.");
-					//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
-					mapsDrawn.Add(i);
-					GameObject g = rM.GetMap();
-					g.SetActive(true);
-					//Debug.Log(g.activeInHierarchy);
-					g.transform.position = tileMapLocations[i];
-					//Debug.Log(textureAssignments[i]);
-					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM);
-				}
-			}
+		}
+		else
+		{
+			GameObject.Find("LoadBar/Progress").transform.localScale = new Vector3((float)(yMap * mapSize + xMap) / (mapSize * mapSize),1,1);
+			Debug.Log(GameObject.Find("LoadBar/Progress"));
 		}
 	}
 }

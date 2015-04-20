@@ -9,7 +9,7 @@ public class GUIManager : MonoBehaviour {
 	bool mouseDown;
 	
 	public enum GUIState {StartScreen, MainMenu, InGame, PauseMenu, CreateGame, 
-		JoinGame, EditProfile, Confirmation, DisplayInfo};
+		JoinGame, EditProfile, Confirmation, DisplayInfo, Loading};
 
 	private Player myPlayer;
 	public Player MyPlayer
@@ -17,7 +17,7 @@ public class GUIManager : MonoBehaviour {
 		get{return myPlayer;}
 		set{myPlayer = value;}
 	}
-	private GUIState currentState = GUIState.StartScreen;
+	private GUIState currentState = GUIState.Loading;
 	public GUIState CurrentState
 	{
 		get { return currentState; }
@@ -161,6 +161,21 @@ public class GUIManager : MonoBehaviour {
 			GUILayout.Label("Press Enter to Begin");
 			GUILayout.EndHorizontal();
 			
+			break;
+		case GUIState.Loading:
+			GUILayout.BeginArea(new Rect(0,0,Screen.width, Screen.height));
+			GUILayout.Space(3 * Screen.height / 4);
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label("Loading, Please wait...");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label((int)(GameObject.Find("LoadBar/Progress").transform.localScale.x * 100) + "%");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			GUILayout.EndArea();
 			break;
 		case GUIState.MainMenu:
 			leftPad = (int) (Screen.width / 2 - mainMenuWidth / 2);
