@@ -9,7 +9,7 @@ using System.IO;
 public class WriteMap : MonoBehaviour {
 
 	private string MapName;
-	private TDTile[,] toSave;
+	private int[,] toSave;
 	private XmlWriter writer;
 
 	// Use this for initialization
@@ -84,15 +84,15 @@ public class WriteMap : MonoBehaviour {
 		while (y < Mathf.Sqrt(toSave.Length))
 		{
 			
-			tileID = toSave[y,x].GetIntType();
+			tileID = toSave[y,x];
 			instanceOfID = 1;
 			if (x != (toSave.Length - 1))
 			{
-				nextID = toSave[y,x+1].GetIntType();
+				nextID = toSave[y,x+1];
 			}
 			else if (y != (toSave.Length - 1))
 			{
-				nextID = toSave[(y + 1),x].GetIntType();
+				nextID = toSave[(y + 1),x];
 			}
 			else
 			{
@@ -112,11 +112,11 @@ public class WriteMap : MonoBehaviour {
 				
 				if (x != (toSave.Length - 1))
 				{
-					nextID = toSave[y,x + 1].GetIntType();
+					nextID = toSave[y,x + 1];
 				}
 				else if (y != (toSave.Length - 1))
 				{
-					nextID = toSave[(y + 1),0].GetIntType();
+					nextID = toSave[(y + 1),0];
 				}
 				else
 				{

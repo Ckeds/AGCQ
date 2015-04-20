@@ -31,6 +31,7 @@ public class Player : WorldObject
 	float scaleSprint = 1.5f;
 	float maxX;
 	float maxY;
+	public Vector3 mouse;
 
 	//Sync varibles
 	float syncDelay = 0f;
@@ -187,15 +188,11 @@ public class Player : WorldObject
 
 		//Debug.Log (movement);
 		//following code used to make player character face mouse
-		Vector2 mouse = c.ScreenToViewportPoint(Input.mousePosition);       //Mouse position
-		Vector3 objpos = c.WorldToViewportPoint(transform.position);        //Object position on screen
-		Vector2 relobjpos = new Vector2(objpos.x - 0.5f, objpos.y - 0.5f);            //Set coordinates relative to object's center
-		Vector2 relmousepos = new Vector2(mouse.x - 0.5f, mouse.y - 0.5f) - relobjpos;//Mouse cursor relative to object's center
-		float angle = Vector2.Angle(Vector2.up, relmousepos);                         //Angle calculation
-		//Debug.Log (angle);
-		//if mouse is on the left side of our object
-		if (relmousepos.x > 0)
-			angle = 360 - angle;
+		mouse = c.ScreenToWorldPoint(Input.mousePosition) - this.transform.position;       //Mouse position
+		mouse.Normalize ();
+		float rotation = Mathf.Atan2 (mouse.y, mouse.x) * Mathf.Rad2Deg;
+		//mouse.z = this.transform.position.z;
+		this.transform.rotation = Quaternion.Euler (0f, 0f, rotation - 90);  
 		
 		//Uncomment this block to make the player move based on the mouse cursor
 		/*float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10
@@ -206,7 +203,7 @@ public class Player : WorldObject
 		*/
 		//apply
 
-		this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
+		//this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 		rigid.velocity = previousForce;
 		float charSpeed = movement.sqrMagnitude;
 		if(v == 0 && h == 0)

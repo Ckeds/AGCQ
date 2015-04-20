@@ -15,7 +15,7 @@ public class WorldObject : MonoBehaviour
 	}
 	public virtual void TakeDamage(int damageTaken)
 	{
-		Debug.Log ("I SHOULD DO THIS");
+		//Debug.Log ("I SHOULD DO THIS");
 		//Debug.Log (currentHealth);
 		if (isDamageable)
 			currentHealth -= damageTaken;

@@ -333,7 +333,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 14828122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: m_ViewID.m_ID
@@ -357,11 +357,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numDeserts
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numStone
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: forestDensity
@@ -369,31 +369,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: stonePercent
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: sandPercent
-      value: 15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: forestPercent
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: plainsPercent
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: dirtPercent
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numLakes
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: numRivers
-      value: 4
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: meshSize
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
@@ -463,4 +467,4 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3

@@ -164,14 +164,14 @@ public class WorldGenerator : MonoBehaviour
             }
         }
     }
-    public List<Resource> placeResource(TDTile tile, List<Resource> res, int x, int y)
+    public List<Resource> placeResource(int tileType, List<Resource> res, int x, int y)
     {
 		int rand = Random.Range(1, 100);
         Resource r = new Resource();
 		r.type = 'z';
-        switch (tile.tileType)
+        switch (tileType)
         {
-            case TDTypes.TYPE.GRASS:
+            case 0:
 				if (rand <= plainsPercent)
 				{
 				    int random = Random.Range(0, 3);
@@ -208,16 +208,16 @@ public class WorldGenerator : MonoBehaviour
 				}
 				break;
 
-            case TDTypes.TYPE.DESERT:
-				if(rand <= sandPercent)
+			case 1:
+				if(!walkOnWater)
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
-					r.type = 's';
-					sands++;
+					r.type = 'w';
+					waters++;
 				}
 			break;
 
-            case TDTypes.TYPE.FOREST:
+            case 2:
 				if ( rand <= forestPercent)
 				{
               	  	int randTree = Random.Range(0, 10);
@@ -236,7 +236,16 @@ public class WorldGenerator : MonoBehaviour
 				}
 				break;
 
-            case TDTypes.TYPE.DIRT:
+			case 3:
+				if(rand <= sandPercent)
+				{
+					r.position = new Vector2(x + .5f, y + .5f);
+					r.type = 's';
+					sands++;
+				}
+			break;
+
+            case 4:
 				if(rand <= dirtPercent)
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
@@ -245,21 +254,12 @@ public class WorldGenerator : MonoBehaviour
 				}
 				break;
 			
-		case TDTypes.TYPE.STONE:
+		case 5:
 				if(rand <= stonePercent)
 				{
 					r.position = new Vector2(x + .5f, y + .5f);
 					r.type = 'r';
 					rocks++;
-				}
-			break;
-			
-		case TDTypes.TYPE.OCEAN:
-				if(!walkOnWater)
-				{
-					r.position = new Vector2(x + .5f, y + .5f);
-					r.type = 'w';
-					waters++;
 				}
 			break;
 			
@@ -301,9 +301,10 @@ public class WorldGenerator : MonoBehaviour
 		{
 			for (int x = startX; x < startX + meshSize; x++)
 			{
-				Color[] p = tileMap[map.GetTileAt(x, y)];
+				int tileType = map.GetTileAt(x, y);
+				Color[] p = tileMap[tileType];
 				mapTexture.SetPixels((int)((x-startX) * tileResolution), (int)((y-startY) * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
-				mapResources = placeResource(map.mapData[x,y], mapResources, x-startX, y-startY);
+				mapResources = placeResource(tileType, mapResources, x-startX, y-startY);
 			}
 		}
 		//Debug.Log("End texture loops");
@@ -344,7 +345,7 @@ public class WorldGenerator : MonoBehaviour
 					mapsDrawn.Add(i);
 					GameObject g = rM.GetMap();
 					g.SetActive(true);
-					Debug.Log(g.activeInHierarchy);
+					//Debug.Log(g.activeInHierarchy);
 					g.transform.position = tileMapLocations[i];
 					//Debug.Log(textureAssignments[i]);
 					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM);

@@ -18,7 +18,7 @@ public class TGMap : MonoBehaviour
 		resource = new List<GameObject> ();
 		this.GetComponent<SpriteRenderer> ().sprite = map;
 		rM = r;
-		Debug.Log ("HERE");
+		//Debug.Log ("HERE");
 		width = map.rect.width * 1.5625f / 100;
 		height = map.rect.height * 1.5625f / 100;
 		this.transform.localScale = new Vector3 (1.5625f, 1.5625f, 1);

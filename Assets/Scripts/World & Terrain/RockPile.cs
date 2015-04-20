@@ -20,7 +20,7 @@ public class RockPile : BaseResource
 	// Update is called once per frame
 	public override void TakeDamage (int damageTaken)
 	{
-		Debug.Log ("DOING WORK");
+		//Debug.Log ("DOING WORK");
 		base.TakeDamage (damageTaken);
 		anim.SetFloat ("Health", currentHealth);
 		Debug.Log (currentHealth);
