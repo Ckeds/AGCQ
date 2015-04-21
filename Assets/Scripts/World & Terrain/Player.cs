@@ -109,19 +109,9 @@ public class Player : WorldObject
 		if (Input.GetMouseButtonDown (0)) 
 		{
 			//check for item or weapon here
-
-            int randNum = Random.Range(10, 25);
-            float randRot;
-            float randSpeed;
-
-            for (int i = 0; i < randNum; i++)
-            {
-                randRot = Random.Range(0, 360);
-                randSpeed = Random.Range(.75f, 1.5f);
-
-                g = (GameObject)Instantiate(testParticle);
-                g.GetComponent<BaseProjectile>().Setup(this.gameObject, 1, randSpeed, randRot);
-            }
+            g = (GameObject)Instantiate(testParticle);
+            g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 0, 0);
+            
 
             
 		}

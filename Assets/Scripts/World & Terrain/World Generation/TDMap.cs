@@ -16,6 +16,7 @@ public class TDMap
     int stoneSize;
     int stoneDensity;
     int forestDensity;
+    int forestThickness;
 
 
 	System.Random rand = new System.Random();
@@ -24,7 +25,7 @@ public class TDMap
 	//Thread[] threads;
 	//int currentThread = 0;
 
-    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int dirt, int numDes, int desert, int desdense, int numStone, int stone, int stonedense,int forDense)
+    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int dirt, int numDes, int desert, int desdense, int numStone, int stone, int stonedense,int forDense, int forThick)
     {
 		//threads = new Thread[3];
         width = mapWidth - 1;
@@ -39,6 +40,7 @@ public class TDMap
         stoneSize = stone;
         stoneDensity = stonedense;
         forestDensity = forDense;
+        forestThickness = forThick;
 		//Debug.Log (mapWidth);
 
         mapData = new int[mapWidth, mapHeight];
@@ -173,18 +175,26 @@ public class TDMap
         {
             case 0:
                 startXMin = 30;
+                if (startXMin > startXMax)
+                    startXMin = startXMax;
                 break;
 
             case 1:
                 startXMax = width-30;
+                if (startXMin > startXMax)
+                    startXMax = startXMin;
                 break;
 
             case 2:
                 startYMin = 30;
+                if (startYMin > startYMax)
+                    startYMin = startYMax;
                 break;
 
             case 3:
                 startYMax = height-30;
+                if (startYMin > startYMax)
+                    startYMax = startYMin;
                 break;
         }
 		int randX = rand.Next(startXMin, startXMax);
@@ -419,7 +429,7 @@ public class TDMap
 		int randY = rand.Next(0, height);
 
         mapData[randX, randY] = 2;
-        for (int i = 0; i < 20000; i++)
+        for (int i = 0; i < forestThickness; i++)
         {
 			int randRange = rand.Next(0, 4);
             switch (randRange)

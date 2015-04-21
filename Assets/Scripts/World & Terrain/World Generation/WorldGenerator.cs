@@ -26,6 +26,7 @@ public class WorldGenerator : MonoBehaviour
     int stoneSize = 35;
     int stoneDensity = 6000;
     int dirtPatches = 75;
+    int forestThickness = 20000;
 
     int stonePercent = 15;
     int sandPercent = 15;
@@ -56,7 +57,8 @@ public class WorldGenerator : MonoBehaviour
 	int dirts = 0;
 	Camera c;
 	bool coroutineDone;
-	public bool drawAll;
+	public bool drawAll = false;
+    public bool generateResources = true;
 	float time;
 
 	// Use this for initialization
@@ -71,70 +73,83 @@ public class WorldGenerator : MonoBehaviour
                 numRivers = 2;
                 numLakes = 1;
                 forestDensity = 1;
-                numDeserts = 1;
-                desertSize = 10;
-                desertDensity = 8000;
-                numStone = 1;
-                stoneSize = 15;
                 dirtPatches = 50;
-                stoneDensity = 5000;
+                numDeserts = 1;
+                desertSize = 20;
+                desertDensity = 5500;
+                numStone = 1;
+                stoneSize = 20;
+                stoneDensity = 4000;
+                forestThickness = 20000;
                 break;
 
             case "Medium":
-                mapSize = 16;
-                numRivers = 4;
-                numLakes = 2;
-                forestDensity = 3;
-                numDeserts = 2;
-                desertSize = 15;
-                desertDensity = 6000;
-                numStone = 2;
-                stoneSize = 25;
-                dirtPatches = 75;
-                stoneDensity = 5000;
-                break;
-
-            case "Large":
-                mapSize = 24;
+                mapSize = 12;
                 numRivers = 4;
                 numLakes = 2;
                 forestDensity = 4;
+                dirtPatches = 200;
+                numDeserts = 1;
+                desertSize = 40;
+                desertDensity = 25000;
+                numStone = 1;
+                stoneSize = 45;
+                stoneDensity = 8000;
+                forestThickness = 20000;
+                break;
+
+            case "Large":
+                mapSize = 16;
+                numRivers = 8;
+                numLakes = 4;
+                forestDensity = 5;
+                dirtPatches = 350;
                 numDeserts = 2;
-                desertSize = 25;
-                desertDensity = 8000;
+                desertSize = 40;
+                desertDensity = 30000;
                 numStone = 2;
-                stoneSize = 35;
-                dirtPatches = 125;
-                stoneDensity = 6000;
+                stoneSize = 45;
+                stoneDensity = 10000;
+                forestThickness = 30000;
                 break;
 
             case "Huge":
-                mapSize = 36;
-                numRivers = 5;
-                numLakes = 3;
-                forestDensity = 5;
-                numDeserts = 3;
-                desertSize = 25;
-                desertDensity = 8000;
-                numStone = 3;
-                stoneSize = 35;
-                dirtPatches = 250;
-                stoneDensity = 6000;
+                mapSize = 24;
+                numRivers = 12;
+                numLakes = 6;
+                forestDensity = 7;
+                dirtPatches = 500;
+                numDeserts = 2;
+                desertSize = 65;
+                desertDensity = 80000;
+                numStone = 2;
+                stoneSize = 75;
+                stoneDensity = 25000;
+                forestThickness = 42000;
                 break;
 
             default:
-                mapSize = 16;
-                numRivers = 3;
+                mapSize = 12;
+                numRivers = 4;
                 numLakes = 2;
-                forestDensity = 3;
-                numDeserts = 2;
-                desertSize = 15;
-                desertDensity = 6000;
-                numStone = 2;
-                stoneSize = 25;
-                dirtPatches = 75;
-                stoneDensity = 5000;
+                forestDensity = 4;
+                dirtPatches = 200;
+                numDeserts = 1;
+                desertSize = 40;
+                desertDensity = 25000;
+                numStone = 1;
+                stoneSize = 45;
+                stoneDensity = 8000;
+                forestThickness = 20000;
                 break;
+        }
+        if (!generateResources)
+        {
+            stonePercent = 0;
+            sandPercent = 0;
+            forestPercent = 0;
+            plainsPercent = 0;
+            dirtPercent = 0;
         }
 
 
@@ -177,7 +192,7 @@ public class WorldGenerator : MonoBehaviour
     }
     void buildTDMap()
     {
-        map = new TDMap(meshSize*(mapSize), meshSize*(mapSize), numRivers, numLakes, dirtPatches, numDeserts, desertSize, desertDensity, numStone, stoneSize, stoneDensity,forestDensity);
+        map = new TDMap(meshSize*(mapSize), meshSize*(mapSize), numRivers, numLakes, dirtPatches, numDeserts, desertSize, desertDensity, numStone, stoneSize, stoneDensity,forestDensity,forestThickness);
     }
     void buildTGMaps()
     {
