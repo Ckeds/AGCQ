@@ -8,7 +8,7 @@ public class TDMap
 
     int numRivers;
     int numLakes;
-    int numDirt
+	int numDirt;
     int numDeserts;
     int desertSize;
     int desertDensity;
@@ -72,7 +72,7 @@ public class TDMap
        	}
 		//Debug.Log ("Done");
 
-        for (int i = 0; i < 75; i++)
+        for (int i = 0; i < numDirt; i++)
         {
             doDirt();
         }
@@ -255,73 +255,69 @@ public class TDMap
             switch (randRange)
             {
                 case 0:
-                    randX++;
-					if ((randX >= startPointX + maxDist && startPointX - randX > 0) || (width - startPointX <= desertSize && 
-				    			randX >= startPointX - width + maxDist && randX <= width / 2))
+                randX++;
+				if (randX == startPointX + maxDist || randX == startPointX + maxDist - width)
+				{
+					//Debug.Log(randX >= startPointX + maxDist);
+					randX -= rand.Next(maxDist - 10, maxDist);
+					if(randX < 0)
 					{
-						//Debug.Log(randX >= startPointX + maxDist);
-						randX -= rand.Next(15, 25);
-						if(randX < 0)
-						{
-							randX += width;
-						}
-						//Debug.Log(randX + ", " + randY);
-                    }
-                    if (randX >= width)
-                        randX = 0;
-                    break;
+						randX += width;
+					}
+					//Debug.Log(randX + ", " + randY);
+                }
+                if (randX >= width)
+                randX = 0;
+                break;
 
                 case 1:
-                    randX--;
-                    if ((randX <= startPointX - maxDist && startPointX - randX < 0) || (width - startPointX >= width - desertSize && 
-				    			randX <= startPointX + width - maxDist && randX >= width / 2))
-                    {
-						//Debug.Log(randX <= startPointX - maxDist);
-                        randX += rand.Next(15, 25);
-						if(randX >= width)
-						{
-							randX -= width;
-                   		}
-						//Debug.Log(randX + ", " + randY);
-                    }
-                    if (randX < 0)
-                        randX = width - 1;
-                    break;
+                randX--;
+                if (randX == startPointX - maxDist || randX == startPointX - maxDist + width)
+                {
+					//Debug.Log(randX <= startPointX - maxDist);
+                    randX += rand.Next(maxDist - 10, maxDist);
+					if(randX >= width)
+					{
+						randX -= width;
+                   	}
+					//Debug.Log(randX + ", " + randY);
+                }
+                if (randX < 0)
+                    randX = width - 1;
+                break;
 
                 case 2:
-                    randY++;
-                    if ((randY >= startPointY + maxDist && startPointY - randY > 0) || (height - startPointY <= desertSize && 
-				    			randY >= startPointY - height + maxDist && randY <= height / 2))
-                    {
-						//Debug.Log(randX + ", " + randY + " before");
-                        randY -= rand.Next(15, 25);
-						if(randY < 0)
-						{
-							randY += height;
-                   		}
-						//Debug.Log(randX + ", " + randY + " after");
-                    }
-                    if (randY >= height)
-                        randY = 0;
-                    break;
+                randY++;
+                if (randY == startPointY + maxDist || randY == startPointY + maxDist - height)
+                {
+					//Debug.Log(randX + ", " + randY + " before");
+                    randY -= rand.Next(maxDist - 10, maxDist);
+					if(randY < 0)
+					{
+						randY += height;
+                   	}
+					//Debug.Log(randX + ", " + randY + " after");
+                }
+                if (randY >= height)
+                    randY = 0;
+                break;
 
                 case 3:
-                    randY--;
-					if ((randY <= startPointY - maxDist && startPointY - randY < 0) || (height - startPointY >= height - desertSize && 
-				    			randY <= startPointY + height - maxDist && randY >= height / 2))
-                    {
-						//Debug.Log(randY <= startPointY - maxDist);
-                        randY += rand.Next(15, 25);
-						if(randY >= height)
-						{
-							randY -= height;
-                   		}
-						//Debug.Log(randX + ", " + randY);
-					}
-                    if (randY < 0)
-                        randY = height - 1;
-                    break;
-            }
+                randY--;
+				if (randY == startPointY - maxDist || randY == startPointY - maxDist + height)
+                {
+					//Debug.Log(randY <= startPointY - maxDist);
+                    randY += rand.Next(maxDist - 10, maxDist);
+					if(randY >= height)
+					{
+						randY -= height;
+                   	}
+					//Debug.Log(randX + ", " + randY);
+				}
+                if (randY < 0)
+                    randY = height - 1;
+                break;
+			}
             mapData[randX, randY] = 3;
             mapData[randX + 1, randY] = 3;
             mapData[randX, randY + 1] = 3;
@@ -343,76 +339,72 @@ public class TDMap
         for (int i = 0; i < stoneDensity; i++)
         {
 			int randRange = rand.Next(0, 4);
-            switch (randRange)
-            {
-                case 0:
-                    randX++;
-					if ((randX >= startPointX + maxDist && startPointX - randX > 0) || (width - startPointX <= desertSize && 
-				    			randX >= startPointX - width + maxDist && randX <= width / 2))
+			switch (randRange)
+			{
+			case 0:
+				randX++;
+				if (randX == startPointX + maxDist || randX == startPointX + maxDist - width)
+				{
+					//Debug.Log(randX >= startPointX + maxDist);
+					randX -= rand.Next(maxDist - 10, maxDist);
+					if(randX < 0)
 					{
-						//Debug.Log(randX >= startPointX + maxDist);
-                        randX -= rand.Next(15, 25);
-						if(randX < 0)
-						{
-							randX += width;
-						}
-						//Debug.Log(randX + ", " + randY);
-                    }
-                    if (randX >= width)
-                        randX = 0;
-                    break;
-
-                case 1:
-                    randX--;
-                    if ((randX <= startPointX - maxDist && startPointX - randX < 0) || (width - startPointX >= width - desertSize && 
-				    			randX <= startPointX + width - maxDist && randX >= width / 2))
-                    {
-						//Debug.Log(randX <= startPointX - maxDist);
-                        randX += rand.Next(15, 25);
-						if(randX >= width)
-						{
-							randX -= width;
-                   		}
-						//Debug.Log(randX + ", " + randY);
-                    }
-                    if (randX < 0)
-                        randX = width - 1;
-                    break;
-
-                case 2:
-                    randY++;
-                    if ((randY >= startPointY + maxDist && startPointY - randY > 0) || (height - startPointY <= desertSize && 
-				    			randY >= startPointY - height + maxDist && randY <= height / 2))
-                    {
-						//Debug.Log(randX + ", " + randY + " before");
-                        randY -= rand.Next(15, 25);
-						if(randY < 0)
-						{
-							randY += height;
-                   		}
-						//Debug.Log(randX + ", " + randY + " after");
-                    }
-                    if (randY >= height)
-                        randY = 0;
-                    break;
-
-                case 3:
-                    randY--;
-					if ((randY <= startPointY - maxDist && startPointY - randY < 0) || (height - startPointY >= height - desertSize && 
-				    			randY <= startPointY + height - maxDist && randY >= height / 2))
-                    {
-						//Debug.Log(randY <= startPointY - maxDist);
-                        randY += rand.Next(15, 25);
-						if(randY >= height)
-						{
-							randY -= height;
-                   		}
-						//Debug.Log(randX + ", " + randY);
+						randX += width;
 					}
-                    if (randY < 0)
-                        randY = height - 1;
-                    break;
-            }
+					//Debug.Log(randX + ", " + randY);
+				}
+				if (randX >= width)
+					randX = 0;
+				break;
+				
+			case 1:
+				randX--;
+				if (randX == startPointX - maxDist || randX == startPointX - maxDist + width)
+				{
+					//Debug.Log(randX <= startPointX - maxDist);
+					randX += rand.Next(maxDist - 10, maxDist);
+					if(randX >= width)
+					{
+						randX -= width;
+					}
+					//Debug.Log(randX + ", " + randY);
+				}
+				if (randX < 0)
+					randX = width - 1;
+				break;
+				
+			case 2:
+				randY++;
+				if (randY == startPointY + maxDist || randY == startPointY + maxDist - height)
+				{
+					//Debug.Log(randX + ", " + randY + " before");
+					randY -= rand.Next(maxDist - 10, maxDist);
+					if(randY < 0)
+					{
+						randY += height;
+					}
+					//Debug.Log(randX + ", " + randY + " after");
+				}
+				if (randY >= height)
+					randY = 0;
+				break;
+				
+			case 3:
+				randY--;
+				if (randY == startPointY - maxDist || randY == startPointY - maxDist + height)
+				{
+					//Debug.Log(randY <= startPointY - maxDist);
+					randY += rand.Next(maxDist - 10, maxDist);
+					if(randY >= height)
+					{
+						randY -= height;
+					}
+					//Debug.Log(randX + ", " + randY);
+				}
+				if (randY < 0)
+					randY = height - 1;
+				break;
+			}
             mapData[randX, randY] = 5;
             mapData[randX + 1, randY] = 5;
             mapData[randX, randY + 1] = 5;
