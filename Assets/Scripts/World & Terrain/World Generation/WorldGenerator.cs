@@ -54,10 +54,13 @@ public class WorldGenerator : MonoBehaviour
 	int dirts = 0;
 	Camera c;
 	bool coroutineDone;
+	public bool drawAll;
+	float time;
 
 	// Use this for initialization
 	void Start () 
     {
+		time = Time.time;
         if (mapSize < 1)
             mapSize = 1;
         if (stonePercent < 0)
@@ -100,7 +103,6 @@ public class WorldGenerator : MonoBehaviour
 		mapsDrawn = new List<int> ();
         buildTDMap();
 		tileMap = ChopUpTiles ();
-        buildTGMaps();
 		for (yMap = 0; yMap < mapSize; yMap++)
 		{
 			for (xMap = 0; xMap < mapSize; xMap++)
@@ -110,11 +112,14 @@ public class WorldGenerator : MonoBehaviour
 				yield return null;
 			}
 		}
-		rM.Setup (mapSize, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize);
+		rM.Setup (8, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize);
+		buildTGMaps();
 		coroutineDone = true;
-		Destroy(GameObject.Find("LoadBar"));
+		GameObject.Find("LoadBar").SetActive(false);
 		GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.StartScreen;
 		map = null;
+		time = Time.time - time;
+		Debug.Log (time + " seconds");
 		//Debug.Log (resources.Count);
 		//CreateResource (resources [0]);
     }
@@ -165,11 +170,21 @@ public class WorldGenerator : MonoBehaviour
 				{
 					textureAssignments[x + (y *(mapSize+2))] = (x + (y * mapSize) - (mapSize + 1));
 				}
+				if(drawAll)
+				{
                 //g = (GameObject)Instantiate(TGmapPrefab);
                 // Debug.Log("calling Setup");
 				//Debug.Log (tileMapLocations[x + (y *mapSize)]);
 				//g.GetComponent<TGMap>().Setup(x*meshSize, y*meshSize, this.GetComponent<MeshRenderer>().sharedMaterials[(y*mapSize) + x], meshSize);
                 //Debug.Log("End inner loop");
+					mapsDrawn.Add(x + (y *(mapSize+2)));
+					GameObject g = rM.GetMap();
+					g.SetActive(true);
+					//Debug.Log(g.activeInHierarchy);
+					g.transform.position = tileMapLocations[x + (y *(mapSize+2))];
+					//Debug.Log(textureAssignments[i]);
+					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[x + (y *(mapSize+2))]], resources[textureAssignments[x + (y *(mapSize+2))]], rM, false);
+				}
             }
         }
     }
@@ -341,7 +356,7 @@ public class WorldGenerator : MonoBehaviour
 				float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 				if(mapsDrawn.Contains(i))
 				{
-					if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+					if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size && !drawAll)
 					{
 						mapsDrawn.Remove(i);
 					}
@@ -359,7 +374,7 @@ public class WorldGenerator : MonoBehaviour
 						//Debug.Log(g.activeInHierarchy);
 						g.transform.position = tileMapLocations[i];
 						//Debug.Log(textureAssignments[i]);
-						g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM);
+						g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM, true);
 					}
 				}
 			}

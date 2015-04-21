@@ -9,9 +9,10 @@ public class TGMap : MonoBehaviour
 	float height;
 	ResourceManager rM;
 	Camera c;
+	bool destroy;
 
     // Use this for initialization
-	public void Setup(Sprite map, List<WorldGenerator.Resource> res, ResourceManager r)
+	public void Setup(Sprite map, List<WorldGenerator.Resource> res, ResourceManager r, bool d)
     {
         //Debug.Log("Building a mesh...");
 		c = Camera.main;
@@ -22,6 +23,7 @@ public class TGMap : MonoBehaviour
 		width = map.rect.width * 1.5625f / 100;
 		height = map.rect.height * 1.5625f / 100;
 		this.transform.localScale = new Vector3 (1.5625f, 1.5625f, 1);
+		destroy = d;
 		CreateResource (res);
 	}
     void Update()
@@ -32,7 +34,7 @@ public class TGMap : MonoBehaviour
 		float size = c.orthographicSize;
 		float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
 		//Debug.Log (distance);
-		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2))
+		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2) && destroy)
 		{
 			foreach(GameObject g in resource)
 			{
