@@ -20,8 +20,8 @@ public class Enemy : WorldObject {
 	float lastSyncTime = 0f;
 	
 	//Network movement variables
-	private Vector3 syncStartPosition;
-	private Vector3 syncEndPosition;
+	protected Vector3 syncStartPosition;
+	protected Vector3 syncEndPosition;
 	float syncStartRotation = 0f;
 	float syncEndRotation = 0f;
 
@@ -56,7 +56,7 @@ public class Enemy : WorldObject {
 		else 
 			SyncedMovement();
 	}
-	private void AIMovement()
+	protected void AIMovement()
 	{
 		//Vector2 previousForce = GetComponent<Rigidbody2D>().velocity;
 		if (counter > 0)
@@ -87,7 +87,7 @@ public class Enemy : WorldObject {
 		anim.SetFloat ("charSpeed", GetComponent<Rigidbody2D>().velocity.magnitude);
 		this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
 	}
-	private void SyncedMovement()
+	protected void SyncedMovement()
 	{
 		//Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
@@ -145,7 +145,7 @@ public class Enemy : WorldObject {
 			coll.gameObject.GetComponent<WorldObject> ().TakeDamage (1);
 	}
 	
-	private void FindTarget()
+	protected void FindTarget()
 	{
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		target = new Vector3 (50000, 50000, 50);

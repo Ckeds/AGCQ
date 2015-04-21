@@ -31,9 +31,11 @@ public class BaseProjectile : MonoBehaviour
             //Debug.Log(GetComponent<Rigidbody2D>().velocity);
         }
 	}
-    public virtual void Setup(GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, int rotationMod = 0)
+    public virtual void Setup(GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, float rotationMod = 0)
     {
+        if(damageMod > 0)
         damage *= damageMod;
+        if (speedMod > 0)
         speed *= speedMod;
 
         this.transform.position = shooter.transform.position + transform.forward;
