@@ -110,13 +110,13 @@ public class Player : WorldObject
 		{
 			//check for item or weapon here
 
-            int randNum = Random.Range(1, 10);
+            int randNum = Random.Range(10, 25);
             float randRot;
             float randSpeed;
 
             for (int i = 0; i < randNum; i++)
             {
-                randRot = Random.Range(-22.5f, 22.5f);
+                randRot = Random.Range(0, 360);
                 randSpeed = Random.Range(.75f, 1.5f);
 
                 g = (GameObject)Instantiate(testParticle);

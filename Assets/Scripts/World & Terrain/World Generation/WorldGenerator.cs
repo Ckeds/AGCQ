@@ -11,28 +11,30 @@ public class WorldGenerator : MonoBehaviour
 		public char type;
 	}
 
-    public int mapSize;
+    public string mapSizeName = "Small";
+    int mapSize;
 
-    public int meshSize = 128;
+    int meshSize = 16;
 	public int mapUnitySize;
-    public int numRivers = 0;
-    public int numLakes = 0;
-    public int forestDensity = 5;
-    public int numDeserts = 2;
-    public int desertSize = 25;
-    public int desertDensity = 8000;
-    public int numStone = 2;
-    public int stoneSize = 35;
-    public int stoneDensity = 6000;
+    int numRivers = 3;
+    int numLakes = 2;
+    int forestDensity = 5;
+    int numDeserts = 2;
+    int desertSize = 25;
+    int desertDensity = 8000;
+    int numStone = 2;
+    int stoneSize = 35;
+    int stoneDensity = 6000;
+    int dirtPatches = 75;
 
-    public int stonePercent;
-    public int sandPercent;
-    public int forestPercent;
-    public int plainsPercent;
-    public int dirtPercent;
-	public int xMap;
-	public int yMap;
-    public bool walkOnWater;
+    int stonePercent = 15;
+    int sandPercent = 15;
+    int forestPercent = 25;
+    int plainsPercent = 1;
+    int dirtPercent = 1;
+	int xMap;
+	int yMap;
+    bool walkOnWater = false;
 
     public Texture2D terrainTiles;
     public TDMap map;
@@ -61,32 +63,81 @@ public class WorldGenerator : MonoBehaviour
 	void Start () 
     {
 		time = Time.time;
-        if (mapSize < 1)
-            mapSize = 1;
-        if (stonePercent < 0)
-            stonePercent = 0;
-        if (stonePercent > 100)
-            stonePercent = 100;
 
-        if (sandPercent < 0)
-            sandPercent = 0;
-        if (sandPercent > 100)
-            sandPercent = 100;
+        switch (mapSizeName)
+        {
+            case "Small":
+                mapSize = 8;
+                numRivers = 2;
+                numLakes = 1;
+                forestDensity = 1;
+                numDeserts = 1;
+                desertSize = 10;
+                desertDensity = 8000;
+                numStone = 1;
+                stoneSize = 15;
+                dirtPatches = 50;
+                stoneDensity = 5000;
+                break;
 
-        if (forestPercent < 0)
-            forestPercent = 0;
-        if (forestPercent > 100)
-            forestPercent = 100;
+            case "Medium":
+                mapSize = 16;
+                numRivers = 4;
+                numLakes = 2;
+                forestDensity = 3;
+                numDeserts = 2;
+                desertSize = 15;
+                desertDensity = 6000;
+                numStone = 2;
+                stoneSize = 25;
+                dirtPatches = 75;
+                stoneDensity = 5000;
+                break;
 
-        if (plainsPercent < 0)
-            plainsPercent = 0;
-        if (plainsPercent > 100)
-            plainsPercent = 100;
+            case "Large":
+                mapSize = 24;
+                numRivers = 4;
+                numLakes = 2;
+                forestDensity = 4;
+                numDeserts = 2;
+                desertSize = 25;
+                desertDensity = 8000;
+                numStone = 2;
+                stoneSize = 35;
+                dirtPatches = 125;
+                stoneDensity = 6000;
+                break;
 
-        if (dirtPercent < 0)
-            dirtPercent = 0;
-        if (dirtPercent > 100)
-            dirtPercent = 100;
+            case "Huge":
+                mapSize = 36;
+                numRivers = 5;
+                numLakes = 3;
+                forestDensity = 5;
+                numDeserts = 3;
+                desertSize = 25;
+                desertDensity = 8000;
+                numStone = 3;
+                stoneSize = 35;
+                dirtPatches = 250;
+                stoneDensity = 6000;
+                break;
+
+            default:
+                mapSize = 16;
+                numRivers = 3;
+                numLakes = 2;
+                forestDensity = 3;
+                numDeserts = 2;
+                desertSize = 15;
+                desertDensity = 6000;
+                numStone = 2;
+                stoneSize = 25;
+                dirtPatches = 75;
+                stoneDensity = 5000;
+                break;
+        }
+
+
 		coroutineDone = false;
 		mapUnitySize = mapSize * meshSize;
         StartCoroutine(buildWorld());
@@ -102,6 +153,7 @@ public class WorldGenerator : MonoBehaviour
 		resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
         buildTDMap();
+        Debug.Log(Time.time - time);
 		tileMap = ChopUpTiles ();
 		for (yMap = 0; yMap < mapSize; yMap++)
 		{
@@ -125,7 +177,7 @@ public class WorldGenerator : MonoBehaviour
     }
     void buildTDMap()
     {
-        map = new TDMap(meshSize*(mapSize), meshSize*(mapSize), numRivers, numLakes, numDeserts, desertSize, desertDensity, numStone, stoneSize, stoneDensity,forestDensity);
+        map = new TDMap(meshSize*(mapSize), meshSize*(mapSize), numRivers, numLakes, dirtPatches, numDeserts, desertSize, desertDensity, numStone, stoneSize, stoneDensity,forestDensity);
     }
     void buildTGMaps()
     {

@@ -8,6 +8,7 @@ public class TDMap
 
     int numRivers;
     int numLakes;
+    int numDirt
     int numDeserts;
     int desertSize;
     int desertDensity;
@@ -23,13 +24,14 @@ public class TDMap
 	//Thread[] threads;
 	//int currentThread = 0;
 
-    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int numDes, int desert, int desdense, int numStone, int stone, int stonedense,int forDense)
+    public TDMap(int mapWidth, int mapHeight, int rivers, int lakes, int dirt, int numDes, int desert, int desdense, int numStone, int stone, int stonedense,int forDense)
     {
 		//threads = new Thread[3];
         width = mapWidth - 1;
         height = mapHeight - 1;
         numRivers = rivers;
         numLakes = lakes;
+        numDirt = dirt;
         numDeserts = numDes;
         desertSize = desert;
         desertDensity = desdense;
