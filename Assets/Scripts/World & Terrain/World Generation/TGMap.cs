@@ -12,7 +12,7 @@ public class TGMap : MonoBehaviour
 	bool destroy;
 
     // Use this for initialization
-	public void Setup(Sprite map, List<WorldGenerator.Resource> res, ResourceManager r, bool d)
+	public void Setup(Sprite map, List<Resource> res, ResourceManager r, bool d)
     {
         //Debug.Log("Building a mesh...");
 		c = Camera.main;
@@ -36,14 +36,18 @@ public class TGMap : MonoBehaviour
 		//Debug.Log (distance);
 		if(distance >= Mathf.Sqrt(width * height / 2) + 5 + (size * 2) && destroy)
 		{
-			foreach(GameObject g in resource)
-			{
-				g.SetActive(false);
-			}
-			this.gameObject.SetActive(false);
+			Deactivate();
 		}
 	}
-	public void CreateResource(List<WorldGenerator.Resource> r)
+	public void Deactivate()
+	{
+		foreach(GameObject g in resource)
+		{
+			g.SetActive(false);
+		}
+		this.gameObject.SetActive(false);
+	}
+	public void CreateResource(List<Resource> r)
 	{
 		GameObject g = null;
 		Vector3 mapPos = this.transform.position;

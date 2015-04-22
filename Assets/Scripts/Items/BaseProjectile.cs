@@ -9,7 +9,7 @@ public class BaseProjectile : MonoBehaviour
     public float lifespan;
     public float damage;
 	public Vector2 vel;
-
+	float life;
 	// Use this for initialization
 	public virtual void Awake () 
     {
@@ -28,6 +28,10 @@ public class BaseProjectile : MonoBehaviour
         {
 			GetComponent<Rigidbody2D>().MovePosition(GetComponent<Rigidbody2D>().position + (vel * Time.deltaTime));
             this.transform.position = new Vector3(GetComponent<Rigidbody2D>().position.x, GetComponent<Rigidbody2D>().position.y, 0);
+			float alph = 3*lifespan/2*life;
+			if(alph > 1)
+				alph = 1;
+			GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,alph);
             //Debug.Log(GetComponent<Rigidbody2D>().velocity);
         }
 	}
@@ -37,7 +41,7 @@ public class BaseProjectile : MonoBehaviour
         damage *= damageMod;
         if (speedMod > 0)
         speed *= speedMod;
-
+		life = lifespan;
         this.transform.position = shooter.transform.position + transform.forward;
         this.transform.rotation = shooter.transform.rotation;
         this.transform.Rotate(0, 0, rotationMod);
@@ -58,6 +62,6 @@ public class BaseProjectile : MonoBehaviour
 	}
     public virtual void CleanUp()
     {
-		Destroy(this.gameObject);
+		this.gameObject.SetActive(false);
     }
 }

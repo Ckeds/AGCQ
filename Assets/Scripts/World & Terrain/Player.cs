@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : WorldObject
 {
@@ -16,6 +17,7 @@ public class Player : WorldObject
 	public GameObject itemFab;
     public GameObject testParticle;
 	Camera c;
+	List<GameObject> bullets;
 	Rigidbody2D rigid;
 
 	//Animator
@@ -73,6 +75,7 @@ public class Player : WorldObject
 		//fireDefense = 0;
 		isDamageable = false;
 		animator = GetComponent<Animator> ();
+		bullets = new List<GameObject> ();
 		if (!GetComponent<NetworkView>().isMine)
 		{
 			animator.applyRootMotion = false;
@@ -110,12 +113,26 @@ public class Player : WorldObject
 		{
 			//check for item or weapon here
             g = (GameObject)Instantiate(testParticle);
-            g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 0, 0);
-            
-
-            
+			g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 0, 0);            
 		}
 		//Debug.Log (1 / Time.deltaTime);
+	}
+	public GameObject GetBullet()
+	{
+		for (int i = 0; i < bullets.Count; i++)
+		{
+			if(!bullets[i].activeInHierarchy)
+			{
+				return bullets[i];
+			}
+		}
+		if (bullets.Count < 55)
+		{
+			GameObject obj = (GameObject)Instantiate (testParticle);
+			bullets.Add (obj);
+			return obj;
+		}
+		return null;
 	}
 	public void FixedUpdate()
 	{

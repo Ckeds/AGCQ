@@ -63,9 +63,9 @@ public class SpawnManager : MonoBehaviour {
 		}
 		if (spawnEnemies && timerUpdate >= 1)
 		{
-			score = 1/Time.deltaTime;
+			//score = 1/Time.deltaTime;
 			score = (int)score;
-			timerUpdate = 0;
+			//timerUpdate = 0;
 		}
 	}
 	

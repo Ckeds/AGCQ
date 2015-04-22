@@ -4,13 +4,6 @@ using System.Collections.Generic;
 
 public class WorldGenerator : MonoBehaviour 
 {
-	[System.Serializable]
-	public struct Resource
-	{
-		public Vector3 position;
-		public char type;
-	}
-
     public string mapSizeName = "Small";
     int mapSize;
 
@@ -48,6 +41,7 @@ public class WorldGenerator : MonoBehaviour
 	public Vector3 [] tileMapLocations;
 	public int[] textureAssignments;
 	public List<int> mapsDrawn;
+	List<bool> giveADarn;
 	public ResourceManager rM;
 	int rocks = 0;
 	int oaks = 0;
@@ -65,10 +59,9 @@ public class WorldGenerator : MonoBehaviour
 	void Start () 
     {
 		time = Time.time;
-
-        switch (mapSizeName)
+        switch (mapSizeName.ToLower())
         {
-            case "Small":
+            case "small":
                 mapSize = 8;
                 numRivers = 2;
                 numLakes = 1;
@@ -83,7 +76,7 @@ public class WorldGenerator : MonoBehaviour
                 forestThickness = 20000;
                 break;
 
-            case "Medium":
+            case "medium":
                 mapSize = 12;
                 numRivers = 4;
                 numLakes = 2;
@@ -98,7 +91,7 @@ public class WorldGenerator : MonoBehaviour
                 forestThickness = 20000;
                 break;
 
-            case "Large":
+            case "large":
                 mapSize = 16;
                 numRivers = 8;
                 numLakes = 4;
@@ -113,7 +106,7 @@ public class WorldGenerator : MonoBehaviour
                 forestThickness = 30000;
                 break;
 
-            case "Huge":
+            case "huge":
                 mapSize = 24;
                 numRivers = 12;
                 numLakes = 6;
@@ -167,6 +160,7 @@ public class WorldGenerator : MonoBehaviour
 		mapTextures = new Sprite[mapSize * mapSize];
 		resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
+		giveADarn = new List<bool> ();
         buildTDMap();
         Debug.Log(Time.time - time);
 		tileMap = ChopUpTiles ();
@@ -179,6 +173,7 @@ public class WorldGenerator : MonoBehaviour
 				yield return null;
 			}
 		}
+		yield return null;
 		rM.Setup (8, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize);
 		buildTGMaps();
 		coroutineDone = true;
@@ -194,7 +189,7 @@ public class WorldGenerator : MonoBehaviour
     {
         map = new TDMap(meshSize*(mapSize), meshSize*(mapSize), numRivers, numLakes, dirtPatches, numDeserts, desertSize, desertDensity, numStone, stoneSize, stoneDensity,forestDensity,forestThickness);
     }
-    void buildTGMaps()
+	void buildTGMaps()
     {
         //GameObject g = null;
         //Debug.Log(TGmap);
@@ -205,6 +200,7 @@ public class WorldGenerator : MonoBehaviour
         {
             for (int x = 0; x < mapSize+2; x++)
             {
+				giveADarn.Add(true);
                 //Debug.Log("start inner loop");
 				tileMapLocations[x + (y *(mapSize+2))] = new Vector3((x-1) * meshSize /* 0.64f*/, (y-1) * meshSize /* 0.64f*/, 1);
 				if(x + (y *(mapSize+2)) == 0)
@@ -251,8 +247,20 @@ public class WorldGenerator : MonoBehaviour
 					g.transform.position = tileMapLocations[x + (y *(mapSize+2))];
 					//Debug.Log(textureAssignments[i]);
 					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[x + (y *(mapSize+2))]], resources[textureAssignments[x + (y *(mapSize+2))]], rM, false);
+					giveADarn[x + (y *(mapSize+2))] = false;
 				}
-            }
+				if((x == 0 || x == 1 || x == mapSize || x == mapSize + 1 || y == 0 || y == 1 || y == mapSize || y == mapSize + 1) && !mapsDrawn.Contains(x + (y *(mapSize+2))))
+				{
+					GameObject g = rM.GetMap();
+					g.SetActive(true);
+					//Debug.Log(g.activeInHierarchy);
+					g.transform.position = tileMapLocations[x + (y *(mapSize+2))];
+					//Debug.Log(textureAssignments[i]);
+					g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[x + (y *(mapSize+2))]], resources[textureAssignments[x + (y *(mapSize+2))]], rM, false);
+					mapsDrawn.Add(x + (y *(mapSize+2)));
+					giveADarn[x + (y *(mapSize+2))] = false;
+				}
+			}
         }
     }
     public List<Resource> placeResource(int tileType, List<Resource> res, int x, int y)
@@ -418,30 +426,33 @@ public class WorldGenerator : MonoBehaviour
 			float size = c.orthographicSize;
 			for (int i = 0; i < tileMapLocations.Length; i++)
 			{
-				float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
-				float dY = camY - (tileMapLocations[i].y + meshSize * 0.5f);
-				float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
-				if(mapsDrawn.Contains(i))
-				{
-					if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size && !drawAll)
+					if(giveADarn[i])
 					{
-						mapsDrawn.Remove(i);
+					float dX = camX - (tileMapLocations[i].x + meshSize * 0.5f);
+					float dY = camY - (tileMapLocations[i].y + meshSize * 0.5f);
+					float distance = Mathf.Sqrt((dX * dX) + (dY * dY));
+					if(mapsDrawn.Contains(i))
+					{
+						if(distance >= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size && !drawAll)
+						{
+							mapsDrawn.Remove(i);
+						}
 					}
-				}
-				else
-				{
-					//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
-					if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+					else
 					{
-						//Debug.Log ("Map " + i + " is ready to be drawn.");
-						//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
-						mapsDrawn.Add(i);
-						GameObject g = rM.GetMap();
-						g.SetActive(true);
-						//Debug.Log(g.activeInHierarchy);
-						g.transform.position = tileMapLocations[i];
-						//Debug.Log(textureAssignments[i]);
-						g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM, true);
+						//Debug.Log (Mathf.Sqrt(meshSize * meshSize / 2));
+						if(distance <= Mathf.Sqrt(meshSize * meshSize / 2) + 10 + size)
+						{
+							//Debug.Log ("Map " + i + " is ready to be drawn.");
+							//Debug.Log((i + ": " + tileMapLocations[i].x) + ", " + (tileMapLocations[i].y ));
+							mapsDrawn.Add(i);
+							GameObject g = rM.GetMap();
+							g.SetActive(true);
+							//Debug.Log(g.activeInHierarchy);
+							g.transform.position = tileMapLocations[i];
+							//Debug.Log(textureAssignments[i]);
+							g.GetComponent<TGMap>().Setup(mapTextures[textureAssignments[i]], resources[textureAssignments[i]], rM, true);
+						}
 					}
 				}
 			}

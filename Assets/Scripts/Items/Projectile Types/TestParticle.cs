@@ -6,41 +6,44 @@ public class TestParticle : BaseProjectile
 
     public ParticleSystem particles;
 	public ParticleSystem contact;
+	ParticleSystem p;
+	ParticleSystem c;
 
 	// Use this for initialization
 	public override void Setup (GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, float rotationMod = 0) 
     {
 	    speed = 5; 
         lifespan = 3;
-        particles.transform.position = this.transform.position;
-        particles = (ParticleSystem)Instantiate(particles);
+		p = (ParticleSystem)Instantiate(particles);
+        p.transform.position = this.transform.position;
         //Debug.Break();
-        particles.enableEmission = true;
-        particles.Play();
+        p.enableEmission = true;
+        p.Play();
 		base.Setup(shooter,damageMod,speedMod,rotationMod);
 	}
 	
 	// Update is called once per frame
     public override void FixedUpdate() 
     {
-        particles.transform.position = this.transform.position;
+		if(p != null)
+        	p.transform.position = this.transform.position;
         base.FixedUpdate();
 	}
     public override void CleanUp()
     {
 		if(lifespan > 0)
 		{
-			contact.transform.position = this.transform.position;
+			c = (ParticleSystem)Instantiate(contact);
+			c.transform.position = this.transform.position;
 			if (this.GetComponent<Rigidbody2D>().velocity.y > 0)
-				contact.transform.position -= 3 * transform.forward;
-			contact = (ParticleSystem)Instantiate(contact);
-			Destroy(contact.gameObject, 1.0f);
+				c.transform.position -= 3 * transform.forward;
+			Destroy(c.gameObject, 1.0f);
 		}
-        particles.enableEmission = false;
-        particles.Stop();
+        p.enableEmission = false;
+        p.Stop();
         //particles.Clear();
-        particles.IsAlive(false);
-        Destroy(particles.gameObject, 0.5f);
+        p.IsAlive(false);
+        Destroy(p.gameObject, 0.5f);
 		base.CleanUp ();
     }
 }
