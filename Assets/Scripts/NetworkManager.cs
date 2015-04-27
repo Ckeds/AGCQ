@@ -10,9 +10,9 @@ public class NetworkManager : MonoBehaviour {
 	public const int MAX_NAME_LENGTH = 32;
 	public const string DEF_PLAYER_NAME = "Anonymous";
 	public const string DEF_GAME_NAME = "";
+	public GameObject networkMap;
 	
 	public enum GameType { Deathmatch };
-	public GameObject networkMap;
 	GameType gameType = GameType.Deathmatch;
 	private string playerName = DEF_PLAYER_NAME;
 	public string PlayerName
@@ -57,12 +57,12 @@ public class NetworkManager : MonoBehaviour {
 	void Update () {
 		
 	}
-	
+
 	public void StartServer()
 	{
 		Network.InitializeServer(maxPlayers, PORT_NUMBER, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(GAME_PREFIX + gameType, gameName);
-		GameObject g = (GameObject)Network.Instantiate (networkMap, Vector3.zero, Quaternion.identity, 0);
+		Network.Instantiate (networkMap, Vector3.zero, Quaternion.identity, 0);
 		//g.GetComponent<GUIManager> ().CurrentState = GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState;
 		//Destroy(GameObject.Find("GameManagerGO"));
 	}
@@ -86,7 +86,7 @@ public class NetworkManager : MonoBehaviour {
 	private void OnConnectedToServer()
 	{
 		Debug.Log("Server Joined.");
-		spawnManager.SpawnPlayer();
+		//spawnManager.SpawnPlayer();
 	}
 	
 	private void OnDisconnectedFromServer(NetworkDisconnection info)

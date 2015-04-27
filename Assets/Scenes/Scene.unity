@@ -208,11 +208,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 438134, guid: 02515658f8a3ab945ab9bb773ca13e5f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: -55
       objectReference: {fileID: 0}
     - target: {fileID: 438134, guid: 02515658f8a3ab945ab9bb773ca13e5f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6
+      value: -54
       objectReference: {fileID: 0}
     - target: {fileID: 438134, guid: 02515658f8a3ab945ab9bb773ca13e5f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -454,6 +454,10 @@ Prefab:
       propertyPath: enemyFrequency
       value: .330000013
       objectReference: {fileID: 0}
+    - target: {fileID: 11428126, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
+      propertyPath: networkMap
+      value: 
+      objectReference: {fileID: 199208, guid: fbd054e3ea21a3d4a94b309ac83ae2af, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
   m_IsPrefabParent: 0

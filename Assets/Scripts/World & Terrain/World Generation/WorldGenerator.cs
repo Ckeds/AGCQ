@@ -41,7 +41,7 @@ public class WorldGenerator : MonoBehaviour
 	public Vector3 [] tileMapLocations;
 	public int[] textureAssignments;
 	public List<int> mapsDrawn;
-	List<bool> giveADarn;
+	public List<bool> giveADarn;
 	public ResourceManager rM;
 	int rocks = 0;
 	int oaks = 0;
@@ -148,20 +148,25 @@ public class WorldGenerator : MonoBehaviour
 
 		coroutineDone = false;
 		mapUnitySize = mapSize * meshSize;
+		buildTDMap();
+		resources = new List<List<Resource>> ();
         StartCoroutine(buildWorld());
 
 	}
     public IEnumerator buildWorld()
     {
+		Debug.Log (resources);
+		//GameObject.Find("LoadBar").SetActive(true);
+		bool makeResource = resources.Count < 3;
+		coroutineDone = false;
 		c = Camera.main;
+		c.transform.position = new Vector3 (-50, -50, -10);
 		rM = GameObject.Find ("ResourcePool").GetComponent<ResourceManager> ();
 		tileMapLocations = new Vector3[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
 		mapTextures = new Sprite[mapSize * mapSize];
-		resources = new List<List<Resource>> ();
 		mapsDrawn = new List<int> ();
 		giveADarn = new List<bool> ();
-        buildTDMap();
         Debug.Log(Time.time - time);
 		tileMap = ChopUpTiles ();
 		for (yMap = 0; yMap < mapSize; yMap++)
@@ -169,7 +174,7 @@ public class WorldGenerator : MonoBehaviour
 			for (xMap = 0; xMap < mapSize; xMap++)
 			{
 				//Debug.Log("this, right?");
-				BuildTexture(xMap * meshSize, yMap * meshSize);
+				BuildTexture(xMap * meshSize, yMap * meshSize, makeResource);
 				yield return null;
 			}
 		}
@@ -179,7 +184,8 @@ public class WorldGenerator : MonoBehaviour
 		coroutineDone = true;
 		GameObject.Find("LoadBar").SetActive(false);
 		GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.StartScreen;
-		map = null;
+		c.transform.position = GameObject.Find ("SpawnPoint").transform.position - 10 * transform.forward;
+		//map = null;
 		time = Time.time - time;
 		Debug.Log (time + " seconds");
 		//Debug.Log (resources.Count);
@@ -388,7 +394,7 @@ public class WorldGenerator : MonoBehaviour
 		return tiles;
 	}
 	
-	void BuildTexture(int startX, int startY)
+	void BuildTexture(int startX, int startY, bool networked)
 	{
 		//Debug.Log("Start a Texture");
 		int texWidth = meshSize * tileResolution;

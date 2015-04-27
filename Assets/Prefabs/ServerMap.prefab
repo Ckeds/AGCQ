@@ -8,8 +8,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 455800}
-  - 114: {fileID: 11407870}
   - 148: {fileID: 14836292}
+  - 114: {fileID: 11484050}
   m_Layer: 0
   m_Name: ServerMap
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11407870
+--- !u!114 &11484050
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,13 +37,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 199208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e444c6fae8d748a48bbc9c7f2d67fad1, type: 3}
+  m_Script: {fileID: 11500000, guid: f4bc9b1710afce1428174a7812197043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapTextures: []
-  tileMapLocations: []
-  textureAssignments: 
-  mapsDrawn: 
 --- !u!148 &14836292
 NetworkView:
   m_ObjectHideFlags: 1
@@ -52,7 +48,7 @@ NetworkView:
   m_GameObject: {fileID: 199208}
   m_Enabled: 1
   m_StateSynchronization: 1
-  m_Observed: {fileID: 455800}
+  m_Observed: {fileID: 11484050}
   m_ViewID:
     m_ID: 0
     m_Type: 0
