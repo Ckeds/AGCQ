@@ -12,7 +12,7 @@ public class NetworkManager : MonoBehaviour {
 	public const string DEF_GAME_NAME = "";
 	
 	public enum GameType { Deathmatch };
-	
+	public GameObject networkMap;
 	GameType gameType = GameType.Deathmatch;
 	private string playerName = DEF_PLAYER_NAME;
 	public string PlayerName
@@ -62,7 +62,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		Network.InitializeServer(maxPlayers, PORT_NUMBER, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(GAME_PREFIX + gameType, gameName);
-		//GameObject g = (GameObject)Network.Instantiate (map, Vector3.zero, Quaternion.identity, 0);
+		GameObject g = (GameObject)Network.Instantiate (networkMap, Vector3.zero, Quaternion.identity, 0);
 		//g.GetComponent<GUIManager> ().CurrentState = GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState;
 		//Destroy(GameObject.Find("GameManagerGO"));
 	}

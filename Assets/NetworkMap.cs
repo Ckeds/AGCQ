@@ -4,12 +4,8 @@ using System.Collections.Generic;
 
 public class NetworkMap : MonoBehaviour {
 
-	public Sprite[] mapTextures;
+	public byte[] map;
 	public List<List<Resource>> resources;
-	public Vector3 [] tileMapLocations;
-	public int[] textureAssignments;
-	public List<int> mapsDrawn;
-	List<bool> giveADarn;
 	// Use this for initialization
 	void Start () {
 
