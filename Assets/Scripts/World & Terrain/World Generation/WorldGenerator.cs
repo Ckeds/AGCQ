@@ -6,9 +6,11 @@ public class WorldGenerator : MonoBehaviour
 {
     public string mapSizeName = "Small";
     int mapSize;
-
+	public int MapSize{ get { return mapSize; } }
     int meshSize = 16;
-	public int mapUnitySize;
+	public int MeshSize{ get { return meshSize; } }
+	int mapUnitySize;
+	public int MapUnitySize{ get { return mapUnitySize; } }
     int numRivers = 3;
     int numLakes = 2;
     int forestDensity = 5;

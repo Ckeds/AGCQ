@@ -97,7 +97,7 @@ public class Player : WorldObject
 				items [i].GetComponent<BaseItem>().CreateGUITexHover ();
 			}
 		}
-		maxX = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ().mapUnitySize;
+		maxX = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ().MapUnitySize;
 		maxY = maxX;
 		syncStartPosition = transform.position;
 		syncEndPosition = transform.position;

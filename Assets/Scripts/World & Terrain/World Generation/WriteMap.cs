@@ -9,7 +9,7 @@ using System.IO;
 public class WriteMap : MonoBehaviour {
 
 	private string MapName;
-	private byte[,] toSave;
+	private int[,] toSave;
 	private XmlWriter writer;
 
 	// Use this for initialization

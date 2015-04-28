@@ -20,7 +20,7 @@ public class TDMap
 
 
 	System.Random rand = new System.Random();
-   	public byte[,] mapData;
+   	public int[,] mapData;
 
 	//Thread[] threads;
 	//int currentThread = 0;
@@ -43,7 +43,7 @@ public class TDMap
         forestThickness = forThick;
 		//Debug.Log (mapWidth);
 
-        mapData = new byte[mapWidth, mapHeight];
+        mapData = new int[mapWidth, mapHeight];
         doGrass();
        	for(int i = 0; i < forestDensity; i++)
       	{
