@@ -10,7 +10,7 @@ public class TestParticle : BaseProjectile
 	ParticleSystem c;
 
 	// Use this for initialization
-	public override void Setup (GameObject shooter, float damageMod = 1.0f, float speedMod = 1.0f, float rotationMod = 0) 
+	public override void Setup (GameObject shooter, float damageMod, float speedMod, float rotationMod) 
     {
 	    speed = 5; 
         lifespan = 3;

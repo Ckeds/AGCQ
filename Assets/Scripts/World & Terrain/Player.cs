@@ -216,6 +216,7 @@ public class Player : WorldObject
 		else
 			angle = angle - mod;
 		//mouse.z = this.transform.position.z;
+		rigid.rotation = 0;
 		if (GetComponent<ConstantForce2D> ().force.magnitude > 0.5)
 			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);  
 		
@@ -245,7 +246,6 @@ public class Player : WorldObject
 		//Debug.Log (newPosition);
 		//rigidbody2D.position = newPosition;
 		GetComponent<ConstantForce2D>().force =  (movement * 100);
-		//Debug.Log (rigid.velocity);
 	}
 	private void SyncedMovement ()
 	{

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TreeScript : BaseResource {
 
-	public bool startGrown = true;
+	public bool startGrown = false;
 	float growthTimer = 0;
 
 
@@ -18,7 +18,7 @@ public class TreeScript : BaseResource {
 		type = "tree";
 		tier = 1;
 		anim = GetComponent<Animator>();
-		startGrown = true;
+		growthTimer = 0;
 		maxHealth = 10;
 		currentHealth = 10;
 		anim.SetFloat ("Time", growthTimer);
@@ -36,10 +36,12 @@ public class TreeScript : BaseResource {
 	}
 	void AnimValue () 
 	{
-		growthTimer = Time.time - Time.deltaTime;
+		growthTimer += 1;
 		if (startGrown)
 			growthTimer += 500;
 		anim.SetFloat ("Time", growthTimer);
+		if (growthTimer >= 500)
+			CancelInvoke ();
 		//Debug.Log (growthTimer);
 	}
 }

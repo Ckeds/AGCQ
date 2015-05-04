@@ -157,7 +157,7 @@ public class WorldGenerator : MonoBehaviour
 	}
     public IEnumerator buildWorld()
     {
-		Debug.Log (resources);
+		//Debug.Log (resources);
 		//GameObject.Find("LoadBar").SetActive(true);
 		bool makeResource = resources.Count < 3;
 		coroutineDone = false;
