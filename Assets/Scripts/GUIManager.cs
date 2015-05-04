@@ -204,12 +204,16 @@ public class GUIManager : MonoBehaviour {
 		case GUIState.InGame:
 
 			SpawnManager spawner = GetComponent<SpawnManager>();
-			GUILayout.Label("Framerate: " + GetComponent<SpawnManager>().score);
-			GUILayout.Label("NumEnemies: " + GetComponent<SpawnManager>().Swapned);
+			//GUILayout.Label("Framerate: " + GetComponent<SpawnManager>().score);
+			//GUILayout.Label("NumEnemies: " + GetComponent<SpawnManager>().Swapned);
 			
 			if (!spawner.SpawnEnemies && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
 			{
+				GUILayout.Space(10);
+				GUILayout.BeginHorizontal();
+				GUILayout.Space(10);
 				GUILayout.TextField("Press Enter To Begin");
+				GUILayout.EndHorizontal();
 				if (Input.GetKeyDown(KeyCode.Return))
 				{
 					spawner.SpawnEnemies = true;

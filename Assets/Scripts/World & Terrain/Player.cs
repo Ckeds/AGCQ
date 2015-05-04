@@ -168,12 +168,11 @@ public class Player : WorldObject
 	{
 		Vector2 previousForce = rigid.velocity;
 		//Debug.Log (previousForce);
-		if (v != 0) {
-			previousV = v;
-		}
-		if (h != 0) {
-			previousH = h;
-		}
+
+		previousV = v;
+		
+		previousH = h;
+
 		//used to get input for direction
 		v = Input.GetAxis("Vertical");
 		h = Input.GetAxis("Horizontal");
@@ -207,11 +206,18 @@ public class Player : WorldObject
 
 		//Debug.Log (movement);
 		//following code used to make player character face mouse
-		mouse = c.ScreenToWorldPoint(Input.mousePosition) - this.transform.position;       //Mouse position
-		mouse.Normalize ();
-		float rotation = Mathf.Atan2 (mouse.y, mouse.x) * Mathf.Rad2Deg;
+		//mouse = c.ScreenToWorldPoint(Input.mousePosition) - this.transform.position;       //Mouse position
+		//mouse.Normalize ();
+		//float rotation = Mathf.Atan2 (mouse.y, mouse.x) * Mathf.Rad2Deg;
+		float angle = Mathf.Atan2(GetComponent<ConstantForce2D>().force.y, GetComponent<ConstantForce2D>().force.x) * (180 / Mathf.PI) - 90;
+		float mod = angle % 45;
+		if (mod >= 22.5)
+			angle = angle - mod + 45;
+		else
+			angle = angle - mod;
 		//mouse.z = this.transform.position.z;
-		this.transform.rotation = Quaternion.Euler (0f, 0f, rotation - 90);  
+		if (GetComponent<ConstantForce2D> ().force.magnitude > 0.5)
+			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);  
 		
 		//Uncomment this block to make the player move based on the mouse cursor
 		/*float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10
