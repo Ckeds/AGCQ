@@ -843,7 +843,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11428122, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: mapSizeName
-      value: Tiny
+      value: Small
       objectReference: {fileID: 0}
     - target: {fileID: 11428124, guid: f2e29265e5686684ab41c7e2701bbf51, type: 2}
       propertyPath: enemyFrequency

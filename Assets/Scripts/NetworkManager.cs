@@ -86,7 +86,7 @@ public class NetworkManager : MonoBehaviour {
 	private void OnConnectedToServer()
 	{
 		Debug.Log("Server Joined.");
-		//spawnManager.SpawnPlayer();
+		spawnManager.SpawnPlayer();
 	}
 	
 	private void OnDisconnectedFromServer(NetworkDisconnection info)

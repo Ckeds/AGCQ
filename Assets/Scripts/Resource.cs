@@ -2,6 +2,6 @@
 using System.Collections;
 
 public class Resource{
-	public Vector3 position;
+	public Vector2 position;
 	public char type;
 }

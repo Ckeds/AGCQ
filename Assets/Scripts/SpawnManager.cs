@@ -92,7 +92,6 @@ public class SpawnManager : MonoBehaviour {
 		                                                     Quaternion.identity, 1);
 		GameObject name = (GameObject)Network.Instantiate (nameHolder, player.transform.position + new Vector3(0,0.6f,0),
 		                                                   Quaternion.identity, 2);
-		Camera.main.GetComponent<FollowCamera> ().target = player.GetComponent<Player>();
 		GetComponent<GUIManager> ().MyPlayer = player.GetComponent<Player> ();
 		name.GetComponent<NetworkView>().RPC ("CreateName", RPCMode.AllBuffered, player.GetComponent<NetworkView>().viewID,
 		                      PlayerPrefs.GetString ("playerName"));

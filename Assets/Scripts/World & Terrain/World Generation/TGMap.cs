@@ -74,7 +74,8 @@ public class TGMap : MonoBehaviour
 				g =  rM.GetWater();
 				break;
 			}
-			g.transform.position = r[i].position + mapPos - (3 * transform.forward);
+			Vector3 p = r[i].position;
+			g.transform.position = p + mapPos - (3 * transform.forward);
 			g.SetActive(true);
 			resource.Add(g);
 		}

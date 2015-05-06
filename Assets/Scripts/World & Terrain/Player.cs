@@ -43,8 +43,7 @@ public class Player : WorldObject
 	//Network movement variables
 	private Vector3 syncStartPosition;
 	private Vector3 syncEndPosition;
-	float syncStartRotation = 0f;
-	float syncEndRotation = 0f;
+	Quaternion syncRotation;
 
 	//Player Defense Values
 	//int physicalDefense;
@@ -215,8 +214,13 @@ public class Player : WorldObject
 			angle = angle - mod + 45;
 		else
 			angle = angle - mod;
+		//Debug.Log (angle);
+		//Debug.Log (rigid.angularVelocity);
+
 		//mouse.z = this.transform.position.z;
 		rigid.rotation = 0;
+		rigid.angularVelocity = 0;
+		this.transform.rotation = Quaternion.identity;
 		if (GetComponent<ConstantForce2D> ().force.magnitude > 0.5)
 			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);  
 		
@@ -230,17 +234,8 @@ public class Player : WorldObject
 		//apply
 
 		//this.transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
-		rigid.velocity = previousForce;
 		float charSpeed = movement.sqrMagnitude;
-		if(v == 0 && h == 0)
-		{
-			rigid.AddForce (-previousForce * 2);
-			if (charSpeed <= .01f) {
-				rigid.velocity = new Vector2(0,0);
-				previousH = 0;
-				previousV = 0;
-			}
-		}
+	
 		animator.SetFloat ("charSpeed", charSpeed);
 		//Vector2 newPosition = rigidbody2D.position + (movement * Time.deltaTime);
 		//Debug.Log (newPosition);
@@ -253,8 +248,8 @@ public class Player : WorldObject
 		//Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
 		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
-		GetComponent<Rigidbody2D>().rotation = Mathf.Lerp(syncStartRotation, syncEndRotation, syncTime / syncDelay);
-		float charSpeed = GetComponent<Rigidbody2D>().velocity.sqrMagnitude;
+		this.transform.rotation = syncRotation;
+		float charSpeed = GetComponent<ConstantForce2D>().force.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
@@ -272,21 +267,18 @@ public class Player : WorldObject
 	{	
 		Vector3 networkPosition = Vector3.zero;
 		Vector3 networkVelocity = Vector3.zero;
-		float networkRotation = 0f;
-		float networkAngVelocity = 0f;
+		Quaternion networkRotation = Quaternion.identity;
 		
 		if (stream.isWriting)
 		{
 			networkPosition = GetComponent<Rigidbody2D>().position;
 			networkVelocity = GetComponent<Rigidbody2D>().velocity;
-			networkRotation = GetComponent<Rigidbody2D>().rotation;
-			networkAngVelocity = GetComponent<Rigidbody2D>().angularVelocity;
+			networkRotation = this.transform.rotation;
 			
 			
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
-			stream.Serialize(ref networkAngVelocity);
 			
 		}
 		else
@@ -294,17 +286,15 @@ public class Player : WorldObject
 			stream.Serialize(ref networkPosition);
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
-			stream.Serialize(ref networkAngVelocity);
 			
 			//Debug.Log (networkPosition);
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
-			syncStartPosition = GetComponent<Rigidbody2D>().position;
+			syncStartPosition = this.transform.position;
 			syncEndPosition = networkPosition + networkVelocity * syncDelay;
 			//Debug.Log("syncEndPosition : " + syncEndPosition);
-			syncStartRotation = GetComponent<Rigidbody2D>().rotation;
-			syncEndRotation = networkRotation + networkAngVelocity * syncDelay;
+			syncRotation = this.transform.rotation;
 			GetComponent<Rigidbody2D>().velocity = networkVelocity;
 		}
 	}

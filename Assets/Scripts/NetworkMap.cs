@@ -14,19 +14,12 @@ public class NetworkMap : MonoBehaviour {
 	{
 		get{ return resources;}
 	}
+	WorldGenerator wg;
 	// Use this for initialization
 	void Awake () {
-		WorldGenerator wg = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ();
+		wg = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ();
 		Debug.Log (wg);
-		if(!this.GetComponent<NetworkView>().isMine)
-		{
-			Debug.Log("GONNA WORK");
-			Debug.Log(resources);
-			wg.map.mapData = map;
-			wg.resources = resources;
-			StartCoroutine(wg.buildWorld());
-		}
-		else
+		if(this.GetComponent<NetworkView>().isMine)
 		{
 			Debug.Log("SETUP");
 			//map = wg.map.mapData;
@@ -57,7 +50,7 @@ public class NetworkMap : MonoBehaviour {
 				}
 			}
 			//Debug.Log(mapString.Length);
-			this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.AllBuffered, mapString, startX, startY, size);
+			this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.OthersBuffered, mapString, startX, startY, size);
 			Debug.Log(map.Length);
 			Debug.Log(wg.map.mapData.Length);
 			/*for(int checkY = 0; checkY < size; checkY++)
@@ -70,7 +63,41 @@ public class NetworkMap : MonoBehaviour {
 					Debug.Log(doublecheck);
 				}
 			}*/
+			string resource;
+			for(int i = 0; i < resources.Count; i++)
+			{
+				resource = "";
+				foreach (Resource r in resources[i])
+				{
+					int x = (int)r.position.x;
+					int y = (int)r.position.y;
+					if(x < 10)
+					{
+						resource+="0";
+					}
+					resource+= ""+x;
+					if(y < 10)
+					{
+						resource+="0";
+					}
+					resource+= ""+y;
+					resource+= r.type;
+				}
+				//Debug.Log(resource);
+				this.GetComponent<NetworkView>().RPC("SetResources", RPCMode.OthersBuffered, resource);
+			}
+			this.GetComponent<NetworkView>().RPC("CreateWorld", RPCMode.AllBuffered, wg.mapSizeName);
 		}
+		else 
+		{
+			wg.resources = null;
+			wg.map.mapData = null;
+			Debug.Log (wg.resources);
+		}
+	}
+	void Test()
+	{
+		Debug.Log ("Here");
 	}
 	[RPC]
 	void SetMap(string m, int startx, int starty, int size)
@@ -92,5 +119,39 @@ public class NetworkMap : MonoBehaviour {
 				y++;
 			}
 		}
+	}
+	[RPC]
+	void SetResources(string r)
+	{
+		Debug.Log ("RPC2");
+		List<Resource> resource = new List<Resource> ();
+		int chunks = 5;
+		int stringLength = r.Length;
+		for(int i = 0; i < stringLength; i += chunks)
+		{
+			string resourceString = r.Substring(i, chunks);
+			float x = float.Parse(resourceString.Substring(0,2));
+			float y = float.Parse(resourceString.Substring(2,2));
+			char type = resourceString[resourceString.Length -1];
+			Resource re = new Resource();
+			re.position = new Vector2(x,y);
+			re.type = type;
+			resource.Add(re);
+		}
+		if(resources == null)
+		{
+			resources = new List<List<Resource>>();
+		}
+		resources.Add (resource);
+	}
+	[RPC]
+	void CreateWorld(string size)
+	{
+		Debug.Log ("MAPRPC");
+		wg.map.mapData = map;
+		wg.resources = resources;
+		wg.mapSizeName = size;
+		wg.StartBuild();
+		Test ();
 	}
 }

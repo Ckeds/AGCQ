@@ -56,6 +56,7 @@ public class WorldGenerator : MonoBehaviour
 	public bool drawAll = false;
     public bool generateResources = true;
 	float time;
+	GameObject loader;
 
 	// Use this for initialization
 	void Start () 
@@ -147,22 +148,33 @@ public class WorldGenerator : MonoBehaviour
             dirtPercent = 0;
         }
 
-
+		loader = GameObject.Find ("LoadBar");
 		coroutineDone = false;
 		mapUnitySize = mapSize * meshSize;
 		buildTDMap();
 		resources = new List<List<Resource>> ();
-        StartCoroutine(buildWorld());
-
+		StartBuild();
 	}
-    public IEnumerator buildWorld()
+	public void StartBuild()
+	{
+		StartCoroutine(BuildWorld());
+	}
+    IEnumerator BuildWorld()
     {
-		//Debug.Log (resources);
-		//GameObject.Find("LoadBar").SetActive(true);
-		bool makeResource = resources.Count < 3;
-		coroutineDone = false;
 		c = Camera.main;
 		c.transform.position = new Vector3 (-50, -50, -10);
+		loader.SetActive(true);
+		GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.Loading;
+		Debug.Log ("OVER");
+		GameObject[] maps = GameObject.FindGameObjectsWithTag("Map");
+		foreach (GameObject g in maps)
+		{
+			g.GetComponent<TGMap>().Deactivate();
+			yield return null;
+		}
+		Debug.Log (resources);
+		bool makeResource = resources.Count < 3;
+		coroutineDone = false;
 		rM = GameObject.Find ("ResourcePool").GetComponent<ResourceManager> ();
 		tileMapLocations = new Vector3[(mapSize + 2) * (mapSize + 2)];
 		textureAssignments = new int[(mapSize + 2) * (mapSize + 2)];
@@ -184,9 +196,25 @@ public class WorldGenerator : MonoBehaviour
 		rM.Setup (8, rocks / mapSize, pines / mapSize, oaks / mapSize, dirts / mapSize, sands / mapSize, waters / mapSize);
 		buildTGMaps();
 		coroutineDone = true;
-		GameObject.Find("LoadBar").SetActive(false);
-		GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.StartScreen;
-		c.transform.position = GameObject.Find ("SpawnPoint").transform.position - 10 * transform.forward;
+		loader.SetActive(false);
+		if(makeResource)
+		{
+			GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.StartScreen;
+			c.transform.position = GameObject.Find ("SpawnPoint").transform.position - 10 * transform.forward;
+		}
+		else
+		{
+			GameObject.Find ("GameManagerGO").GetComponent<GUIManager> ().CurrentState = GUIManager.GUIState.InGame;
+			GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+			foreach (GameObject g in players)
+			{
+				if(g.GetComponent<NetworkView>().isMine)
+				{
+					Camera.main.GetComponent<FollowCamera> ().target = g.GetComponent<Player>();
+					break;
+				}
+			}
+		}
 		//map = null;
 		time = Time.time - time;
 		Debug.Log (time + " seconds");
@@ -396,7 +424,7 @@ public class WorldGenerator : MonoBehaviour
 		return tiles;
 	}
 	
-	void BuildTexture(int startX, int startY, bool networked)
+	void BuildTexture(int startX, int startY, bool make)
 	{
 		//Debug.Log("Start a Texture");
 		int texWidth = meshSize * tileResolution;
@@ -411,7 +439,8 @@ public class WorldGenerator : MonoBehaviour
 				int tileType = map.GetTileAt(x, y);
 				Color[] p = tileMap[tileType];
 				mapTexture.SetPixels((int)((x-startX) * tileResolution), (int)((y-startY) * tileResolution), (int)(tileResolution), (int)(tileResolution), p);
-				mapResources = placeResource(tileType, mapResources, x-startX, y-startY);
+				if(make)
+					mapResources = placeResource(tileType, mapResources, x-startX, y-startY);
 			}
 		}
 		//Debug.Log("End texture loops");
@@ -420,7 +449,8 @@ public class WorldGenerator : MonoBehaviour
 		mapTexture.wrapMode = TextureWrapMode.Clamp;
 		mapTexture.Apply();
 		Sprite s = Sprite.Create(mapTexture, new Rect(0,0,meshSize * tileResolution, meshSize * tileResolution), new Vector2(0,0));
-		resources.Add (mapResources);
+		if(make)
+			resources.Add (mapResources);
 		mapTextures [(startX / meshSize) + (startY * mapSize / meshSize)] = s;
 		
 	}
