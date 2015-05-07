@@ -37,7 +37,7 @@ public class NetworkMap : MonoBehaviour {
 					mapString += thisInt;
 					if(mapString.Length >= 4000)
 					{
-						this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.AllBuffered, mapString, startX, startY, size);
+						this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.OthersBuffered, mapString, startX, startY, size);
 						mapString = "";
 						startY = y;
 						startX = x + 1;
@@ -49,10 +49,10 @@ public class NetworkMap : MonoBehaviour {
 					}
 				}
 			}
-			//Debug.Log(mapString.Length);
+			Debug.Log(mapString.Length);
 			this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.OthersBuffered, mapString, startX, startY, size);
 			Debug.Log(map.Length);
-			Debug.Log(wg.map.mapData.Length);
+			//Debug.Log(wg.map.mapData.Length);
 			/*for(int checkY = 0; checkY < size; checkY++)
 			{
 				for(int checkX = 0; checkX < size; checkX++)
@@ -86,7 +86,8 @@ public class NetworkMap : MonoBehaviour {
 				//Debug.Log(resource);
 				this.GetComponent<NetworkView>().RPC("SetResources", RPCMode.OthersBuffered, resource);
 			}
-			this.GetComponent<NetworkView>().RPC("CreateWorld", RPCMode.AllBuffered, wg.mapSizeName);
+			this.GetComponent<NetworkView>().RPC("CreateWorld", RPCMode.OthersBuffered, wg.mapSizeName);
+			Camera.main.GetComponent<FollowCamera>().target = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 		}
 		else 
 		{
@@ -119,6 +120,7 @@ public class NetworkMap : MonoBehaviour {
 				y++;
 			}
 		}
+		Debug.Log (m.Length);
 	}
 	[RPC]
 	void SetResources(string r)

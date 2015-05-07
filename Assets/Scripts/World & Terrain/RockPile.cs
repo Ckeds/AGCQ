@@ -23,7 +23,7 @@ public class RockPile : BaseResource
 		//Debug.Log ("DOING WORK");
 		base.TakeDamage (damageTaken);
 		anim.SetFloat ("Health", currentHealth);
-		Debug.Log (currentHealth);
+		//Debug.Log (currentHealth);
 	}
 }
 
