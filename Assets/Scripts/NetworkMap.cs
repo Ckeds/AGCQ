@@ -51,7 +51,7 @@ public class NetworkMap : MonoBehaviour {
 			}
 			Debug.Log(mapString.Length);
 			this.GetComponent<NetworkView>().RPC("SetMap",RPCMode.OthersBuffered, mapString, startX, startY, size);
-			Debug.Log(map.Length);
+			//Debug.Log(map.Length);
 			//Debug.Log(wg.map.mapData.Length);
 			/*for(int checkY = 0; checkY < size; checkY++)
 			{

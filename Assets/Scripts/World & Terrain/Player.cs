@@ -43,6 +43,7 @@ public class Player : WorldObject
 	//Network movement variables
 	private Vector3 syncStartPosition;
 	private Vector3 syncEndPosition;
+	Vector2 syncVelocity;
 	Quaternion syncRotation;
 
 	//Player Defense Values
@@ -99,7 +100,7 @@ public class Player : WorldObject
 		maxX = GameObject.Find ("GameManagerGO").GetComponent<WorldGenerator> ().MapUnitySize;
 		maxY = maxX;
 		syncStartPosition = transform.position;
-		syncEndPosition = transform.position;
+		syncRotation = Quaternion.identity;
 		lastSyncTime = Time.time;
 		rigid = GetComponent<Rigidbody2D> ();
 	}
@@ -220,9 +221,11 @@ public class Player : WorldObject
 		//mouse.z = this.transform.position.z;
 		rigid.rotation = 0;
 		rigid.angularVelocity = 0;
-		this.transform.rotation = Quaternion.identity;
 		if (GetComponent<ConstantForce2D> ().force.magnitude > 0.5)
-			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);  
+		{
+			this.transform.rotation = Quaternion.identity;
+			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);
+		}
 		
 		//Uncomment this block to make the player move based on the mouse cursor
 		/*float mouseDist = Mathf.Sqrt((relmousepos.x * relmousepos.x) + (relmousepos.y * relmousepos.y)) * 10
@@ -245,11 +248,17 @@ public class Player : WorldObject
 	private void SyncedMovement ()
 	{
 		syncTime += Time.deltaTime;
-		//Debug.Log ("SyncStart : " + syncStartPosition);
+		Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
-		GetComponent<Rigidbody2D>().position = Vector3.Lerp(syncStartPosition, syncEndPosition , syncTime / syncDelay);
+		this.transform.position = syncStartPosition;
+		rigid.position = this.transform.position;
 		this.transform.rotation = syncRotation;
-		float charSpeed = GetComponent<ConstantForce2D>().force.sqrMagnitude;
+		//Debug.Log (syncRotation);
+		//Debug.Log (this.transform.position);
+		rigid.rotation = 0;
+		rigid.angularVelocity = 0;
+		rigid.velocity = Vector2.zero;
+		float charSpeed = syncVelocity.sqrMagnitude;
 		animator.SetFloat ("charSpeed", charSpeed);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
@@ -271,8 +280,8 @@ public class Player : WorldObject
 		
 		if (stream.isWriting)
 		{
-			networkPosition = GetComponent<Rigidbody2D>().position;
-			networkVelocity = GetComponent<Rigidbody2D>().velocity;
+			networkPosition = this.transform.position;
+			networkVelocity = GetComponent<ConstantForce2D>().force;
 			networkRotation = this.transform.rotation;
 			
 			
@@ -287,15 +296,15 @@ public class Player : WorldObject
 			stream.Serialize(ref networkVelocity);
 			stream.Serialize(ref networkRotation);
 			
-			//Debug.Log (networkPosition);
+			Debug.Log (networkPosition);
 			syncTime = 0f;
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
-			syncStartPosition = this.transform.position;
-			syncEndPosition = networkPosition + networkVelocity * syncDelay;
+			syncStartPosition = networkPosition;
+			syncVelocity = networkVelocity;
 			//Debug.Log("syncEndPosition : " + syncEndPosition);
 			syncRotation = this.transform.rotation;
-			GetComponent<Rigidbody2D>().velocity = networkVelocity;
+			GetComponent<ConstantForce2D>().force = networkVelocity;
 		}
 	}
 	public override void OnDeath ()
