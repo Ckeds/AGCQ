@@ -12,6 +12,7 @@ public class TestParticle : BaseProjectile
 	// Use this for initialization
 	public override void Setup (GameObject shooter, float damageMod, float speedMod, float rotationMod) 
     {
+		base.Setup(shooter,damageMod,speedMod,rotationMod);
 	    speed = 5; 
         lifespan = 3;
 		p = (ParticleSystem)Instantiate(particles);
@@ -19,7 +20,6 @@ public class TestParticle : BaseProjectile
         //Debug.Break();
         p.enableEmission = true;
         p.Play();
-		base.Setup(shooter,damageMod,speedMod,rotationMod);
 	}
 	
 	// Update is called once per frame

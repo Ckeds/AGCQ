@@ -109,10 +109,11 @@ public class Player : WorldObject
 	public void Update ()
 	{
         GameObject g = null;
-		if (Input.GetMouseButtonDown (0)) 
+		if (Input.GetMouseButtonDown (0) && GetComponent<NetworkView>().isMine) 
 		{
 			//check for item or weapon here
-            g = (GameObject)Instantiate(testParticle);
+			g = GetBullet();
+			g.SetActive(true);
 			g.GetComponent<BaseProjectile>().Setup(this.gameObject, 0, 0, 0);            
 		}
 		//Debug.Log (1 / Time.deltaTime);
@@ -128,7 +129,8 @@ public class Player : WorldObject
 		}
 		if (bullets.Count < 55)
 		{
-			GameObject obj = (GameObject)Instantiate (testParticle);
+			//GameObject obj = (GameObject)Instantiate(testParticle);
+			GameObject obj = (GameObject)Network.Instantiate (testParticle, new Vector3(-60, -60), Quaternion.identity, 3);
 			bullets.Add (obj);
 			return obj;
 		}
@@ -219,10 +221,10 @@ public class Player : WorldObject
 		//Debug.Log (rigid.angularVelocity);
 
 		//mouse.z = this.transform.position.z;
-		rigid.rotation = 0;
-		rigid.angularVelocity = 0;
-		if (GetComponent<ConstantForce2D> ().force.magnitude > 0.5)
+		if (GetComponent<ConstantForce2D> ().force.magnitude > .75)
 		{
+			rigid.rotation = 0;
+			rigid.angularVelocity = 0;
 			this.transform.rotation = Quaternion.identity;
 			this.transform.rotation = Quaternion.Euler (0f, 0f, angle);
 		}
@@ -250,7 +252,7 @@ public class Player : WorldObject
 		syncTime += Time.deltaTime;
 		Debug.Log ("SyncStart : " + syncStartPosition);
 		//Debug.Log ("SyncEnd : " + syncEndPosition);
-		this.transform.position = syncStartPosition;
+		this.transform.position = Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
 		rigid.position = this.transform.position;
 		this.transform.rotation = syncRotation;
 		//Debug.Log (syncRotation);
@@ -259,6 +261,7 @@ public class Player : WorldObject
 		rigid.angularVelocity = 0;
 		rigid.velocity = Vector2.zero;
 		float charSpeed = syncVelocity.sqrMagnitude;
+		this.GetComponent<ConstantForce2D> ().force = syncVelocity;
 		animator.SetFloat ("charSpeed", charSpeed);
 	}
 	//if the current item is not a weapon, and the player left clicks, use this
@@ -281,7 +284,7 @@ public class Player : WorldObject
 		if (stream.isWriting)
 		{
 			networkPosition = this.transform.position;
-			networkVelocity = GetComponent<ConstantForce2D>().force;
+			networkVelocity = rigid.velocity;
 			networkRotation = this.transform.rotation;
 			
 			
@@ -301,6 +304,7 @@ public class Player : WorldObject
 			syncDelay = Time.time - lastSyncTime;
 			lastSyncTime = Time.time;
 			syncStartPosition = networkPosition;
+			syncEndPosition = syncStartPosition + (networkVelocity * syncDelay);
 			syncVelocity = networkVelocity;
 			//Debug.Log("syncEndPosition : " + syncEndPosition);
 			syncRotation = this.transform.rotation;
